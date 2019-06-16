@@ -4,8 +4,8 @@ import ScoreBoard from "./components/ScoreBoard";
 
 function App() {
   return (
-    <div>
-      <h1>Bollsvenskan</h1>
+    <div style={{ maxWidth: "800px", margin: "0 auto" }}>
+      <h1 style={{ textAlign: "center" }}>{"⚽ Bollsvenskan 🥅"}</h1>
       <ScoreBoard />
     </div>
   );
