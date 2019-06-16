@@ -6,21 +6,25 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 
-const createRowData = (name, matches, wins, ties, losses, score) => {
+const createRowData = (name, matches, wins, losses) => {
   return {
     name,
     matches,
     wins,
-    ties,
     losses,
-    score,
   };
 };
 
 const mockTableData = [
-  createRowData("Alice", 1, 1, 0, 0, 3),
-  createRowData("Bob", 1, 0, 0, 1, 0),
-  createRowData("Celine", 3, 1, 1, 1, 4),
+  createRowData("Dennis", 8, 5, 3),
+  createRowData("Wille", 8, 5, 3),
+  createRowData("Max", 8, 5, 3),
+  createRowData("Simon", 8, 5, 3),
+  createRowData("Felix", 8, 4, 4),
+  createRowData("Jacob", 8, 4, 4),
+  createRowData("Erik", 8, 3, 5),
+  createRowData("Teo", 8, 3, 5),
+  createRowData("Linus", 8, 3, 5),
 ];
 
 const ScoreBoard = () => {
@@ -29,11 +33,15 @@ const ScoreBoard = () => {
       <TableHead>
         <TableRow>
           <TableCell>Name</TableCell>
-          <TableCell align="right">Matches</TableCell>
-          <TableCell align="right">Wins</TableCell>
-          <TableCell align="right">Ties</TableCell>
-          <TableCell align="right">Losses</TableCell>
-          <TableCell align="right">Score</TableCell>
+          <TableCell align="right" size="small">
+            M
+          </TableCell>
+          <TableCell align="right" size="small">
+            W
+          </TableCell>
+          <TableCell align="right" size="small">
+            L
+          </TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -42,11 +50,15 @@ const ScoreBoard = () => {
             <TableCell component="th" scope="row">
               {row.name}
             </TableCell>
-            <TableCell align="right">{row.matches}</TableCell>
-            <TableCell align="right">{row.wins}</TableCell>
-            <TableCell align="right">{row.ties}</TableCell>
-            <TableCell align="right">{row.losses}</TableCell>
-            <TableCell align="right">{row.score}</TableCell>
+            <TableCell align="right" size="small">
+              {row.matches}
+            </TableCell>
+            <TableCell align="right" size="small">
+              {row.wins}
+            </TableCell>
+            <TableCell align="right" size="small">
+              {row.losses}
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>
