@@ -6,28 +6,48 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 
-const createRowData = (name, matches, wins, losses) => {
-  return {
-    name,
-    matches,
-    wins,
-    losses,
-  };
+const getAllPlayers = matches => {
+  const players = new Set();
+  matches.forEach(match => {
+    match.teams.forEach(team => {
+      team.forEach(player => players.add(player));
+    });
+  });
+  return players;
 };
 
-const mockTableData = [
-  createRowData("Dennis", 8, 5, 3),
-  createRowData("Wille", 8, 5, 3),
-  createRowData("Max", 8, 5, 3),
-  createRowData("Simon", 8, 5, 3),
-  createRowData("Felix", 8, 4, 4),
-  createRowData("Jacob", 8, 4, 4),
-  createRowData("Erik", 8, 3, 5),
-  createRowData("Teo", 8, 3, 5),
-  createRowData("Linus", 8, 3, 5),
-];
+const createTableRowForPlayer = (name, matches) => {
+  let losses = 0;
+  let wins = 0;
+  matches.forEach(match => {
+    if (match.teams[match.winner].includes(name)) {
+      wins++;
+    } else if (match.teams.flat().includes(name)) {
+      losses++;
+    }
+  });
+  return { name, matches: wins + losses, wins, losses };
+};
 
-const ScoreBoard = () => {
+const scoreSorter = (a, b) => {
+  if (a.wins < b.wins) {
+    return 1;
+  } else if (a.wins > b.wins) {
+    return -1;
+  } else {
+    return 0;
+  }
+};
+
+const ScoreBoard = ({ matches }) => {
+  const scores = [];
+  const players = getAllPlayers(matches);
+
+  players.forEach(player =>
+    scores.push(createTableRowForPlayer(player, matches))
+  );
+  scores.sort(scoreSorter);
+
   return (
     <Table>
       <TableHead>
@@ -45,7 +65,7 @@ const ScoreBoard = () => {
         </TableRow>
       </TableHead>
       <TableBody>
-        {mockTableData.map(row => (
+        {scores.map(row => (
           <TableRow key={row.name} hover>
             <TableCell component="th" scope="row">
               {row.name}
