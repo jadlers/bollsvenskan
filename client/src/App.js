@@ -1,6 +1,8 @@
 import React from "react";
+import { Router } from "@reach/router";
 
 import ScoreBoard from "./components/ScoreBoard";
+import NewMatchForm from "./components/NewMatchForm";
 
 const jacob = "Jacob";
 const dennis = "Dennis";
@@ -196,7 +198,10 @@ function App() {
   return (
     <div style={{ maxWidth: "800px", margin: "0 auto" }}>
       <h1 style={{ textAlign: "center" }}>{"⚽ Bollsvenskan 🥅"}</h1>
-      <ScoreBoard matches={matches} />
+      <Router>
+        <ScoreBoard path="/" matches={matches} />
+        <NewMatchForm path="/add-match" />
+      </Router>
     </div>
   );
 }
