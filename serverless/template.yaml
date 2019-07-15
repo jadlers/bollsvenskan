@@ -1,0 +1,64 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Bollsvenskan-2016-10-31
+Description: >
+  Bollsvenskan
+
+  Connecting the frontend to the database I've already got at Inleed
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+  GetAllPlayersFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: src/
+      Handler: player.getAllPlayers
+      Runtime: nodejs10.x
+      Environment:
+        Variables:
+          DB_HOST:
+          DB_USER:
+          DB_PASS:
+          DB_NAME:
+      Events:
+        BollsvenskanApi:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /player
+            Method: get
+
+  AddNewPlayerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/
+      Handler: player.addNewPlayer
+      Runtime: nodejs10.x
+      Environment:
+        Variables:
+          DB_HOST:
+          DB_USER:
+          DB_PASS:
+          DB_NAME:
+      Events:
+        BollsvenskanApi:
+          Type: Api
+          Properties:
+            Path: /player
+            Method: post
+
+Outputs:
+  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
+  # Find out more about other implicit resources you can reference within SAM
+  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
+  BollsvenskanApi:
+    Description: "API Gateway endpoint URL for Prod stage for Hello World function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
+  # NOTE: Don't know if I need these here
+  # GetAllPlayersFunction:
+  #   Description: "Hello World Lambda Function ARN"
+  #   Value: !GetAtt GetAllPlayersFunction.Arn
+  # HelloWorldFunctionIamRole:
+  #   Description: "Implicit IAM Role created for Hello World function"
+  #   Value: !GetAtt HelloWorldFunctionRole.Arn
