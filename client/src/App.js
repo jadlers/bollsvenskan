@@ -21,6 +21,7 @@ const anton = "Anton";
 const hilda = "Hilda";
 const isaac = "Isaac";
 const kalle = "Kalle";
+const matthias = "Matthias";
 
 const matches = [
   {
@@ -189,6 +190,32 @@ const matches = [
       [wille, linus, simon, filip, kalle],
       [erik, anton, teo, hilda, dennis, isaac],
     ],
+    score: [3, 2],
+    winner: 0,
+  },
+  {
+    date: "2019-07-15",
+    teams: [[kalle, matthias, dennis, wille], [hilda, erik, isaac]],
+    score: [3, 0],
+    winner: 0,
+  },
+  {
+    teams: [[wille, isaac, kalle], [dennis, matthias, erik, hilda]],
+    score: [3, 1],
+    winner: 0,
+  },
+  {
+    teams: [[dennis, hilda, wille], [isaac, kalle, erik, matthias]],
+    score: [3, 1],
+    winner: 0,
+  },
+  {
+    teams: [[dennis, hilda, matthias, isaac], [kalle, erik, wille]],
+    score: [3, 2],
+    winner: 0,
+  },
+  {
+    teams: [[kalle, wille, dennis], [hilda, matthias, isaac, erik]],
     score: [3, 2],
     winner: 0,
   },
