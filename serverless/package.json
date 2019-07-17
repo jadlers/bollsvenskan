@@ -5,7 +5,8 @@
   "author": "Jacob Adlers",
   "license": "MIT",
   "scripts": {
-    "test": "mocha tests/unit/"
+    "test": "mocha tests/unit/",
+    "start": ". ./env.local && serverless offline --host 0.0.0.0"
   },
   "dependencies": {
     "dotenv": "^8.0.0",
@@ -15,6 +16,7 @@
     "chai": "^4.2.0",
     "mocha": "^6.1.4",
     "prettier": "^1.18.2",
-    "sqlite3": "^4.0.9"
+    "serverless": "^1.47.0",
+    "serverless-offline": "^5.8.0"
   }
 }
