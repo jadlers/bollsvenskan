@@ -8,8 +8,8 @@ const NewPlayerForm = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    console.log(e);
-    if (!e.target.checkValidity) {
+
+    if (!e.target.checkValidity()) {
       console.log("Invalid form");
       return;
     }
@@ -25,12 +25,13 @@ const NewPlayerForm = () => {
         body: JSON.stringify({ username }),
       });
 
-      console.log(response);
+      const body = await response.json();
+
+      // TODO: Show verification to user
+      console.log(body);
     } catch (error) {
       console.log(error);
     }
-
-    // TODO: Add user to DB
   };
 
   return (
@@ -53,7 +54,7 @@ const NewPlayerForm = () => {
         style={{ marginBottom: "1em" }}
         required
       />
-      <Button variant="contained" color="primary">
+      <Button type="submit" variant="contained" color="primary">
         Spara
       </Button>
     </form>
