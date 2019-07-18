@@ -64,6 +64,9 @@ functions:
           path: player
           method: GET
           cors: true
+          response:
+            headers:
+              Content-Type: "'application/json'"
   addNewPlayer:
     handler: player.addNewPlayer
     events:
@@ -71,6 +74,9 @@ functions:
           path: player
           method: POST
           cors: true
+          response:
+            headers:
+              Content-Type: "'application/json'"
 
 
 #    The following are a few example events you can configure
