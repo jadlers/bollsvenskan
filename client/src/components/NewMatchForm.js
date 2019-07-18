@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -14,8 +14,23 @@ const NewMatchForm = () => {
   const [team2Players, setTeam2Players] = useState([]);
   const [team2Score, setTeam2Score] = useState(0);
 
-  // TODO: Get players from DB
-  const players = ["Jacob", "Dennis", "Max", "Linus"];
+  const [players, setPlayers] = useState([]);
+
+  useEffect(() => {
+    const fetchPlayers = async () => {
+      const baseUrl = process.env.REACT_APP_API_URL;
+
+      const res = await fetch(`${baseUrl}/player`);
+      if (!res.ok) {
+        return;
+      }
+
+      const body = await res.json();
+      setPlayers(body.players);
+    };
+
+    fetchPlayers();
+  }, []);
 
   const handleUpdateScore = (value, updateFunc) => {
     if (value < 0) value = 0;
@@ -23,10 +38,12 @@ const NewMatchForm = () => {
   };
 
   const handlePlayerUpdate = (e, currentPlayers, updateFunc) => {
+    const userId = parseInt(e.target.value);
+
     if (e.target.checked) {
-      updateFunc([e.target.value, ...currentPlayers]);
+      updateFunc([userId, ...currentPlayers]);
     } else {
-      updateFunc(currentPlayers.filter(p => !e.target.value));
+      updateFunc(currentPlayers.filter(p => !userId));
     }
   };
 
@@ -53,12 +70,12 @@ const NewMatchForm = () => {
         <FormLabel>Lag 1</FormLabel>
         <FormGroup>
           {players
-            .filter(p => !team2Players.includes(p))
+            .filter(p => !team2Players.includes(p.id))
             .map(p => (
               <FormControlLabel
-                key={p}
-                control={<Checkbox value={p} />}
-                label={p}
+                key={p.id}
+                control={<Checkbox value={p.id} />}
+                label={p.username}
                 onChange={e =>
                   handlePlayerUpdate(e, team1Players, setTeam1Players)
                 }
@@ -83,12 +100,12 @@ const NewMatchForm = () => {
         <FormLabel>Lag 2</FormLabel>
         <FormGroup>
           {players
-            .filter(p => !team1Players.includes(p))
+            .filter(p => !team1Players.includes(p.id))
             .map(p => (
               <FormControlLabel
-                key={p}
-                control={<Checkbox value={p} />}
-                label={p}
+                key={p.id}
+                control={<Checkbox value={p.id} />}
+                label={p.username}
                 onChange={e =>
                   handlePlayerUpdate(e, team2Players, setTeam2Players)
                 }
