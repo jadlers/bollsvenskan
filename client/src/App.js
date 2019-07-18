@@ -3,6 +3,7 @@ import { Router } from "@reach/router";
 
 import ScoreBoard from "./components/ScoreBoard";
 import NewMatchForm from "./components/NewMatchForm";
+import NewPlayerForm from "./components/NewPlayerForm";
 
 const jacob = "Jacob";
 const dennis = "Dennis";
@@ -228,6 +229,7 @@ function App() {
       <Router>
         <ScoreBoard path="/" matches={matches} />
         <NewMatchForm path="/add-match" />
+        <NewPlayerForm path="/add-player" />
       </Router>
     </div>
   );
