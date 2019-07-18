@@ -38,7 +38,11 @@ exports.getAllPlayers = async (event, context) => {
       }),
     };
   } catch (err) {
-    console.log(err);
+    console.log({
+      eventType: "DB",
+      function: "getAllPlayers",
+      err,
+    });
     return err;
   }
 
@@ -46,26 +50,27 @@ exports.getAllPlayers = async (event, context) => {
 };
 
 exports.addNewPlayer = async (event, context) => {
+  const body = JSON.parse(event.body);
+  const { username } = body;
+  if (!username) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({
+        message: "Missing key 'username' in request body",
+        req: body,
+      }),
+    };
+  }
+
   try {
     const conn = await getDbConnection();
-    const body = JSON.parse(event.body);
-    const { username } = body;
-    if (!username) {
-      return {
-        statusCode: 400,
-        body: JSON.stringify({
-          message: "Missing key 'username' in request body",
-          req: body,
-        }),
-      };
-    }
-
     const res = await conn.query("INSERT INTO users(username) VALUES (?)", [
       username,
     ]);
+
     console.log({
       eventType: "DB",
-      table: "users",
+      function: "addNewPlayer",
       message: `Added user ${username} with id ${res.insertId}`,
     });
 
@@ -78,6 +83,11 @@ exports.addNewPlayer = async (event, context) => {
     };
   } catch (err) {
     if (err.errno === 1062) {
+      console.log({
+        eventType: "DB",
+        function: "addNewPlayer",
+        message: `Error: User with username '${username}' already exists`,
+      });
       return {
         statusCode: 400,
         body: JSON.stringify({
@@ -85,8 +95,18 @@ exports.addNewPlayer = async (event, context) => {
         }),
       };
     }
-    console.log(err);
-    return err;
+
+    console.log({
+      eventType: "DB",
+      function: "addNewPlayer",
+      err,
+    });
+    return {
+      statusCode: 500,
+      body: JSON.stringify({
+        message: "Internal server error",
+      }),
+    };
   }
 
   return response;
