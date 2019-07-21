@@ -77,6 +77,17 @@ functions:
           response:
             headers:
               Content-Type: "'application/json'"
+  addNewMatch:
+    handler: match.addNewMatch
+    events:
+      - http:
+          path: match
+          method: POST
+          cors: true
+          response:
+            headers:
+              Content-Type: "'application/json'"
+
 
 
 #    The following are a few example events you can configure
