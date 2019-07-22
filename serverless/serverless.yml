@@ -87,6 +87,16 @@ functions:
           response:
             headers:
               Content-Type: "'application/json'"
+  getAllMatches:
+    handler: match.getAllMatches
+    events:
+      - http:
+          path: match
+          method: GET
+          cors: true
+          response:
+            headers:
+              Content-Type: "'application/json'"
 
 
 

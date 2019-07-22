@@ -112,6 +112,12 @@ exports.addNewMatch = async (event, context) => {
     );
 
     conn.query("COMMIT");
+    console.log({
+      eventType: "DB",
+      function: "addNewMatch",
+      message: "Added match with information shown in data",
+      data: body,
+    });
     response = {
       statusCode: 200,
       body: JSON.stringify("Successfully added new match"),
@@ -130,4 +136,86 @@ exports.addNewMatch = async (event, context) => {
   }
 
   return response;
+};
+
+exports.getAllMatches = async (event, context) => {
+  response = {
+    statusCode: 201,
+    body: JSON.stringify({ message: "In development" }),
+  };
+
+  try {
+    const conn = await getDbConnection();
+
+    const matches = await conn.query("SELECT * FROM matches");
+    const example = [
+      { id: 1, date: null, score: "3 - 1", winning_team_id: 15 },
+      { id: 2, date: null, score: "3 - 1", winning_team_id: 17 },
+      { id: 3, date: null, score: "2 - 3", winning_team_id: 20 },
+      { id: 4, date: null, score: "2 - 3", winning_team_id: 22 },
+    ];
+
+    const final = [];
+    for (let i = 0; i < matches.length; i++) {
+      const match = matches[i];
+
+      const matchObj = { matchId: match.id, teams: [] };
+
+      // Format the score
+      const { id, score, winning_team_id } = match;
+      const score_arr = score.split("-").map(n => parseInt(n));
+      matchObj.score = score_arr;
+
+      // Get all teams in the match
+      const teamIds = await conn.query(
+        "SELECT team_id FROM match_teams WHERE match_id = ?",
+        id
+      );
+
+      const teams = [];
+
+      for (let j = 0; j < teamIds.length; j++) {
+        const row = teamIds[j];
+        // Get names
+        const teamId = row.team_id;
+        const playerNames = await getPlayerNamesFromTeamId(teamId);
+        matchObj.teams.push(playerNames);
+        if (teamId === winning_team_id) {
+          matchObj.winner = matchObj.teams.indexOf(playerNames);
+        }
+      }
+
+      final.push(matchObj);
+    }
+    response = {
+      statusCode: 200,
+      body: JSON.stringify({ matches: final }),
+    };
+  } catch (error) {
+    console.log(error);
+  }
+
+  return response;
+};
+
+const getPlayerNamesFromTeamId = async teamId => {
+  try {
+    const conn = await getDbConnection();
+
+    const res = await conn.query(
+      "SELECT user_id FROM team_players WHERE team_id = ?",
+      teamId
+    );
+    const userIds = res.map(row => parseInt(row.user_id));
+    let players = [];
+
+    const nameData = await conn.query(
+      `SELECT username FROM users WHERE id IN (${userIds.toString()})`
+    ); // TODO: Safe?
+    const names = nameData.map(p => p.username);
+    return names;
+  } catch (error) {
+    console.log(error);
+  }
+  return [];
 };
