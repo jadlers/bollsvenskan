@@ -47,13 +47,26 @@ const NewMatchForm = () => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const data = {
       teams: [team1Players, team2Players],
       score: [parseInt(team1Score), parseInt(team2Score)],
       winner: team1Score > team2Score ? 0 : 1,
     };
-    console.log(data); // TODO: Post to API with this match object
+
+    const baseUrl = process.env.REACT_APP_API_URL;
+    try {
+      // TODO: Show feedback to user
+      await fetch(`${baseUrl}/match`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+    } catch (error) {
+      console.log("Error:", error);
+    }
   };
 
   return (
@@ -64,6 +77,7 @@ const NewMatchForm = () => {
         variant="outlined"
         value={team1Score}
         onChange={e => handleUpdateScore(e.target.value, setTeam1Score)}
+        required
       />
       <div />
       <FormControl>
@@ -94,6 +108,7 @@ const NewMatchForm = () => {
         label="Mål lag 2"
         value={team2Score}
         onChange={e => handleUpdateScore(e.target.value, setTeam2Score)}
+        required
       />
       <div />
       <FormControl>
