@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Router } from "@reach/router";
 
 import ScoreBoard from "./components/ScoreBoard";
@@ -24,7 +24,7 @@ const isaac = "Isaac";
 const kalle = "Kalle";
 const matthias = "Matthias";
 
-const matches = [
+const hardCodedMatches = [
   {
     date: "2019-06-15",
     teams: [[wille, teo, max, dennis, felix], [jacob, simon, erik, linus]],
@@ -223,6 +223,24 @@ const matches = [
 ];
 
 function App() {
+  const [matches, setMatches] = useState([]);
+
+  useEffect(() => {
+    const fetchAllMatches = async () => {
+      const baseUrl = process.env.REACT_APP_API_URL;
+
+      const res = await fetch(`${baseUrl}/match`);
+      if (!res.ok) {
+        return;
+      }
+
+      const body = await res.json();
+      setMatches(body.matches);
+    };
+
+    fetchAllMatches();
+  }, []);
+
   return (
     <div style={{ maxWidth: "800px", margin: "0 auto" }}>
       <h1 style={{ textAlign: "center" }}>{"⚽ Bollsvenskan 🥅"}</h1>
