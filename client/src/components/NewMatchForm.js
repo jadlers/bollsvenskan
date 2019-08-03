@@ -8,7 +8,7 @@ import TeamFields from "./TeamFields";
 
 const SlidingTransition = props => <Slide {...props} direction="down" />;
 
-const NewMatchForm = () => {
+const NewMatchForm = ({ navigate }) => {
   const [snack, setSnack] = useState({ isOpen: false, message: "" });
   const handleCloseSnack = () => setSnack({ ...snack, isOpen: false });
 
@@ -71,6 +71,7 @@ const NewMatchForm = () => {
           isOpen: true,
           message: "Successfully saved match",
         });
+        navigate("/");
       } else {
         setSnack({ ...snack, isOpen: true, message: "Failed to save match" });
       }
