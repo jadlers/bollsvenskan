@@ -1,51 +1,29 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 
 import Snackbar from "./Snackbar";
 
 export const SnackbarContext = React.createContext();
 
-export class SnackbarContextProvider extends Component {
-  constructor(props) {
-    super(props);
+export const SnackbarContextProvider = ({ children }) => {
+  const [notification, setNotification] = useState({
+    isOpen: false,
+    message: "",
+  });
 
-    this.state = {
-      message: "",
-      isOpen: false,
-    };
+  const openSnackbar = message => setNotification({ isOpen: true, message });
+  const closeSnackbar = () => setNotification({ isOpen: false, message: "" });
 
-    this.openSnackbar = this.openSnackbar.bind(this);
-    this.closeSnackbar = this.closeSnackbar.bind(this);
-  }
-
-  openSnackbar(message) {
-    this.setState({
-      message,
-      isOpen: true,
-    });
-  }
-
-  closeSnackbar() {
-    this.setState({
-      message: "",
-      isOpen: false,
-    });
-  }
-
-  render() {
-    const { children } = this.props;
-
-    return (
-      <SnackbarContext.Provider
-        value={{
-          open: this.openSnackbar,
-          close: this.closeSnackbar,
-          isOpen: this.state.isOpen,
-          message: this.state.message,
-        }}
-      >
-        <Snackbar />
-        {children}
-      </SnackbarContext.Provider>
-    );
-  }
-}
+  return (
+    <SnackbarContext.Provider
+      value={{
+        isOpen: notification.isOpen,
+        message: notification.message,
+        open: openSnackbar,
+        close: closeSnackbar,
+      }}
+    >
+      <Snackbar />
+      {children}
+    </SnackbarContext.Provider>
+  );
+};
