@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+
+import { SnackbarContext } from "../SnackbarContext";
 
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 
 const NewPlayerForm = () => {
+  const snackbar = useContext(SnackbarContext);
+
   const [username, updateUsername] = useState("");
 
   const handleSubmit = async e => {
@@ -27,9 +31,14 @@ const NewPlayerForm = () => {
 
       const body = await response.json();
 
-      // TODO: Show verification to user
-      console.log(body);
+      if (response.ok) {
+        snackbar.open(body.message);
+        updateUsername("");
+      } else {
+        snackbar.open(body.message);
+      }
     } catch (error) {
+      snackbar.open("Failed to add new player");
       console.log(error);
     }
   };
