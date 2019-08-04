@@ -28,7 +28,13 @@ function App() {
   }, []);
 
   return (
-    <div style={{ maxWidth: "800px", margin: "0 auto" }}>
+    <div
+      style={{
+        maxWidth: "800px",
+        margin: "0 auto",
+        padding: "1em",
+      }}
+    >
       <SnackbarContextProvider>
         <h1
           style={{ textAlign: "center", cursor: "pointer" }}

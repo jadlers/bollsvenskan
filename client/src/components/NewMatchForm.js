@@ -76,24 +76,39 @@ const NewMatchForm = ({ navigate }) => {
 
   return (
     <>
-      <form action="post">
-        <TeamFields
-          teamNum={1}
-          teamScore={team1Score}
-          setTeamScore={setTeam1Score}
-          players={players}
-          opponents={team2Players}
-          handlePlayerUpdate={handlePlayerUpdate(team1Players, setTeam1Players)}
-        />
-        <TeamFields
-          teamNum={2}
-          teamScore={team2Score}
-          setTeamScore={setTeam2Score}
-          players={players}
-          opponents={team1Players}
-          handlePlayerUpdate={handlePlayerUpdate(team2Players, setTeam2Players)}
-        />
-        <div />
+      <form
+        action="post"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+        }}
+      >
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <TeamFields
+            teamNum={1}
+            teamScore={team1Score}
+            setTeamScore={setTeam1Score}
+            players={players}
+            opponents={team2Players}
+            handlePlayerUpdate={handlePlayerUpdate(
+              team1Players,
+              setTeam1Players
+            )}
+          />
+          <TeamFields
+            teamNum={2}
+            teamScore={team2Score}
+            setTeamScore={setTeam2Score}
+            players={players}
+            opponents={team1Players}
+            handlePlayerUpdate={handlePlayerUpdate(
+              team2Players,
+              setTeam2Players
+            )}
+          />
+        </div>
+
         <Button variant="contained" color="primary" onClick={handleSubmit}>
           Spara
         </Button>

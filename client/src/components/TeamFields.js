@@ -22,17 +22,18 @@ const TeamFields = ({
   };
 
   return (
-    <div>
+    <div style={{ display: "flex", flexDirection: "column", margin: "1em 1%" }}>
       <TextField
         type="number"
         label={`Mål lag ${teamNum}`}
         variant="outlined"
         value={teamScore}
         onChange={e => handleUpdateScore(e.target.value)}
+        style={{ marginBottom: "1em" }}
         required
       />
       <FormControl>
-        <FormLabel>{`Lag ${teamNum}`}</FormLabel>
+        <FormLabel>{`Spelare lag ${teamNum}`}</FormLabel>
         <FormGroup>
           {players.map(p => (
             <FormControlLabel
