@@ -12,8 +12,8 @@ const NewMatchForm = ({ navigate }) => {
   const [team1Players, setTeam1Players] = useState([]);
   const [team2Players, setTeam2Players] = useState([]);
 
-  const [team1Score, setTeam1Score] = useState(0);
-  const [team2Score, setTeam2Score] = useState(0);
+  const [team1Score, setTeam1Score] = useState();
+  const [team2Score, setTeam2Score] = useState();
 
   const [players, setPlayers] = useState([]);
 
@@ -64,7 +64,8 @@ const NewMatchForm = ({ navigate }) => {
 
       if (res.ok) {
         snackbar.open("Successfully saved match");
-        navigate("/");
+        setTeam1Score("");
+        setTeam2Score("");
       } else {
         snackbar.open("Failed to save match");
       }
