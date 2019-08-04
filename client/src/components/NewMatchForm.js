@@ -1,16 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
+
+import { SnackbarContext } from "../SnackbarContext";
 
 import Button from "@material-ui/core/Button";
-import Slide from "@material-ui/core/Slide";
-import Snackbar from "@material-ui/core/Snackbar";
 
 import TeamFields from "./TeamFields";
 
-const SlidingTransition = props => <Slide {...props} direction="down" />;
-
 const NewMatchForm = ({ navigate }) => {
-  const [snack, setSnack] = useState({ isOpen: false, message: "" });
-  const handleCloseSnack = () => setSnack({ ...snack, isOpen: false });
+  const snackbar = useContext(SnackbarContext);
 
   const [team1Players, setTeam1Players] = useState([]);
   const [team2Players, setTeam2Players] = useState([]);
@@ -66,32 +63,19 @@ const NewMatchForm = ({ navigate }) => {
       });
 
       if (res.ok) {
-        setSnack({
-          ...snack,
-          isOpen: true,
-          message: "Successfully saved match",
-        });
+        snackbar.open("Successfully saved match");
         navigate("/");
       } else {
-        setSnack({ ...snack, isOpen: true, message: "Failed to save match" });
+        snackbar.open("Failed to save match");
       }
     } catch (error) {
-      setSnack({ ...snack, isOpen: true, message: "Failed to save match" });
+      snackbar.open("Failed to save match");
       console.log("Error:", error);
     }
   };
 
   return (
     <>
-      <Snackbar
-        open={snack.isOpen}
-        onClose={handleCloseSnack}
-        autoHideDuration={5000}
-        anchorOrigin={{ horizontal: "center", vertical: "top" }}
-        TransitionComponent={SlidingTransition}
-        message={snack.message}
-      />
-
       <form action="post">
         <TeamFields
           teamNum={1}

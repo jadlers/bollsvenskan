@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Router } from "@reach/router";
 
+import { SnackbarContextProvider } from "./SnackbarContext";
+
 import ScoreBoard from "./components/ScoreBoard";
 import NewMatchForm from "./components/NewMatchForm";
 import NewPlayerForm from "./components/NewPlayerForm";
@@ -26,12 +28,14 @@ function App() {
 
   return (
     <div style={{ maxWidth: "800px", margin: "0 auto" }}>
-      <h1 style={{ textAlign: "center" }}>{"⚽ Bollsvenskan 🥅"}</h1>
-      <Router>
-        <ScoreBoard path="/" matches={matches} />
-        <NewMatchForm path="/add-match" />
-        <NewPlayerForm path="/add-player" />
-      </Router>
+      <SnackbarContextProvider>
+        <h1 style={{ textAlign: "center" }}>{"⚽ Bollsvenskan 🥅"}</h1>
+        <Router>
+          <ScoreBoard path="/" matches={matches} />
+          <NewMatchForm path="/add-match" />
+          <NewPlayerForm path="/add-player" />
+        </Router>
+      </SnackbarContextProvider>
     </div>
   );
 }
