@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Router } from "@reach/router";
+import { Router, Link, navigate } from "@reach/router";
 
 import { SnackbarContextProvider } from "./SnackbarContext";
 
+import Button from "@material-ui/core/Button";
 import ScoreBoard from "./components/ScoreBoard";
 import NewMatchForm from "./components/NewMatchForm";
 import NewPlayerForm from "./components/NewPlayerForm";
@@ -29,7 +30,20 @@ function App() {
   return (
     <div style={{ maxWidth: "800px", margin: "0 auto" }}>
       <SnackbarContextProvider>
-        <h1 style={{ textAlign: "center" }}>{"⚽ Bollsvenskan 🥅"}</h1>
+        <h1
+          style={{ textAlign: "center", cursor: "pointer" }}
+          onClick={() => navigate("/")}
+        >
+          {"⚽ Bollsvenskan 🥅"}
+        </h1>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <Link to="add-player">
+            <Button>Ny spelare</Button>
+          </Link>
+          <Link to="add-match">
+            <Button>Rapportera resultat</Button>
+          </Link>
+        </div>
         <Router>
           <ScoreBoard path="/" matches={matches} />
           <NewMatchForm path="/add-match" />
