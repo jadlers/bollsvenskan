@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Router, Link, navigate } from "@reach/router";
+import { Router, navigate } from "@reach/router";
 
 import { SnackbarContextProvider } from "./SnackbarContext";
 
-import Button from "@material-ui/core/Button";
 import ScoreBoard from "./components/ScoreBoard";
 import NewMatchForm from "./components/NewMatchForm";
 import NewPlayerForm from "./components/NewPlayerForm";
@@ -40,16 +39,10 @@ function App() {
           style={{ textAlign: "center", cursor: "pointer" }}
           onClick={() => navigate("/")}
         >
-          {"⚽ Bollsvenskan 🥅"}
+          {
+            "Kung DotA 🏆" /* TODO: Should be dependent on the league you're viewing */
+          }
         </h1>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <Link to="add-player">
-            <Button>Ny spelare</Button>
-          </Link>
-          <Link to="add-match">
-            <Button>Rapportera resultat</Button>
-          </Link>
-        </div>
         <Router>
           <ScoreBoard path="/" matches={matches} />
           <NewMatchForm path="/add-match" />
