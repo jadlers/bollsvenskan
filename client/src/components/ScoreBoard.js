@@ -22,9 +22,15 @@ const getAllPlayers = (matches) => {
 const createTableRowForPlayer = (name, matches) => {
   let losses = 0;
   let wins = 0;
+  let kills = 0;
+  let deaths = 0;
+  let assists = 0;
+
   matches.forEach((match) => {
+    let stats;
     if (match.teams[match.winner].map((p) => p.name).includes(name)) {
       wins++;
+      stats = match.teams.flat().find((p) => p.name === name).stats;
     } else if (
       match.teams
         .flat()
@@ -32,9 +38,29 @@ const createTableRowForPlayer = (name, matches) => {
         .includes(name)
     ) {
       losses++;
+      stats = match.teams.flat().find((p) => p.name === name).stats;
+    }
+
+    if (stats) {
+      kills += stats.kills;
+      deaths += stats.deaths;
+      assists += stats.assists;
     }
   });
-  return { name, matches: wins + losses, wins, losses };
+
+  const numMatches = wins + losses;
+
+  return {
+    name,
+    matches: numMatches,
+    wins,
+    losses,
+    average: {
+      kills: (kills / numMatches).toFixed(1),
+      deaths: (deaths / numMatches).toFixed(1),
+      assists: (assists / numMatches).toFixed(1),
+    },
+  };
 };
 
 const scoreSorter = (a, b) => {
@@ -58,11 +84,12 @@ const ScoreBoard = ({ matches, style }) => {
 
   return (
     <Card style={style}>
-      <CardContent>
+      <CardContent style={{ overflowX: "auto" }}>
         <Table>
           <TableHead>
             <TableRow>
               <TableCell>Namn</TableCell>
+              <TableCell align="right">Genomsnittlig K/D/A</TableCell>
               <TableCell align="right" size="small">
                 Matcher
               </TableCell>
@@ -80,6 +107,7 @@ const ScoreBoard = ({ matches, style }) => {
                 <TableCell component="th" scope="row">
                   {row.name}
                 </TableCell>
+                <TableCell align="right">{`${row.average.kills} / ${row.average.deaths} / ${row.average.assists}`}</TableCell>
                 <TableCell align="right" size="small">
                   {row.matches}
                 </TableCell>
