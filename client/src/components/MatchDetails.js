@@ -77,10 +77,10 @@ function PlayerMatchStatsTable(props) {
 
 function FirstBloodHighlight({ player }) {
   const mocks = [
-    "är sämst",
+    "var sämst",
     "hade en dålig dag",
-    "har tappat det fullständigt",
     "fokuserade inte tillräckligt",
+    "tappade det fullständigt",
     "skyllde på lagg",
   ];
 
