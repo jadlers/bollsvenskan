@@ -34,13 +34,13 @@ const NewMatchForm = ({ navigate }) => {
   }, []);
 
   const handlePlayerUpdate = (teamArray, setTeamArray) => {
-    return e => {
+    return (e) => {
       const userId = parseInt(e.target.value);
 
       if (e.target.checked) {
         setTeamArray([userId, ...teamArray]);
       } else {
-        setTeamArray(teamArray.filter(p => p !== userId));
+        setTeamArray(teamArray.filter((p) => p !== userId));
       }
     };
   };

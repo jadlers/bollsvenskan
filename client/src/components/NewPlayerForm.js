@@ -10,7 +10,7 @@ const NewPlayerForm = () => {
 
   const [username, updateUsername] = useState("");
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!e.target.checkValidity()) {
@@ -59,7 +59,7 @@ const NewPlayerForm = () => {
         label="Namn"
         variant="outlined"
         value={username}
-        onChange={e => updateUsername(e.target.value)}
+        onChange={(e) => updateUsername(e.target.value)}
         style={{ marginBottom: "1em" }}
         required
       />

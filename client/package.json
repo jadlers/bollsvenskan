@@ -16,8 +16,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "fmt:check": "prettier -c *.js public/**/*.js src/**/*.js",
-    "fmt:run": "prettier --write *.js public/**/*.js src/**/*.js"
+    "fmt:check": "prettier -c src/**/*.js",
+    "fmt:run": "prettier --write src/**/*.js"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -15,7 +15,7 @@ const TeamFields = ({
   opponents,
   handlePlayerUpdate,
 }) => {
-  const handleUpdateScore = value => {
+  const handleUpdateScore = (value) => {
     let val = parseInt(value) || "";
     if (val < 0) val = 0;
     setTeamScore(val);
@@ -28,19 +28,19 @@ const TeamFields = ({
         label={`Mål lag ${teamNum}`}
         variant="outlined"
         value={teamScore}
-        onChange={e => handleUpdateScore(e.target.value)}
+        onChange={(e) => handleUpdateScore(e.target.value)}
         style={{ marginBottom: "1em" }}
         required
       />
       <FormControl>
         <FormLabel>{`Spelare lag ${teamNum}`}</FormLabel>
         <FormGroup>
-          {players.map(p => (
+          {players.map((p) => (
             <FormControlLabel
               key={p.id}
               control={<Checkbox value={p.id} />}
               label={p.username}
-              onChange={e => handlePlayerUpdate(e, teamNum - 1)}
+              onChange={(e) => handlePlayerUpdate(e, teamNum - 1)}
               disabled={opponents.includes(p.id)}
             />
           ))}
