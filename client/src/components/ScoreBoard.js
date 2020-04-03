@@ -1,5 +1,8 @@
 import React from "react";
 
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -54,40 +57,44 @@ const ScoreBoard = ({ matches, style }) => {
   scores.sort(scoreSorter);
 
   return (
-    <Table style={style}>
-      <TableHead>
-        <TableRow>
-          <TableCell>Namn</TableCell>
-          <TableCell align="right" size="small">
-            Matcher
-          </TableCell>
-          <TableCell align="right" size="small">
-            Vinster
-          </TableCell>
-          <TableCell align="right" size="small">
-            Förluster
-          </TableCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {scores.map((row) => (
-          <TableRow key={row.name} hover>
-            <TableCell component="th" scope="row">
-              {row.name}
-            </TableCell>
-            <TableCell align="right" size="small">
-              {row.matches}
-            </TableCell>
-            <TableCell align="right" size="small">
-              {row.wins}
-            </TableCell>
-            <TableCell align="right" size="small">
-              {row.losses}
-            </TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+    <Card style={style}>
+      <CardContent>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Namn</TableCell>
+              <TableCell align="right" size="small">
+                Matcher
+              </TableCell>
+              <TableCell align="right" size="small">
+                Vinster
+              </TableCell>
+              <TableCell align="right" size="small">
+                Förluster
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {scores.map((row) => (
+              <TableRow key={row.name} hover>
+                <TableCell component="th" scope="row">
+                  {row.name}
+                </TableCell>
+                <TableCell align="right" size="small">
+                  {row.matches}
+                </TableCell>
+                <TableCell align="right" size="small">
+                  {row.wins}
+                </TableCell>
+                <TableCell align="right" size="small">
+                  {row.losses}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </CardContent>
+    </Card>
   );
 };
 
