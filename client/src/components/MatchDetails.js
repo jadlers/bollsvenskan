@@ -80,7 +80,7 @@ function FirstBloodHighlight({ player }) {
     "är sämst",
     "hade en dålig dag",
     "har tappat det fullständigt",
-    "fokuserade inte tillsräckligt",
+    "fokuserade inte tillräckligt",
     "skyllde på lagg",
   ];
 
