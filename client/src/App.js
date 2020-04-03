@@ -3,9 +3,9 @@ import { Router, navigate } from "@reach/router";
 
 import { SnackbarContextProvider } from "./SnackbarContext";
 
-import ScoreBoard from "./components/ScoreBoard";
 import NewMatchForm from "./components/NewMatchForm";
 import NewPlayerForm from "./components/NewPlayerForm";
+import LeagueOverview from "./components/LeagueOverview";
 
 function App() {
   const [matches, setMatches] = useState([]);
@@ -14,6 +14,8 @@ function App() {
     const fetchAllMatches = async () => {
       const baseUrl = process.env.REACT_APP_API_URL;
 
+      // TODO: This should default to /league/2 for the current dota 2 league
+      // NOTE: That endpoint however is not completed
       const res = await fetch(`${baseUrl}/match`);
       if (!res.ok) {
         return;
@@ -44,7 +46,9 @@ function App() {
           }
         </h1>
         <Router>
-          <ScoreBoard path="/" matches={matches} />
+          <LeagueOverview path="/" matches={matches} />
+          {/* Show table from specific league */}
+          <LeagueOverview path="/league/:leagueId" />
           <NewMatchForm path="/add-match" />
           <NewPlayerForm path="/add-player" />
         </Router>
