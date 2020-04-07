@@ -7,7 +7,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 
 import { SnackbarContext } from "./SnackbarContext";
 
-const Transition = props => <Slide {...props} direction="down" />;
+const Transition = (props) => <Slide {...props} direction="down" />;
 
 const CustomSnackbar = () => {
   const snackbar = useContext(SnackbarContext);

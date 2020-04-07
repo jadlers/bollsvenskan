@@ -10,7 +10,7 @@ export const SnackbarContextProvider = ({ children }) => {
     message: "",
   });
 
-  const openSnackbar = message => setNotification({ isOpen: true, message });
+  const openSnackbar = (message) => setNotification({ isOpen: true, message });
   const closeSnackbar = () => setNotification({ isOpen: false, message: "" });
 
   return (
