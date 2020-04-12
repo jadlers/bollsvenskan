@@ -51,28 +51,28 @@ function PlayerMatchStatsTable(props) {
             <TableRow key={player.name}>
               <TableCell>{player.name}</TableCell>
               <TableCell alight="right" size="small">
-                {player.stats.kills}
+                {player.stats.kills || 0}
               </TableCell>
               <TableCell alight="right" size="small">
-                {player.stats.deaths}
+                {player.stats.deaths || 0}
               </TableCell>
               <TableCell alight="right" size="small">
-                {player.stats.assists}
+                {player.stats.assists || 0}
               </TableCell>
               <TableCell alight="right" size="small">
-                {player.stats.fantasy_points}
+                {player.stats.fantasy_points || 0}
               </TableCell>
               <TableCell alight="right" size="small">
-                {player.stats.observers_placed}
+                {player.stats.observers_placed || 0}
               </TableCell>
               <TableCell alight="right" size="small">
-                {player.stats.observers_destroyed}
+                {player.stats.observers_destroyed || 0}
               </TableCell>
               <TableCell alight="right" size="small">
-                {player.stats.sentries_placed}
+                {player.stats.sentries_placed || 0}
               </TableCell>
               <TableCell alight="right" size="small">
-                {player.stats.sentries_destroyed}
+                {player.stats.sentries_destroyed || 0}
               </TableCell>
             </TableRow>
           ))}
