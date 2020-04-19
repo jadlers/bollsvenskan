@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Router, navigate } from "@reach/router";
 
 import { SnackbarContextProvider } from "./SnackbarContext";
+import Button from "@material-ui/core/Button";
 
 import NewMatchForm from "./components/NewMatchForm";
 import NewPlayerForm from "./components/NewPlayerForm";
@@ -45,6 +46,19 @@ function App() {
             "Kung DotA 🏆" /* TODO: Should be dependent on the league you're viewing */
           }
         </h1>
+        {/* Container */}
+        <div style={{ margin: "10px auto", textAlign: "center" }}>
+          <Button
+            color="primary"
+            variant="outlined"
+            size="large"
+            href="http://nextcloud.jacobadlers.com/index.php/s/nntLtmeAFytc3SW"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Anmälan
+          </Button>
+        </div>
         <Router>
           <LeagueOverview path="/" matches={matches} />
           {/* Show table from specific league */}
