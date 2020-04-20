@@ -82,7 +82,7 @@ function PlayerMatchStatsTable(props) {
   );
 }
 
-function FirstBloodHighlight({ player }) {
+function FirstBloodHighlight({ player, dotaMatchId }) {
   const mocks = [
     "var sämst",
     "hade en dålig dag",
@@ -91,8 +91,7 @@ function FirstBloodHighlight({ player }) {
     "skyllde på lagg",
   ];
 
-  const randomMock =
-    mocks[Math.floor(Math.random() * Math.floor(mocks.length))];
+  const randomMock = mocks[dotaMatchId % mocks.length];
 
   return (
     <Typography>
@@ -113,6 +112,7 @@ function MatchDetails(props) {
       <CardContent>
         <FirstBloodHighlight
           player={match.teams.flat().find((p) => p.id === match.diedFirstBlood)}
+          dotaMatchId={match.dotaMatchId}
         />
         {match.teams.map((team, idx) => {
           return (
