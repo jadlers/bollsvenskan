@@ -68,9 +68,15 @@ const scoreSorter = (a, b) => {
     return 1;
   } else if (a.wins > b.wins) {
     return -1;
-  } else {
-    return 0;
   }
+
+  if (a.losses < b.losses) {
+    return -1;
+  } else if (a.losses > b.losses) {
+    return 1;
+  }
+
+  return 0;
 };
 
 const ScoreBoard = ({ matches, style }) => {
