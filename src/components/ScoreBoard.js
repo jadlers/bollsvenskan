@@ -55,6 +55,7 @@ const createTableRowForPlayer = (name, matches) => {
     matches: numMatches,
     wins,
     losses,
+    winRatio: ((wins / numMatches) * 100).toFixed(0),
     average: {
       kills: (kills / numMatches).toFixed(1),
       deaths: (deaths / numMatches).toFixed(1),
@@ -100,6 +101,9 @@ const ScoreBoard = ({ matches, style }) => {
                 Matcher
               </TableCell>
               <TableCell align="right" size="small">
+                Vinstandel
+              </TableCell>
+              <TableCell align="right" size="small">
                 Vinster
               </TableCell>
               <TableCell align="right" size="small">
@@ -116,6 +120,9 @@ const ScoreBoard = ({ matches, style }) => {
                 <TableCell align="right">{`${row.average.kills} / ${row.average.deaths} / ${row.average.assists}`}</TableCell>
                 <TableCell align="right" size="small">
                   {row.matches}
+                </TableCell>
+                <TableCell align="right" size="small">
+                  {`${row.winRatio}%`}
                 </TableCell>
                 <TableCell align="right" size="small">
                   {row.wins}
