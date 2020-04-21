@@ -90,7 +90,7 @@ function FirstBloodHighlight({ player, dotaMatchId }) {
     "<name> tappade det fullständigt",
     "<name> skyllde på lagg",
     "<name> misslyckades med social distansering",
-    "<name> blev scammad och k;pte en fortune 3 träpickaxe",
+    "<name> blev scammad, köpte en fortune 3 träpickaxe",
     "<name> hittade inte sladden",
     "<name> borde hållt sig till sin egna runjävel",
     "<name> försökte sälja bläck till ravvie",
@@ -100,6 +100,8 @@ function FirstBloodHighlight({ player, dotaMatchId }) {
     "<name> kunde inte dodgea",
     "<name> lyssnade på Pontus",
     "<name> kunde inte fiska, halkade i sjön",
+    "<name> hade handikapps-hotkeys",
+    "<name> fastnade i kokaingränden",
   ];
 
   // Insert name between the parts
