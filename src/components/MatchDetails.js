@@ -84,18 +84,34 @@ function PlayerMatchStatsTable(props) {
 
 function FirstBloodHighlight({ player, dotaMatchId }) {
   const mocks = [
-    "var sämst",
-    "hade en dålig dag",
-    "fokuserade inte tillräckligt",
-    "tappade det fullständigt",
-    "skyllde på lagg",
+    "<name> var sämst",
+    "<name> hade en dålig dag",
+    "<name> fokuserade inte tillräckligt",
+    "<name> tappade det fullständigt",
+    "<name> skyllde på lagg",
+    "<name> misslyckades med social distansering",
+    "<name> blev scammad och k;pte en fortune 3 träpickaxe",
+    "<name> hittade inte sladden",
+    "<name> borde hållt sig till sin egna runjävel",
+    "<name> försökte sälja bläck till ravvie",
+    "<name> drog inte ut i tid",
+    '"OMG, <name> just went in"',
+    "<name> spydde på sitt tangentbord",
+    "<name> kunde inte dodgea",
+    "<name> lyssnade på Pontus",
+    "<name> kunde inte fiska, halkade i sjön",
   ];
 
+  // Insert name between the parts
   const randomMock = mocks[dotaMatchId % mocks.length];
+  const parts = randomMock.split("<name>");
 
   return (
     <Typography>
-      <b>{player.name}</b> {`${randomMock} och dog first blood`}
+      {parts[0]}
+      <b>{player.name}</b>
+      {parts[1]}
+      {" och dog first blood."}
     </Typography>
   );
 }
