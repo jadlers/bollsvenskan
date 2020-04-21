@@ -16,7 +16,7 @@ import Typography from "@material-ui/core/Typography";
 function PlayerMatchStatsTable(props) {
   return (
     <div style={{ overflowX: "auto" }}>
-      <Table>
+      <Table size="small">
         <TableHead>
           <TableRow>
             <TableCell>Namn</TableCell>
