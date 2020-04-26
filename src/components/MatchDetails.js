@@ -48,7 +48,7 @@ function PlayerMatchStatsTable(props) {
         </TableHead>
         <TableBody>
           {props.teamStats.map((player) => (
-            <TableRow key={player.name}>
+            <TableRow key={player.name} hover>
               <TableCell>{player.name}</TableCell>
               <TableCell alight="right" size="small">
                 {player.stats.kills || 0}
