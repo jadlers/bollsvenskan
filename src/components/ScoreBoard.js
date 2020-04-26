@@ -65,19 +65,9 @@ const createTableRowForPlayer = (name, matches) => {
 };
 
 const scoreSorter = (a, b) => {
-  if (a.wins < b.wins) {
-    return 1;
-  } else if (a.wins > b.wins) {
-    return -1;
-  }
-
-  if (a.losses < b.losses) {
-    return -1;
-  } else if (a.losses > b.losses) {
-    return 1;
-  }
-
-  return 0;
+  const winDiff = b.wins - a.wins;
+  if (winDiff === 0) return b.losses - a.losses;
+  return winDiff;
 };
 
 const ScoreBoard = ({ matches, style }) => {
