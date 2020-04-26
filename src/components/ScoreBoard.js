@@ -81,13 +81,21 @@ const scoreSorter = (a, b) => {
 };
 
 const ScoreBoard = ({ matches, style }) => {
-  const scores = [];
+  let scores = [];
   const players = getAllPlayers(matches);
 
   players.forEach((player) =>
     scores.push(createTableRowForPlayer(player, matches))
   );
   scores.sort(scoreSorter);
+
+  // Add medals to top three
+  const medals = ["🥇", "🥈", "🥉"];
+  scores = scores.map((elem, idx) =>
+    idx < medals.length
+      ? { ...elem, name: `${medals[idx]} ${elem.name}` }
+      : elem
+  );
 
   return (
     <Card style={style}>
