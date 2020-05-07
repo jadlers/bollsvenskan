@@ -10,35 +10,46 @@ import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
 
 const getAllPlayers = (matches) => {
-  const players = new Set();
+  const playerIdSet = new Set();
+  let players = [];
   matches.forEach((match) => {
     match.teams.forEach((team) => {
-      team.forEach((player) => players.add(player.name));
+      team.forEach((player) => {
+        if (!playerIdSet.has(player.id)) {
+          players.push({ id: player.id, name: player.name });
+        }
+        playerIdSet.add(player.id);
+      });
     });
   });
   return players;
 };
 
-const createTableRowForPlayer = (name, matches) => {
+const createTableRowForPlayer = (player, matches) => {
   let losses = 0;
   let wins = 0;
   let kills = 0;
   let deaths = 0;
   let assists = 0;
+  let firstBloodsDied = 0;
 
   matches.forEach((match) => {
     let stats;
-    if (match.teams[match.winner].map((p) => p.name).includes(name)) {
+    if (match.teams[match.winner].map((p) => p.name).includes(player.name)) {
       wins++;
-      stats = match.teams.flat().find((p) => p.name === name).stats;
+      stats = match.teams.flat().find((p) => p.name === player.name).stats;
     } else if (
       match.teams
         .flat()
         .map((p) => p.name)
-        .includes(name)
+        .includes(player.name)
     ) {
       losses++;
-      stats = match.teams.flat().find((p) => p.name === name).stats;
+      stats = match.teams.flat().find((p) => p.name === player.name).stats;
+    }
+
+    if (match.diedFirstBlood === player.id) {
+      firstBloodsDied++;
     }
 
     if (stats) {
@@ -51,11 +62,13 @@ const createTableRowForPlayer = (name, matches) => {
   const numMatches = wins + losses;
 
   return {
-    name,
+    id: player.id,
+    name: player.name,
     matches: numMatches,
     wins,
     losses,
     winRatio: ((wins / numMatches) * 100).toFixed(0),
+    firstBloodsDied,
     average: {
       kills: (kills / numMatches).toFixed(1),
       deaths: (deaths / numMatches).toFixed(1),
@@ -135,6 +148,23 @@ const ScoreBoard = ({ matches, style }) => {
       ? { ...elem, name: `${medals[idx]} ${elem.name}` }
       : elem
   );
+
+  // Add skull to player who died the most
+  let maxFirstBloodsPlayerId = calibrated[0].id;
+  let maxFirstBloods = calibrated[0].firstBloodsDied;
+  calibrated.forEach(({ id, firstBloodsDied }) => {
+    if (firstBloodsDied >= maxFirstBloods) {
+      maxFirstBloodsPlayerId = id;
+      maxFirstBloods = firstBloodsDied;
+    }
+  });
+
+  calibrated.map((elem) => {
+    if (elem.id === maxFirstBloodsPlayerId) {
+      elem.name = `💀 ${elem.name}`;
+    }
+    return elem;
+  });
 
   return (
     <Card style={style}>
