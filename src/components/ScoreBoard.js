@@ -1,13 +1,13 @@
 import React from "react";
 
-import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-
-import Table from "@material-ui/core/Table";
+import Card from "@material-ui/core/Card";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
+import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import Typography from "@material-ui/core/Typography";
 
 const getAllPlayers = (matches) => {
   const players = new Set();
@@ -64,10 +64,51 @@ const createTableRowForPlayer = (name, matches) => {
   };
 };
 
-const scoreSorter = (a, b) => {
-  const winDiff = b.wins - a.wins;
-  if (winDiff === 0) return b.losses - a.losses;
-  return winDiff;
+const ScoreTable = ({ scoreRows, style }) => {
+  return (
+    <Table style={style}>
+      <TableHead>
+        <TableRow>
+          <TableCell>Namn</TableCell>
+          <TableCell align="right">Genomsnittlig K/D/A</TableCell>
+          <TableCell align="right" size="small">
+            Matcher
+          </TableCell>
+          <TableCell align="right" size="small">
+            Vinstandel
+          </TableCell>
+          <TableCell align="right" size="small">
+            Vinster
+          </TableCell>
+          <TableCell align="right" size="small">
+            Förluster
+          </TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {scoreRows.map((row) => (
+          <TableRow key={row.name} hover>
+            <TableCell component="th" scope="row">
+              {row.name}
+            </TableCell>
+            <TableCell align="right">{`${row.average.kills} / ${row.average.deaths} / ${row.average.assists}`}</TableCell>
+            <TableCell align="right" size="small">
+              {row.matches}
+            </TableCell>
+            <TableCell align="right" size="small">
+              {`${row.winRatio}%`}
+            </TableCell>
+            <TableCell align="right" size="small">
+              {row.wins}
+            </TableCell>
+            <TableCell align="right" size="small">
+              {row.losses}
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  );
 };
 
 const ScoreBoard = ({ matches, style }) => {
@@ -77,11 +118,19 @@ const ScoreBoard = ({ matches, style }) => {
   players.forEach((player) =>
     scores.push(createTableRowForPlayer(player, matches))
   );
-  scores.sort(scoreSorter);
+
+  // Sort all players on win ratio
+  scores.sort((a, b) => b.winRatio - a.winRatio);
+
+  // Players have a calibrated win ratio after 10 games. Split and show in
+  // different tables
+  let calibrated = scores.filter((player) => player.matches >= 10);
+  let uncalibrated = scores.filter((player) => player.matches < 10);
+  uncalibrated = uncalibrated.sort((a, b) => b.matches - a.matches); // Sort on number of matches
 
   // Add medals to top three
   const medals = ["🥇", "🥈", "🥉"];
-  scores = scores.map((elem, idx) =>
+  calibrated = calibrated.map((elem, idx) =>
     idx < medals.length
       ? { ...elem, name: `${medals[idx]} ${elem.name}` }
       : elem
@@ -90,48 +139,17 @@ const ScoreBoard = ({ matches, style }) => {
   return (
     <Card style={style}>
       <CardContent style={{ overflowX: "auto" }}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Namn</TableCell>
-              <TableCell align="right">Genomsnittlig K/D/A</TableCell>
-              <TableCell align="right" size="small">
-                Matcher
-              </TableCell>
-              <TableCell align="right" size="small">
-                Vinstandel
-              </TableCell>
-              <TableCell align="right" size="small">
-                Vinster
-              </TableCell>
-              <TableCell align="right" size="small">
-                Förluster
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {scores.map((row) => (
-              <TableRow key={row.name} hover>
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="right">{`${row.average.kills} / ${row.average.deaths} / ${row.average.assists}`}</TableCell>
-                <TableCell align="right" size="small">
-                  {row.matches}
-                </TableCell>
-                <TableCell align="right" size="small">
-                  {`${row.winRatio}%`}
-                </TableCell>
-                <TableCell align="right" size="small">
-                  {row.wins}
-                </TableCell>
-                <TableCell align="right" size="small">
-                  {row.losses}
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+        <ScoreTable scoreRows={calibrated} style={{ marginBottom: "1em" }} />
+        {uncalibrated.length === 0 ? (
+          ""
+        ) : (
+          <>
+            <Typography variant="h5" align="center" gutterBottom>
+              Okalibrerade spelare
+            </Typography>
+            <ScoreTable scoreRows={uncalibrated} style={style} />
+          </>
+        )}
       </CardContent>
     </Card>
   );
