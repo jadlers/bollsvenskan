@@ -3,6 +3,7 @@ import { Router, navigate } from "@reach/router";
 
 import { SnackbarContextProvider } from "./SnackbarContext";
 import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
 
 import NewMatchForm from "./components/NewMatchForm";
 import NewPlayerForm from "./components/NewPlayerForm";
@@ -38,14 +39,15 @@ function App() {
       }}
     >
       <SnackbarContextProvider>
-        <h1
-          style={{ textAlign: "center", cursor: "pointer" }}
+        <Typography
+          variant="h1"
+          align="center"
+          style={{ cursor: "pointer" }}
+          gutterBottom
           onClick={() => navigate("/")}
         >
-          {
-            "Kung DotA 🏆" /* TODO: Should be dependent on the league you're viewing */
-          }
-        </h1>
+          Kung DotA 🏆
+        </Typography>
         {/* Container */}
         <div style={{ margin: "10px auto", textAlign: "center" }}>
           <Button
