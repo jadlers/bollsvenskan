@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import NewMatchForm from "./components/NewMatchForm";
 import NewPlayerForm from "./components/NewPlayerForm";
 import LeagueOverview from "./components/LeagueOverview";
+import DevopsEasterEgg from "./components/DevopsEasterEgg.jsx";
 
 function App() {
   const [matches, setMatches] = useState([]);
@@ -70,6 +71,7 @@ function App() {
           <LeagueOverview path="/league/:leagueId" />
           <NewMatchForm path="/add-match" />
           <NewPlayerForm path="/add-player" />
+          <DevopsEasterEgg path="/devops" />
         </Router>
       </SnackbarContextProvider>
     </div>
