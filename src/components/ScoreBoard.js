@@ -64,6 +64,7 @@ const createTableRowForPlayer = (player, matches) => {
   return {
     id: player.id,
     name: player.name,
+    awards: [],
     matches: numMatches,
     wins,
     losses,
@@ -82,6 +83,8 @@ const ScoreTable = ({ scoreRows, style }) => {
     <Table style={style}>
       <TableHead>
         <TableRow>
+          {/* For awards, no text needed*/}
+          <TableCell size="small" padding="none"></TableCell>
           <TableCell>Namn</TableCell>
           <TableCell align="right">Genomsnittlig K/D/A</TableCell>
           <TableCell align="right" size="small">
@@ -101,9 +104,18 @@ const ScoreTable = ({ scoreRows, style }) => {
       <TableBody>
         {scoreRows.map((row) => (
           <TableRow key={row.name} hover>
-            <TableCell component="th" scope="row">
-              {row.name}
+            <TableCell padding="none">
+              {row.awards.map((award) => (
+                <span
+                  key={`${row.id}-${award.label}`}
+                  role="img"
+                  aria-label={award.label}
+                >
+                  {award.emoji}
+                </span>
+              ))}
             </TableCell>
+            <TableCell scope="row">{row.name}</TableCell>
             <TableCell align="right">{`${row.average.kills} / ${row.average.deaths} / ${row.average.assists}`}</TableCell>
             <TableCell align="right" size="small">
               {row.matches}
@@ -135,6 +147,23 @@ const ScoreBoard = ({ matches, style }) => {
   // Sort all players on win ratio
   scores.sort((a, b) => b.winRatio - a.winRatio);
 
+  // Add skull award player who died the most
+  let maxFirstBloodsPlayerId = scores[0].id;
+  let maxFirstBloods = scores[0].firstBloodsDied;
+  scores.forEach(({ id, firstBloodsDied }) => {
+    if (firstBloodsDied >= maxFirstBloods) {
+      maxFirstBloodsPlayerId = id;
+      maxFirstBloods = firstBloodsDied;
+    }
+  });
+
+  scores.map((elem) => {
+    if (elem.id === maxFirstBloodsPlayerId) {
+      elem.awards = [elem.awards, { emoji: "💀", label: "Skull" }];
+    }
+    return elem;
+  });
+
   // Players have a calibrated win ratio after 10 games. Split and show in
   // different tables
   let calibrated = scores.filter((player) => player.matches >= 10);
@@ -142,29 +171,16 @@ const ScoreBoard = ({ matches, style }) => {
   uncalibrated = uncalibrated.sort((a, b) => b.matches - a.matches); // Sort on number of matches
 
   // Add medals to top three
-  const medals = ["🥇", "🥈", "🥉"];
+  const medals = [
+    { emoji: "🥇", label: "1st place medal" },
+    { emoji: "🥈", label: "2nd place medal" },
+    { emoji: "🥉", label: "3rd place medal" },
+  ];
   calibrated = calibrated.map((elem, idx) =>
     idx < medals.length
-      ? { ...elem, name: `${medals[idx]} ${elem.name}` }
+      ? { ...elem, awards: [...elem.awards, medals[idx]] }
       : elem
   );
-
-  // Add skull to player who died the most
-  let maxFirstBloodsPlayerId = calibrated[0].id;
-  let maxFirstBloods = calibrated[0].firstBloodsDied;
-  calibrated.forEach(({ id, firstBloodsDied }) => {
-    if (firstBloodsDied >= maxFirstBloods) {
-      maxFirstBloodsPlayerId = id;
-      maxFirstBloods = firstBloodsDied;
-    }
-  });
-
-  calibrated.map((elem) => {
-    if (elem.id === maxFirstBloodsPlayerId) {
-      elem.name = `💀 ${elem.name}`;
-    }
-    return elem;
-  });
 
   return (
     <Card style={style}>
