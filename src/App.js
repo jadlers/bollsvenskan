@@ -40,13 +40,16 @@ function App() {
     >
       <SnackbarContextProvider>
         <Typography
-          variant="h1"
+          variant="h3"
           align="center"
           style={{ cursor: "pointer" }}
           gutterBottom
           onClick={() => navigate("/")}
         >
-          Kung DotA 🏆
+          Kung DotA{" "}
+          <span role="img" aria-label="Trophy">
+            🏆
+          </span>
         </Typography>
         {/* Container */}
         <div style={{ margin: "10px auto", textAlign: "center" }}>
