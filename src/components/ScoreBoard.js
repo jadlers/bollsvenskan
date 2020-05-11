@@ -25,7 +25,7 @@ const getAllPlayers = (matches) => {
   return players;
 };
 
-const createTableRowForPlayer = (player, matches) => {
+const createTableRowForPlayer = (player, eloRating, matches) => {
   let losses = 0;
   let wins = 0;
   let kills = 0;
@@ -64,6 +64,7 @@ const createTableRowForPlayer = (player, matches) => {
   return {
     id: player.id,
     name: player.name,
+    eloRating,
     awards: [],
     matches: numMatches,
     wins,
@@ -86,6 +87,7 @@ const ScoreTable = ({ scoreRows, style }) => {
           {/* For awards, no text needed*/}
           <TableCell size="small" padding="none"></TableCell>
           <TableCell>Namn</TableCell>
+          <TableCell size="small">ELO</TableCell>
           <TableCell align="right">Genomsnittlig K/D/A</TableCell>
           <TableCell align="right" size="small">
             Matcher
@@ -115,7 +117,8 @@ const ScoreTable = ({ scoreRows, style }) => {
                 </span>
               ))}
             </TableCell>
-            <TableCell scope="row">{row.name}</TableCell>
+            <TableCell>{row.name}</TableCell>
+            <TableCell size="small">{row.eloRating}</TableCell>
             <TableCell align="right">{`${row.average.kills} / ${row.average.deaths} / ${row.average.assists}`}</TableCell>
             <TableCell align="right" size="small">
               {row.matches}
@@ -136,13 +139,14 @@ const ScoreTable = ({ scoreRows, style }) => {
   );
 };
 
-const ScoreBoard = ({ matches, style }) => {
+const ScoreBoard = ({ matches, players, style }) => {
   let scores = [];
-  const players = getAllPlayers(matches);
+  const playersWithMatches = getAllPlayers(matches);
 
-  players.forEach((player) =>
-    scores.push(createTableRowForPlayer(player, matches))
-  );
+  playersWithMatches.forEach((player) => {
+    const currPlayerElo = players.find((p) => p.id === player.id).eloRating;
+    scores.push(createTableRowForPlayer(player, currPlayerElo, matches));
+  });
 
   // Sort all players on win ratio
   scores.sort((a, b) => b.winRatio - a.winRatio);
@@ -153,7 +157,7 @@ const ScoreBoard = ({ matches, style }) => {
   );
   scores.map((elem) => {
     if (elem.firstBloodsDied === maxFirstBloods) {
-      elem.awards = [elem.awards, { emoji: "💀", label: "Skull" }];
+      elem.awards = [...elem.awards, { emoji: "💀", label: "Skull" }];
     }
     return elem;
   });

@@ -11,12 +11,12 @@ import LeagueOverview from "./components/LeagueOverview";
 import DevopsEasterEgg from "./components/DevopsEasterEgg.jsx";
 
 function App() {
+  const baseUrl = process.env.REACT_APP_API_URL;
   const [matches, setMatches] = useState([]);
+  const [players, setPlayers] = useState([]);
 
   useEffect(() => {
     const fetchAllMatches = async () => {
-      const baseUrl = process.env.REACT_APP_API_URL;
-
       // TODO: This should default to /league/2 for the current dota 2 league
       // NOTE: That endpoint however is not completed
       const res = await fetch(`${baseUrl}/match`);
@@ -29,7 +29,21 @@ function App() {
     };
 
     fetchAllMatches();
-  }, []);
+  }, [baseUrl]);
+
+  useEffect(() => {
+    const fetchAllPlayers = async () => {
+      const res = await fetch(`${baseUrl}/player`);
+      if (!res.ok) {
+        return;
+      }
+
+      const body = await res.json();
+      setPlayers(body.players);
+    };
+
+    fetchAllPlayers();
+  }, [baseUrl]);
 
   return (
     <div
@@ -66,7 +80,7 @@ function App() {
           </Button>
         </div>
         <Router>
-          <LeagueOverview path="/" matches={matches} />
+          <LeagueOverview path="/" matches={matches} players={players} />
           {/* Show table from specific league */}
           <LeagueOverview path="/league/:leagueId" />
           <NewMatchForm path="/add-match" />
