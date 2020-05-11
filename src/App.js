@@ -5,6 +5,7 @@ import { SnackbarContextProvider } from "./SnackbarContext";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 
+import EloGraph from "./components/EloGraph";
 import NewMatchForm from "./components/NewMatchForm";
 import NewPlayerForm from "./components/NewPlayerForm";
 import LeagueOverview from "./components/LeagueOverview";
@@ -83,6 +84,7 @@ function App() {
           <LeagueOverview path="/" matches={matches} players={players} />
           {/* Show table from specific league */}
           <LeagueOverview path="/league/:leagueId" />
+          <EloGraph path="/elo" matches={matches} />
           <NewMatchForm path="/add-match" />
           <NewPlayerForm path="/add-player" />
           <DevopsEasterEgg path="/devops" />
