@@ -147,18 +147,12 @@ const ScoreBoard = ({ matches, style }) => {
   // Sort all players on win ratio
   scores.sort((a, b) => b.winRatio - a.winRatio);
 
-  // Add skull award player who died the most
-  let maxFirstBloodsPlayerId = scores[0].id;
-  let maxFirstBloods = scores[0].firstBloodsDied;
-  scores.forEach(({ id, firstBloodsDied }) => {
-    if (firstBloodsDied >= maxFirstBloods) {
-      maxFirstBloodsPlayerId = id;
-      maxFirstBloods = firstBloodsDied;
-    }
-  });
-
+  // Add skull award player(s) who died the most
+  const maxFirstBloods = Math.max(
+    ...scores.map((player) => player.firstBloodsDied)
+  );
   scores.map((elem) => {
-    if (elem.id === maxFirstBloodsPlayerId) {
+    if (elem.firstBloodsDied === maxFirstBloods) {
       elem.awards = [elem.awards, { emoji: "💀", label: "Skull" }];
     }
     return elem;
