@@ -21,49 +21,57 @@ function getAllPlayers(matches) {
 
 function createDatasetForPlayer(player, matches) {
   const { id: playerId, name } = player;
-  let eloValues = [];
-  let lastEloVal = null;
-  let lastPlayedMatchIdx = -1;
-  for (let i = 0; i < matches.length; i++) {
-    const match = matches[i];
+  let eloValues = [1500]; // Initial ELO for all players
+  for (const match of matches) {
     const playersInMatch = match.teams.flat();
     if (playersInMatch.map((m) => m.id).includes(playerId)) {
       const eloForMatch = playersInMatch.find((p) => p.id === playerId)
         .eloRating;
-      lastEloVal = eloForMatch;
-      lastPlayedMatchIdx = i;
+      eloValues.push(eloForMatch);
+    } else {
+      eloValues.push(null);
     }
-    eloValues.push(lastEloVal);
-  }
-
-  // Go backwards in history and set current eloRating for the last matches if
-  // the player has not been in the last matches
-  eloValues = eloValues.slice(0, lastPlayedMatchIdx + 1);
-  for (let i = 0; i < matches.length - lastPlayedMatchIdx; i++) {
-    eloValues.push(player.currentElo);
   }
 
   return {
     label: name,
     fill: false,
+    spanGaps: true,
+    lineTension: 0.5,
     data: eloValues,
   };
 }
 
-export default function EloGraph({ matches, players }) {
-  if (matches.length === 0 || players.length === 0) return <p>Loading...</p>;
+export default function EloGraph({ matches }) {
+  if (matches.length === 0) return <p>Loading...</p>;
 
-  const playersInMatches = getAllPlayers(matches);
-  // Add current ELO as well
-  playersInMatches.forEach((player) => {
-    const currentElo = players.find((p) => p.id === player.id).eloRating;
-    player.currentElo = currentElo;
-  });
-  const datasets = playersInMatches.map((player) =>
+  const players = getAllPlayers(matches);
+  const datasets = players.map((player) =>
     createDatasetForPlayer(player, matches)
   );
 
-  console.log(datasets);
+  // Copied bright colors from:
+  // https://seaborn.pydata.org/tutorial/color_palettes.html
+  const colors = [
+    { fill: "rgba(232, 0, 11, 0.1)", border: "rgba(232, 0, 11, 1)" },
+    { fill: "rgba(139, 43, 226, 0.1)", border: "rgba(139, 43, 226, 1)" },
+    { fill: "rgba(159, 72, 0, 0.1)", border: "rgba(159, 72, 0, 1)" },
+    { fill: "rgba(241, 76, 193, 0.1)", border: "rgba(241, 76, 193, 1)" },
+    { fill: "rgba(163, 163, 163, 0.1)", border: "rgba(163, 163, 163, 1)" },
+    { fill: "rgba(255, 196, 0, 0.1)", border: "rgba(255, 196, 0, 1)" },
+    { fill: "rgba(0, 215, 255, 0.1)", border: "rgba(0, 215, 255, 1)" },
+    { fill: "rgba(2, 62, 255, 0.1)", border: "rgba(2, 62, 255, 1)" },
+    { fill: "rgba(255, 124, 0, 0.1)", border: "rgba(255, 124, 0, 1)" },
+    { fill: "rgba(26, 201, 56, 0.1)", border: "rgba(26, 201, 56, 1)" },
+  ];
+
+  datasets.forEach((ds, idx) => {
+    ds.backgroundColor = colors[idx % colors.length].fill;
+    ds.borderColor = colors[idx % colors.length].border;
+    if (idx >= colors.length) {
+      ds.borderDash = [15, 5];
+    }
+  });
 
   const data = {
     labels: datasets[0].data.map((_, idx) => idx),
