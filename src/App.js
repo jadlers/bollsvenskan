@@ -84,7 +84,7 @@ function App() {
           <LeagueOverview path="/" matches={matches} players={players} />
           {/* Show table from specific league */}
           <LeagueOverview path="/league/:leagueId" />
-          <EloGraph path="/elo" matches={matches} />
+          <EloGraph path="/elo" matches={matches} players={players} />
           <NewMatchForm path="/add-match" />
           <NewPlayerForm path="/add-player" />
           <DevopsEasterEgg path="/devops" />

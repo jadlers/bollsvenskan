@@ -21,17 +21,26 @@ function getAllPlayers(matches) {
 
 function createDatasetForPlayer(player, matches) {
   const { id: playerId, name } = player;
-  const eloValues = [];
+  let eloValues = [];
   let lastEloVal = null;
-  for (const match of matches) {
+  let lastPlayedMatchIdx = -1;
+  for (let i = 0; i < matches.length; i++) {
+    const match = matches[i];
     const playersInMatch = match.teams.flat();
     if (playersInMatch.map((m) => m.id).includes(playerId)) {
       const eloForMatch = playersInMatch.find((p) => p.id === playerId)
         .eloRating;
       lastEloVal = eloForMatch;
+      lastPlayedMatchIdx = i;
     }
-
     eloValues.push(lastEloVal);
+  }
+
+  // Go backwards in history and set current eloRating for the last matches if
+  // the player has not been in the last matches
+  eloValues = eloValues.slice(0, lastPlayedMatchIdx + 1);
+  for (let i = 0; i < matches.length - lastPlayedMatchIdx; i++) {
+    eloValues.push(player.currentElo);
   }
 
   return {
@@ -41,18 +50,23 @@ function createDatasetForPlayer(player, matches) {
   };
 }
 
-export default function EloGraph({ matches }) {
-  if (matches.length === 0) return <p>Loading...</p>;
+export default function EloGraph({ matches, players }) {
+  if (matches.length === 0 || players.length === 0) return <p>Loading...</p>;
 
-  const players = getAllPlayers(matches);
-  const datasets = players.map((player) =>
+  const playersInMatches = getAllPlayers(matches);
+  // Add current ELO as well
+  playersInMatches.forEach((player) => {
+    const currentElo = players.find((p) => p.id === player.id).eloRating;
+    player.currentElo = currentElo;
+  });
+  const datasets = playersInMatches.map((player) =>
     createDatasetForPlayer(player, matches)
   );
 
   console.log(datasets);
 
   const data = {
-    labels: matches.map((_, idx) => idx + 1),
+    labels: datasets[0].data.map((_, idx) => idx),
     datasets,
   };
   return <Line data={data} />;
