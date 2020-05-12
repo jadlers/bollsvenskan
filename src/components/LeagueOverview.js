@@ -1,10 +1,13 @@
 import React from "react";
 
-import ScoreBoard from "./ScoreBoard";
+import EloGraph from "./EloGraph";
 import MatchesList from "./MatchesList";
+import ScoreBoard from "./ScoreBoard";
 
-import Fade from "@material-ui/core/Fade";
+import CardContent from "@material-ui/core/CardContent";
+import Card from "@material-ui/core/Card";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Fade from "@material-ui/core/Fade";
 
 function LeagueOverview({ matches, players }) {
   // Wait for both matches and players to be fetched
@@ -30,11 +33,12 @@ function LeagueOverview({ matches, players }) {
         players={players}
         style={{ marginBottom: "2em" }}
       />
-      <MatchesList
-        matches={matches.sort((a, b) =>
-          a.dotaMatchId <= b.dotaMatchId ? 1 : -1
-        )}
-      />
+      <Card raised style={{ marginBottom: "2em" }}>
+        <CardContent>
+          <EloGraph matches={matches} players={players} />
+        </CardContent>
+      </Card>
+      <MatchesList matches={matches} />
     </>
   );
 }
