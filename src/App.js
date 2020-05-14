@@ -6,6 +6,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 
 import EloGraph from "./components/EloGraph";
+import CreateBalancedTeams from "./components/CreateBalancedTeams";
 import NewMatchForm from "./components/NewMatchForm";
 import NewPlayerForm from "./components/NewPlayerForm";
 import LeagueOverview from "./components/LeagueOverview";
@@ -85,6 +86,7 @@ function App() {
           {/* Show table from specific league */}
           <LeagueOverview path="/league/:leagueId" />
           <EloGraph path="/elo" matches={matches} players={players} />
+          <CreateBalancedTeams path="/teams" players={players} />
           <NewMatchForm path="/add-match" />
           <NewPlayerForm path="/add-player" />
           <DevopsEasterEgg path="/devops" />
