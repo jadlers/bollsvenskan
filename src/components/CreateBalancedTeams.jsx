@@ -1,4 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { w3cwebsocket as W3CWebSocket } from "websocket";
 
 import { SnackbarContext } from "../SnackbarContext";
 
@@ -12,8 +13,21 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormLabel from "@material-ui/core/FormLabel";
 
+const baseUrl = process.env.REACT_APP_API_URL;
+let client;
+
 const CreateBalancedTeams = ({ players }) => {
   const snackbar = useContext(SnackbarContext);
+
+  useEffect(() => {
+    client = new W3CWebSocket(`${baseUrl.replace("http", "ws")}/teams`);
+    client.onopen = (msg) =>
+      console.log(`Connection to ${msg.target.url} established`);
+    client.onmessage = (msg) => console.log(JSON.parse(msg.data));
+
+    // Close the connection when unmounting component
+    return () => client.close();
+  }, []);
 
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const [teams, setTeams] = useState({});
@@ -32,7 +46,6 @@ const CreateBalancedTeams = ({ players }) => {
   const handleSubmit = async () => {
     const data = { players: selectedPlayers };
 
-    const baseUrl = process.env.REACT_APP_API_URL;
     try {
       // NOTE: Should not hard code the league
       snackbar.open("Balanserar lagen");
@@ -47,6 +60,8 @@ const CreateBalancedTeams = ({ players }) => {
       if (res.ok) {
         const body = await res.json();
         setTeams(body);
+        // Send to ws here
+        client.send(JSON.stringify({ type: "BROADCAST_TEAMS", teams: body }));
       } else {
         snackbar.open("Misslyckades med att balansera lagen");
       }

@@ -5,12 +5,12 @@ import { SnackbarContextProvider } from "./SnackbarContext";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 
-import EloGraph from "./components/EloGraph";
 import CreateBalancedTeams from "./components/CreateBalancedTeams";
+import DevopsEasterEgg from "./components/DevopsEasterEgg.jsx";
+import EloGraph from "./components/EloGraph";
+import LeagueOverview from "./components/LeagueOverview";
 import NewMatchForm from "./components/NewMatchForm";
 import NewPlayerForm from "./components/NewPlayerForm";
-import LeagueOverview from "./components/LeagueOverview";
-import DevopsEasterEgg from "./components/DevopsEasterEgg.jsx";
 
 function App() {
   const baseUrl = process.env.REACT_APP_API_URL;
@@ -86,7 +86,7 @@ function App() {
           {/* Show table from specific league */}
           <LeagueOverview path="/league/:leagueId" />
           <EloGraph path="/elo" matches={matches} players={players} />
-          <CreateBalancedTeams path="/teams" players={players} />
+          <CreateBalancedTeams path="/reveal-teams" players={players} />
           <NewMatchForm path="/add-match" />
           <NewPlayerForm path="/add-player" />
           <DevopsEasterEgg path="/devops" />
