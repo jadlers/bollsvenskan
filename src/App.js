@@ -11,6 +11,7 @@ import EloGraph from "./components/EloGraph";
 import LeagueOverview from "./components/LeagueOverview";
 import NewMatchForm from "./components/NewMatchForm";
 import NewPlayerForm from "./components/NewPlayerForm";
+import ShowBalancedTeams from "./components/ShowBalancedTeams";
 
 function App() {
   const baseUrl = process.env.REACT_APP_API_URL;
@@ -87,6 +88,7 @@ function App() {
           <LeagueOverview path="/league/:leagueId" />
           <EloGraph path="/elo" matches={matches} players={players} />
           <CreateBalancedTeams path="/reveal-teams" players={players} />
+          <ShowBalancedTeams path="/teams" players={players} />
           <NewMatchForm path="/add-match" />
           <NewPlayerForm path="/add-player" />
           <DevopsEasterEgg path="/devops" />
