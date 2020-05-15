@@ -12,12 +12,17 @@ import UnsettledName from "./UnsettledName";
 const baseUrl = process.env.REACT_APP_API_URL;
 let client;
 
+const getWsBaseUrl = () => {
+  let parts = baseUrl.split("://");
+  return `ws://${parts[1]}`;
+};
+
 export default function RevealTeams(props) {
   const [teams, setTeams] = useState([]);
   const [remainingPlayers, setRemainingPlayers] = useState([]);
 
   useEffect(() => {
-    client = new W3CWebSocket(`${baseUrl.replace("http", "ws")}/teams`);
+    client = new W3CWebSocket(`${getWsBaseUrl()}/teams`);
     client.onopen = (msg) =>
       console.log(`Connection to ${msg.target.url} established`);
     client.onmessage = (msg) => {
