@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { w3cwebsocket as W3CWebSocket } from "websocket";
+import socketIOClient from "socket.io-client";
 
 import CardContent from "@material-ui/core/CardContent";
 import Card from "@material-ui/core/Card";
@@ -9,25 +9,20 @@ import Typography from "@material-ui/core/Typography";
 
 import UnsettledName from "./UnsettledName";
 
-const baseUrl = process.env.REACT_APP_API_URL;
-let client;
-
-const getWsBaseUrl = () => {
-  let parts = baseUrl.split("://");
-  return `ws://${parts[1]}`;
-};
+let socket;
 
 export default function RevealTeams(props) {
   const [teams, setTeams] = useState([]);
   const [remainingPlayers, setRemainingPlayers] = useState([]);
 
   useEffect(() => {
-    client = new W3CWebSocket(`${getWsBaseUrl()}/teams`);
-    client.onopen = (msg) =>
-      console.log(`Connection to ${msg.target.url} established`);
-    client.onmessage = (msg) => {
+    socket = socketIOClient(process.env.REACT_APP_API_URL);
+    socket.on("connect", () => console.log("ws connection established"));
+    socket.on("connect_error", (error) => console.log(error));
+
+    socket.on("message", (msg) => {
       try {
-        const data = JSON.parse(msg.data);
+        const data = JSON.parse(msg);
         if (data.type === "BROADCAST_TEAM_PLAYERS_ONE_BY_ONE") {
           setTeams([data.team1, data.team2]);
           setRemainingPlayers(data.playersLeft);
@@ -36,10 +31,10 @@ export default function RevealTeams(props) {
         console.log(err);
         return;
       }
-    };
+    });
 
     // Close the connection when unmounting component
-    return () => client.close();
+    return () => socket.close();
   }, []);
 
   return (
