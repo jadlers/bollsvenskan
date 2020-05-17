@@ -111,7 +111,7 @@ function FirstBloodHighlight({ player, dotaMatchId }) {
   return (
     <Typography>
       {parts[0]}
-      <b>{player.name}</b>
+      <b>{player ? player.name : "???"}</b>
       {parts[1]}
       {" och dog first blood."}
     </Typography>
