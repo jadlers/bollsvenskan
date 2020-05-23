@@ -77,5 +77,13 @@ export default function EloGraph({ matches }) {
     labels: datasets[0].data.map((_, idx) => idx),
     datasets,
   };
-  return <Line data={data} />;
+
+  // TODO: make mobile options to styling in a better way
+  let mobileOptions = {};
+  if (window.innerWidth < 500) {
+    mobileOptions.height = 500;
+    mobileOptions.options = { maintainAspectRatio: false };
+  }
+
+  return <Line {...mobileOptions} data={data} />;
 }
