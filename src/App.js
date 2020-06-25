@@ -6,7 +6,6 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 
 import CreateBalancedTeams from "./components/CreateBalancedTeams";
-import DevopsEasterEgg from "./components/DevopsEasterEgg.jsx";
 import EloGraph from "./components/EloGraph";
 import LeagueOverview from "./components/LeagueOverview";
 import NewMatchForm from "./components/NewMatchForm";
@@ -91,7 +90,6 @@ function App() {
           <ShowBalancedTeams path="/teams" players={players} />
           <NewMatchForm path="/add-match" />
           <NewPlayerForm path="/add-player" />
-          <DevopsEasterEgg path="/devops" />
         </Router>
       </SnackbarContextProvider>
     </div>
