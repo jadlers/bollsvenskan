@@ -69,7 +69,18 @@ function App() {
           </span>
         </Typography>
         {/* Container */}
-        <div style={{ margin: "10px auto", textAlign: "center" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            margin: "10px auto",
+            textAlign: "center",
+          }}
+        >
+          <div>
+            <Button href="/league/2/0">Säsong 1</Button>
+            <Button href="/league/2/1">Säsong 2</Button>
+          </div>
           <Button
             color="primary"
             variant="outlined"
@@ -84,7 +95,16 @@ function App() {
         <Router>
           <LeagueOverview path="/" matches={matches} players={players} />
           {/* Show table from specific league */}
-          <LeagueOverview path="/league/:leagueId" />
+          <LeagueOverview
+            path="/league/:leagueId"
+            matches={matches}
+            players={players}
+          />
+          <LeagueOverview
+            path="/league/:leagueId/:season"
+            matches={matches}
+            players={players}
+          />
           <EloGraph path="/elo" matches={matches} players={players} />
           <CreateBalancedTeams path="/reveal-teams" players={players} />
           <ShowBalancedTeams path="/teams" players={players} />
