@@ -35,7 +35,7 @@ function App() {
 
   useEffect(() => {
     const fetchAllPlayers = async () => {
-      const res = await fetch(`${baseUrl}/player`);
+      const res = await fetch(`${baseUrl}/player?type=dota`);
       if (!res.ok) {
         return;
       }

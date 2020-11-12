@@ -19,9 +19,18 @@ function getAllPlayers(matches) {
   return players;
 }
 
-function createDatasetForPlayer(player, matches) {
-  const { id: playerId, name } = player;
-  let eloValues = [1500]; // Initial ELO for all players
+function createDatasetForPlayer(player, matches, season) {
+  const { id: playerId, username: name } = player;
+  const playersSeasons = player.stats
+    .filter((stats) => stats.season !== undefined)
+    .map((stats) => stats.season);
+  const lastSeason = season - 1;
+  let eloValues = [1500];
+  if (playersSeasons.includes(lastSeason)) {
+    // TODO: Improve to find any previous season
+    const lastSeasonStats = player.stats.find((s) => s.season === lastSeason);
+    eloValues = [lastSeasonStats.seasonElo];
+  }
   for (const match of matches) {
     const playersInMatch = match.teams.flat();
     if (playersInMatch.map((m) => m.id).includes(playerId)) {
@@ -42,13 +51,14 @@ function createDatasetForPlayer(player, matches) {
   };
 }
 
-export default function EloGraph({ matches }) {
+export default function EloGraph({ matches, players, season }) {
   if (matches.length === 0) return <p>Loading...</p>;
 
-  const players = getAllPlayers(matches);
-  const datasets = players.map((player) =>
-    createDatasetForPlayer(player, matches)
-  );
+  const playersInMatches = getAllPlayers(matches).map((p) => p.id);
+
+  const datasets = players
+    .filter((p) => playersInMatches.includes(p.id) && p.id !== 25)
+    .map((player) => createDatasetForPlayer(player, matches, season));
 
   // Copied bright colors from:
   // https://seaborn.pydata.org/tutorial/color_palettes.html
@@ -74,7 +84,7 @@ export default function EloGraph({ matches }) {
   });
 
   const data = {
-    labels: datasets[0].data.map((_, idx) => idx),
+    labels: datasets[0].data.map((_, idx) => (idx === 0 ? "start" : idx)),
     datasets,
   };
 

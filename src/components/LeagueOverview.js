@@ -47,7 +47,7 @@ function LeagueOverview({ matches, players, leagueId, season }) {
       />
       <Card raised style={{ marginBottom: "2em" }}>
         <CardContent>
-          <EloGraph matches={matches} players={players} />
+          <EloGraph matches={matches} players={players} season={season} />
         </CardContent>
       </Card>
       <MatchesList matches={matches} />
