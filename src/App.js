@@ -16,6 +16,10 @@ function App() {
   const baseUrl = process.env.REACT_APP_API_URL;
   const [matches, setMatches] = useState([]);
   const [players, setPlayers] = useState([]);
+  const [pollUrl, setPollUrl] = useState(
+    // Default to document with all links
+    "http://nextcloud.jacobadlers.com/index.php/s/nntLtmeAFytc3SW"
+  );
 
   useEffect(() => {
     const fetchAllMatches = async () => {
@@ -45,6 +49,22 @@ function App() {
     };
 
     fetchAllPlayers();
+  }, [baseUrl]);
+
+  useEffect(() => {
+    const fetchSignupLinks = async () => {
+      try {
+        const res = await fetch(`${baseUrl}/dota-signup`);
+        const body = await res.json();
+        if (body.currentPollUrl !== "") {
+          setPollUrl(body.currentPollUrl);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchSignupLinks();
   }, [baseUrl]);
 
   return (
@@ -85,7 +105,7 @@ function App() {
             color="primary"
             variant="outlined"
             size="large"
-            href="http://nextcloud.jacobadlers.com/index.php/s/nntLtmeAFytc3SW"
+            href={pollUrl}
             target="_blank"
             rel="noopener noreferrer"
           >
