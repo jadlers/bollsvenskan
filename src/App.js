@@ -78,8 +78,8 @@ function App() {
           }}
         >
           <div>
-            <Button href="/league/2/0">Säsong 1</Button>
-            <Button href="/league/2/1">Säsong 2</Button>
+            <Button onClick={() => navigate("/league/2/0")}>Säsong 1</Button>
+            <Button onClick={() => navigate("/league/2/1")}>Säsong 2</Button>
           </div>
           <Button
             color="primary"
