@@ -32,6 +32,7 @@ const createTableRowForPlayer = (player, eloRating, matches) => {
   let deaths = 0;
   let assists = 0;
   let firstBloodsDied = 0;
+  let totFantasyPoints = 0;
 
   matches.forEach((match) => {
     let stats;
@@ -56,10 +57,12 @@ const createTableRowForPlayer = (player, eloRating, matches) => {
       kills += stats.kills;
       deaths += stats.deaths;
       assists += stats.assists;
+      totFantasyPoints += stats.fantasy_points;
     }
   });
 
   const numMatches = wins + losses;
+  const avgFantasyPoints = totFantasyPoints / numMatches || 0;
 
   return {
     id: player.id,
@@ -75,6 +78,7 @@ const createTableRowForPlayer = (player, eloRating, matches) => {
       kills: (kills / numMatches).toFixed(1),
       deaths: (deaths / numMatches).toFixed(1),
       assists: (assists / numMatches).toFixed(1),
+      fantasyPoints: avgFantasyPoints.toFixed(2),
     },
   };
 };
@@ -89,6 +93,9 @@ const ScoreTable = ({ scoreRows, style }) => {
           <TableCell>Namn</TableCell>
           <TableCell size="small">ELO</TableCell>
           <TableCell align="right">Genomsnittlig K/D/A</TableCell>
+          <TableCell align="right" size="small">
+            FP
+          </TableCell>
           <TableCell align="right" size="small">
             Matcher
           </TableCell>
@@ -120,6 +127,9 @@ const ScoreTable = ({ scoreRows, style }) => {
             <TableCell>{row.name}</TableCell>
             <TableCell size="small">{row.eloRating}</TableCell>
             <TableCell align="right">{`${row.average.kills} / ${row.average.deaths} / ${row.average.assists}`}</TableCell>
+            <TableCell align="right" size="small">
+              {row.average.fantasyPoints}
+            </TableCell>
             <TableCell align="right" size="small">
               {row.matches}
             </TableCell>
