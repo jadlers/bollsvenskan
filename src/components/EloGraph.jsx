@@ -1,23 +1,7 @@
 import React from "react";
+import { playerIdsInMatches } from "../util";
 
 import { Line } from "react-chartjs-2";
-
-// NOTE: Copied from ScoreBoard.js, should move to util.js or something to reuse
-function getAllPlayers(matches) {
-  const playerIdSet = new Set();
-  let players = [];
-  matches.forEach((match) => {
-    match.teams.forEach((team) => {
-      team.forEach((player) => {
-        if (!playerIdSet.has(player.id)) {
-          players.push({ id: player.id, name: player.name });
-        }
-        playerIdSet.add(player.id);
-      });
-    });
-  });
-  return players;
-}
 
 function createDatasetForPlayer(player, matches, season) {
   const { id: playerId, username: name } = player;
@@ -54,10 +38,9 @@ function createDatasetForPlayer(player, matches, season) {
 export default function EloGraph({ matches, players, season }) {
   if (matches.length === 0) return <p>Loading...</p>;
 
-  const playersInMatches = getAllPlayers(matches).map((p) => p.id);
-
+  const includedPlayers = playerIdsInMatches(matches);
   const datasets = players
-    .filter((p) => playersInMatches.includes(p.id) && p.id !== 25)
+    .filter((p) => includedPlayers.includes(p.id) && p.id !== 25)
     .map((player) => createDatasetForPlayer(player, matches, season));
 
   // Copied bright colors from:

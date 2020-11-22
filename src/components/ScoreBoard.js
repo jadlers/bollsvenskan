@@ -1,5 +1,7 @@
 import React from "react";
 
+import { playerIdsInMatches } from "../util";
+
 import CardContent from "@material-ui/core/CardContent";
 import Card from "@material-ui/core/Card";
 import TableBody from "@material-ui/core/TableBody";
@@ -9,23 +11,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
 
-const getAllPlayers = (matches) => {
-  const playerIdSet = new Set();
-  let players = [];
-  matches.forEach((match) => {
-    match.teams.forEach((team) => {
-      team.forEach((player) => {
-        if (!playerIdSet.has(player.id)) {
-          players.push({ id: player.id, name: player.name });
-        }
-        playerIdSet.add(player.id);
-      });
-    });
-  });
-  return players;
-};
-
-const createTableRowForPlayer = (player, eloRating, matches) => {
+const createTableRowForPlayer = (player, matches) => {
   let losses = 0;
   let wins = 0;
   let kills = 0;
@@ -36,17 +22,17 @@ const createTableRowForPlayer = (player, eloRating, matches) => {
 
   matches.forEach((match) => {
     let stats;
-    if (match.teams[match.winner].map((p) => p.name).includes(player.name)) {
+    if (match.teams[match.winner].map((p) => p.id).includes(player.id)) {
       wins++;
-      stats = match.teams.flat().find((p) => p.name === player.name).stats;
+      stats = match.teams.flat().find((p) => p.id === player.id).stats;
     } else if (
       match.teams
         .flat()
-        .map((p) => p.name)
-        .includes(player.name)
+        .map((p) => p.id)
+        .includes(player.id)
     ) {
       losses++;
-      stats = match.teams.flat().find((p) => p.name === player.name).stats;
+      stats = match.teams.flat().find((p) => p.id === player.id).stats;
     }
 
     if (match.diedFirstBlood === player.id) {
@@ -66,8 +52,8 @@ const createTableRowForPlayer = (player, eloRating, matches) => {
 
   return {
     id: player.id,
-    name: player.name,
-    eloRating,
+    name: player.username,
+    eloRating: player.eloRating,
     awards: [],
     matches: numMatches,
     wins,
@@ -150,13 +136,10 @@ const ScoreTable = ({ scoreRows, style }) => {
 };
 
 const ScoreBoard = ({ matches, players, style }) => {
-  let scores = [];
-  const playersWithMatches = getAllPlayers(matches);
-
-  playersWithMatches.forEach((player) => {
-    const currPlayerElo = players.find((p) => p.id === player.id).eloRating;
-    scores.push(createTableRowForPlayer(player, currPlayerElo, matches));
-  });
+  const includedPlayers = playerIdsInMatches(matches);
+  const scores = players
+    .filter((player) => includedPlayers.includes(player.id))
+    .map((player) => createTableRowForPlayer(player, matches));
 
   // Sort all players on win ratio
   scores.sort((a, b) => b.winRatio - a.winRatio);
