@@ -18,6 +18,7 @@ const createTableRowForPlayer = (player, matches) => {
   let deaths = 0;
   let assists = 0;
   let firstBloodsDied = 0;
+  let firstBloodsClaimed = 0;
   let totFantasyPoints = 0;
 
   matches.forEach((match) => {
@@ -37,6 +38,9 @@ const createTableRowForPlayer = (player, matches) => {
 
     if (match.diedFirstBlood === player.id) {
       firstBloodsDied++;
+    }
+    if (match.claimedFirstBlood === player.id) {
+      firstBloodsClaimed++;
     }
 
     if (stats) {
@@ -60,6 +64,7 @@ const createTableRowForPlayer = (player, matches) => {
     losses,
     winRatio: ((wins / numMatches) * 100).toFixed(0),
     firstBloodsDied,
+    firstBloodsClaimed,
     average: {
       kills: (kills / numMatches).toFixed(1),
       deaths: (deaths / numMatches).toFixed(1),
@@ -148,9 +153,15 @@ const ScoreBoard = ({ matches, players, style }) => {
   const maxFirstBloods = Math.max(
     ...scores.map((player) => player.firstBloodsDied)
   );
+  const maxFirstBloodsClaimed = Math.max(
+    ...scores.map((player) => player.firstBloodsClaimed)
+  );
   scores.map((elem) => {
     if (elem.firstBloodsDied === maxFirstBloods) {
       elem.awards = [...elem.awards, { emoji: "💀", label: "Skull" }];
+    }
+    if (elem.firstBloodsClaimed === maxFirstBloodsClaimed) {
+      elem.awards = [...elem.awards, { emoji: "🔫", label: "Sword" }];
     }
     return elem;
   });
