@@ -3,6 +3,7 @@ import React from "react";
 import EloGraph from "./EloGraph";
 import MatchesList from "./MatchesList";
 import ScoreBoard from "./ScoreBoard";
+import FirstBloodStats from "./FirstBloodStats";
 
 import CardContent from "@material-ui/core/CardContent";
 import Card from "@material-ui/core/Card";
@@ -50,6 +51,7 @@ function LeagueOverview({ matches, players, leagueId, season }) {
           <EloGraph matches={matches} players={players} season={season} />
         </CardContent>
       </Card>
+      <FirstBloodStats players={players} matches={matches} />
       <MatchesList matches={matches} />
     </>
   );
