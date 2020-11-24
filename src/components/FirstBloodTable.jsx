@@ -34,6 +34,7 @@ function FirstBloodTable({ title, data, displayRow }) {
           </TableHead>
           <TableBody>
             {data
+              .sort((a, b) => a.name > b.name)
               .sort((a, b) => b.amount - a.amount)
               .map((row) => (
                 <TableRow key={row.name}>
