@@ -1,7 +1,5 @@
 import React from "react";
 
-import { playerIdsInMatches } from "../util";
-
 import CardContent from "@material-ui/core/CardContent";
 import Card from "@material-ui/core/Card";
 import TableBody from "@material-ui/core/TableBody";
@@ -141,10 +139,9 @@ const ScoreTable = ({ scoreRows, style }) => {
 };
 
 const ScoreBoard = ({ matches, players, style }) => {
-  const includedPlayers = playerIdsInMatches(matches);
-  const scores = players
-    .filter((player) => includedPlayers.includes(player.id))
-    .map((player) => createTableRowForPlayer(player, matches));
+  const scores = players.map((player) =>
+    createTableRowForPlayer(player, matches)
+  );
 
   // Sort all players on win ratio
   scores.sort((a, b) => b.winRatio - a.winRatio);

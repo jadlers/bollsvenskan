@@ -9,6 +9,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Card from "@material-ui/core/Card";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Fade from "@material-ui/core/Fade";
+import { playerIdsInMatches } from "../util";
 
 function LeagueOverview({ matches, players, leagueId, season }) {
   // Wait for both matches and players to be fetched
@@ -25,6 +26,12 @@ function LeagueOverview({ matches, players, leagueId, season }) {
       (m) => m.leagueId === leagueId && m.season === season
     );
   }
+
+  // Filter players to only include the players which have played
+  const includedPlayerIds = playerIdsInMatches(matches);
+  const includedPlayers = players.filter((player) =>
+    includedPlayerIds.includes(player.id)
+  );
 
   return loading ? (
     <div
@@ -43,15 +50,19 @@ function LeagueOverview({ matches, players, leagueId, season }) {
     <>
       <ScoreBoard
         matches={matches}
-        players={players}
+        players={includedPlayers}
         style={{ marginBottom: "2em" }}
       />
       <Card raised style={{ marginBottom: "2em" }}>
         <CardContent>
-          <EloGraph matches={matches} players={players} season={season} />
+          <EloGraph
+            matches={matches}
+            players={includedPlayers}
+            season={season}
+          />
         </CardContent>
       </Card>
-      <FirstBloodStats players={players} matches={matches} />
+      <FirstBloodStats players={includedPlayers} matches={matches} />
       <MatchesList matches={matches} />
     </>
   );

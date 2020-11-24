@@ -1,5 +1,4 @@
 import React from "react";
-import { playerIdsInMatches } from "../util";
 
 import { Line } from "react-chartjs-2";
 
@@ -38,9 +37,8 @@ function createDatasetForPlayer(player, matches, season) {
 export default function EloGraph({ matches, players, season }) {
   if (matches.length === 0) return <p>Loading...</p>;
 
-  const includedPlayers = playerIdsInMatches(matches);
   const datasets = players
-    .filter((p) => includedPlayers.includes(p.id) && p.id !== 25)
+    .filter((p) => p.id !== 25) // remove standin
     .map((player) => createDatasetForPlayer(player, matches, season));
 
   // Copied bright colors from:
