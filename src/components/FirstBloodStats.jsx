@@ -12,41 +12,25 @@ function countOccurancesReducer(acc, val) {
   return acc;
 }
 
-function mapIdToUsername(id, players) {
-  if (typeof id === "string") {
-    id = parseInt(id);
-  }
-
-  return players.find((p) => p.id === id)?.username;
-}
-
 function FirstBloodStats({ players, matches }) {
   let displayRow = useMediaQuery("(min-width: 700px)");
 
   const diedFirstBloodCounter = matches
     .map((match) => match.diedFirstBlood)
     .reduce(countOccurancesReducer, {});
-
-  let diedFirstBloodList = [];
-  for (const [playerId, deaths] of Object.entries(diedFirstBloodCounter)) {
-    diedFirstBloodList.push({
-      name: mapIdToUsername(playerId, players),
-      amount: deaths,
-    });
-  }
+  const diedFirstBloodList = players.map((player) => {
+    const amount = diedFirstBloodCounter[player.id] || 0;
+    return { name: player.username, amount };
+  });
 
   const claimedFirstBloodCounter = matches
     .map((match) => match.claimedFirstBlood)
     .filter((c) => c !== null) // Sometimes there is no registered killer
     .reduce(countOccurancesReducer, {});
-  let claimedFirstBloodList = [];
-  for (const [playerId, deaths] of Object.entries(claimedFirstBloodCounter)) {
-    const name = mapIdToUsername(playerId, players);
-    claimedFirstBloodList.push({
-      name,
-      amount: deaths,
-    });
-  }
+  const claimedFirstBloodList = players.map((player) => {
+    const amount = claimedFirstBloodCounter[player.id] || 0;
+    return { name: player.username, amount };
+  });
 
   return (
     <div
