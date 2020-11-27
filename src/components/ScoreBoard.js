@@ -158,7 +158,7 @@ const ScoreBoard = ({ matches, players, style }) => {
       elem.awards = [...elem.awards, { emoji: "💀", label: "Skull" }];
     }
     if (elem.firstBloodsClaimed === maxFirstBloodsClaimed) {
-      elem.awards = [...elem.awards, { emoji: "🔫", label: "Sword" }];
+      elem.awards = [...elem.awards, { emoji: "🔫", label: "Gun" }];
     }
     return elem;
   });
