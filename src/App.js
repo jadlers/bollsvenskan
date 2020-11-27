@@ -55,6 +55,10 @@ function App() {
     const fetchSignupLinks = async () => {
       try {
         const res = await fetch(`${baseUrl}/dota-signup`);
+        if (!res.ok) {
+          return;
+        }
+
         const body = await res.json();
         if (body.currentPollUrl !== "") {
           setPollUrl(body.currentPollUrl);
