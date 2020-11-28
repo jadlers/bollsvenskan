@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 
-import Typography from "@material-ui/core/Typography";
-
 function FirstBloodSentence() {
-  const [preName, setPreName] = useState("Satans ");
-  const [postName, setPostName] = useState(" gick hela vägen fram ");
+  const [preName, setPreName] = useState("");
+  const [postName, setPostName] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,53 +14,59 @@ function FirstBloodSentence() {
     console.log(data);
   };
 
+  const labelClasses = "text-sm font-bold text-gray-600 block ";
+  const inputClasses =
+    "w-full p-2 border border-gray-300 rounded mt-1 border focus:outline-none focus:ring-2 focus:ring-blue-600 focus-border-transparent";
+
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Text före namnet:
+      <form onSubmit={handleSubmit} className="flex flex-col space-y-6 p-2">
+        <div>
+          <label htmlFor="preNameMock" className={labelClasses}>
+            Text före namnet
+          </label>
           <input
+            className={inputClasses}
             type="text"
-            placeholder="Före namn"
+            id="preNameMock"
             value={preName}
             onChange={(e) => setPreName(e.target.value)}
           />
-        </label>
-        <br />
-        <label>
-          Text efter namnet:
+        </div>
+        <div>
+          <label htmlFor="postNameMock" className={labelClasses}>
+            Text före namnet
+          </label>
           <input
+            className={inputClasses}
             type="text"
-            placeholder="Efter namn"
+            id="postNameMock"
             value={postName}
             onChange={(e) => setPostName(e.target.value)}
           />
-        </label>
-        <br />
-        <input type="submit" value="Lägg till" />
+        </div>
+        <div className="w-4/5 self-center border-4 border-solid border-blue-200 rounded p-2">
+          <p className="italic">Förhandsgranskning:</p>
+          <div>
+            <FirstBloodHighlight
+              mock={[preName, postName]}
+              died={{ name: "Albert" }}
+              praise={["", " fick blodet att spillas."]}
+              claimed={{ name: "Berit" }}
+            />
+          </div>
+        </div>
+        <button className="w-1/3 self-center py-2 bg-blue-600 hover:bg-blue-700 focus:bg-blue-700 rounded-md text-white text-sm font-bold">
+          Lägg till
+        </button>
       </form>
-      <p>Förhandsgranskning:</p>
-      <div
-        style={{
-          backgroundColor: "#fff",
-          padding: "2em",
-          boxShadow: "0 2px 3px",
-        }}
-      >
-        <FirstBloodHighlight
-          mock={[preName, postName]}
-          died={{ name: "Albert" }}
-          praise={["", " fick blodet att spillas."]}
-          claimed={{ name: "Berit" }}
-        />
-      </div>
     </>
   );
 }
 
 function UserAdditionForms() {
   return (
-    <div style={{ border: "2px solid #005050", padding: "1em" }}>
+    <div className="flex flex-col bg-white rounded shadow-2xl space-y-6 lg:container md:mx-auto ">
       <FirstBloodSentence />
     </div>
   );
@@ -73,14 +77,20 @@ export default UserAdditionForms;
 // TODO: Rewrite actual one and use here instead
 function FirstBloodHighlight({ mock, praise, died, claimed }) {
   return (
-    <Typography>
+    <p>
       {mock[0]}
-      <b>{died ? died.name : "???"}</b>
+      <span className="font-bold">{died ? died.name : "???"}</span>
       {mock[1]}
       {" och dog first blood. "}
-      {claimed ? praise[0] : ""}
-      {claimed ? <b>{claimed.name}</b> : ""}
-      {claimed ? praise[1] : ""}
-    </Typography>
+      {claimed ? (
+        <>
+          {praise[0]}
+          <span className="font-bold">{claimed.name}</span>
+          {praise[1]}
+        </>
+      ) : (
+        ""
+      )}
+    </p>
   );
 }
