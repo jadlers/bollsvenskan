@@ -2,6 +2,7 @@ node_modules/
 build/
 .env*
 .log/
+public/prod.css
 
 # Created with https://www.gitignore.io
 
