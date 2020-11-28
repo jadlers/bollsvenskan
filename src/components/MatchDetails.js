@@ -82,7 +82,7 @@ function PlayerMatchStatsTable(props) {
   );
 }
 
-function FirstBloodHighlight({ player, claimed, dotaMatchId }) {
+function FirstBloodHighlight({ died, claimed, dotaMatchId }) {
   const mocks = [
     "<name> var sämst",
     "<name> hade en dålig dag",
@@ -111,7 +111,7 @@ function FirstBloodHighlight({ player, claimed, dotaMatchId }) {
   return (
     <Typography>
       {parts[0]}
-      <b>{player ? player.name : "???"}</b>
+      <b>{died ? died.name : "???"}</b>
       {parts[1]}
       {" och dog first blood. "}
       {claimed ? <b>{claimed.name}</b> : ""}

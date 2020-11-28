@@ -11,6 +11,7 @@ import LeagueOverview from "./components/LeagueOverview";
 import NewMatchForm from "./components/NewMatchForm";
 import NewPlayerForm from "./components/NewPlayerForm";
 import ShowBalancedTeams from "./components/ShowBalancedTeams";
+import UserAdditionForms from "./components/UserAdditionForms";
 
 function App() {
   const baseUrl = process.env.REACT_APP_API_URL;
@@ -134,6 +135,7 @@ function App() {
           <ShowBalancedTeams path="/teams" players={players} />
           <NewMatchForm path="/add-match" />
           <NewPlayerForm path="/add-player" />
+          <UserAdditionForms path="/new-mock" />
         </Router>
       </SnackbarContextProvider>
     </div>
