@@ -1,17 +1,46 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { SnackbarContext } from "../SnackbarContext";
 
-function FirstBloodSentence() {
+function FirstBloodSentence({ phraseType }) {
   const [preName, setPreName] = useState("");
   const [postName, setPostName] = useState("");
 
-  const handleSubmit = (e) => {
+  const snackbar = useContext(SnackbarContext);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (preName.trim() === "" && postName.trim() === "") {
+      snackbar.open("Du måste skriva in någonting...");
       console.log("Need to specify at least one datapoint");
       return;
     }
-    let data = { preName, postName };
-    console.log(data);
+
+    // Post the new phrase to the API
+    try {
+      const baseUrl = process.env.REACT_APP_API_URL;
+      const response = await fetch(`${baseUrl}/new-fb-phrase`, {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ preName, postName, phraseType }),
+      });
+
+      if (response.ok) {
+        snackbar.open("Tillagt!");
+        setPreName("");
+        setPostName("");
+      } else {
+        snackbar.open(
+          "Någonting gick fel. Försök igen eller kontakta du vet vem."
+        );
+      }
+    } catch (err) {
+      console.error(err);
+      snackbar.open(
+        "Någonting gick fel. Försök igen eller kontakta du vet vem."
+      );
+    }
   };
 
   const labelClasses = "text-sm font-bold text-gray-600 block ";
@@ -35,7 +64,7 @@ function FirstBloodSentence() {
         </div>
         <div>
           <label htmlFor="postNameMock" className={labelClasses}>
-            Text före namnet
+            Text efter namnet
           </label>
           <input
             className={inputClasses}
@@ -45,16 +74,17 @@ function FirstBloodSentence() {
             onChange={(e) => setPostName(e.target.value)}
           />
         </div>
-        <div className="w-4/5 self-center border-4 border-solid border-blue-200 rounded p-2">
-          <p className="italic">Förhandsgranskning:</p>
-          <div>
-            <FirstBloodHighlight
-              mock={[preName, postName]}
-              died={{ name: "Albert" }}
-              praise={["", " fick blodet att spillas."]}
-              claimed={{ name: "Berit" }}
-            />
-          </div>
+        <p className="italic">
+          Tänk på att lägga till mellanslag så att namet hamnar korrekt! Se hur
+          det kommer se ut nedan:
+        </p>
+        <div className="w-full self-center border-4 border-solid border-blue-200 rounded p-2">
+          <FirstBloodHighlight
+            mock={[preName, postName]}
+            died={{ name: "Albert" }}
+            praise={["", " fick blodet att spillas."]}
+            claimed={{ name: "Berit" }}
+          />
         </div>
         <button className="w-1/3 self-center py-2 bg-blue-600 hover:bg-blue-700 focus:bg-blue-700 rounded-md text-white text-sm font-bold">
           Lägg till
@@ -66,8 +96,11 @@ function FirstBloodSentence() {
 
 function UserAdditionForms() {
   return (
-    <div className="flex flex-col bg-white rounded shadow-2xl space-y-6 lg:container md:mx-auto ">
-      <FirstBloodSentence />
+    <div className="flex flex-col bg-white rounded shadow-2xl">
+      <p className="text-xl text-gray-800 text-center font-medium my-4">
+        Lägg till en ny retfull mening till de som dör först.
+      </p>
+      <FirstBloodSentence phraseType="mock" />
     </div>
   );
 }
