@@ -4,6 +4,7 @@ import { SnackbarContext } from "../SnackbarContext";
 function FirstBloodSentence({ phraseType }) {
   const [preName, setPreName] = useState("");
   const [postName, setPostName] = useState("");
+  const [posting, setPosting] = useState(false);
 
   const snackbar = useContext(SnackbarContext);
 
@@ -16,6 +17,7 @@ function FirstBloodSentence({ phraseType }) {
     }
 
     // Post the new phrase to the API
+    setPosting(true);
     try {
       const baseUrl = process.env.REACT_APP_API_URL;
       const response = await fetch(`${baseUrl}/new-fb-phrase`, {
@@ -40,6 +42,8 @@ function FirstBloodSentence({ phraseType }) {
       snackbar.open(
         "Någonting gick fel. Försök igen eller kontakta du vet vem."
       );
+    } finally {
+      setPosting(false);
     }
   };
 
@@ -87,7 +91,7 @@ function FirstBloodSentence({ phraseType }) {
           />
         </div>
         <button className="w-1/3 self-center py-2 bg-blue-600 hover:bg-blue-700 focus:bg-blue-700 rounded-md text-white text-sm font-bold">
-          Lägg till
+          {posting ? "Lägger till..." : "Lägg till"}
         </button>
       </form>
     </>
