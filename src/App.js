@@ -69,7 +69,10 @@ function App() {
       }
     };
 
-    fetchSignupLinks();
+    if (process.env.NODE_ENV !== "development") {
+      console.log("Fetching polls");
+      fetchSignupLinks();
+    }
   }, [baseUrl]);
 
   return (
