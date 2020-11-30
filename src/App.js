@@ -135,7 +135,7 @@ function App() {
           <ShowBalancedTeams path="/teams" players={players} />
           <NewMatchForm path="/add-match" />
           <NewPlayerForm path="/add-player" />
-          <UserAdditionForms path="/new-mock" />
+          <UserAdditionForms path="/new-fb-phrase" />
         </Router>
       </SnackbarContextProvider>
     </div>
