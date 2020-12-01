@@ -11,6 +11,7 @@ import LeagueOverview from "./components/LeagueOverview";
 import NewMatchForm from "./components/NewMatchForm";
 import NewPlayerForm from "./components/NewPlayerForm";
 import ShowBalancedTeams from "./components/ShowBalancedTeams";
+import DotaFirstBloodPhrases from "./pages/DotaFirstBloodPhrases";
 
 function App() {
   const baseUrl = process.env.REACT_APP_API_URL;
@@ -68,7 +69,10 @@ function App() {
       }
     };
 
-    fetchSignupLinks();
+    if (process.env.NODE_ENV !== "development") {
+      console.log("Fetching polls");
+      fetchSignupLinks();
+    }
   }, [baseUrl]);
 
   return (
@@ -134,6 +138,7 @@ function App() {
           <ShowBalancedTeams path="/teams" players={players} />
           <NewMatchForm path="/add-match" />
           <NewPlayerForm path="/add-player" />
+          <DotaFirstBloodPhrases path="/add-fb-phrase" />
         </Router>
       </SnackbarContextProvider>
     </div>

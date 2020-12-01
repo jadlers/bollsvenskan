@@ -11,7 +11,6 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardActions from "@material-ui/core/CardActions";
-import Typography from "@material-ui/core/Typography";
 
 function PlayerMatchStatsTable(props) {
   return (
@@ -82,44 +81,32 @@ function PlayerMatchStatsTable(props) {
   );
 }
 
-function FirstBloodHighlight({ player, claimed, dotaMatchId }) {
-  const mocks = [
-    "<name> var sämst",
-    "<name> hade en dålig dag",
-    "<name> fokuserade inte tillräckligt",
-    "<name> tappade det fullständigt",
-    "<name> skyllde på lagg",
-    "<name> misslyckades med social distansering",
-    "<name> blev scammad, köpte en fortune 3 träpickaxe",
-    "<name> hittade inte sladden",
-    "<name> borde hållt sig till sin egna runjävel",
-    "<name> försökte sälja bläck till ravvie",
-    "<name> drog inte ut i tid",
-    '"OMG, <name> just went in"',
-    "<name> spydde på sitt tangentbord",
-    "<name> kunde inte dodgea",
-    "<name> lyssnade på Pontus",
-    "<name> kunde inte fiska, halkade i sjön",
-    "<name> hade handikapps-hotkeys",
-    "<name> fastnade i kokaingränden",
-  ];
-
-  // Insert name between the parts
-  const randomMock = mocks[dotaMatchId % mocks.length];
-  const parts = randomMock.split("<name>");
+export function FirstBloodHighlight({ mock, praise, died, claimed }) {
+  if (!Array.isArray(mock)) {
+    mock = mock.split("<name>");
+  }
+  if (!Array.isArray(praise)) {
+    praise = praise.split("<name>");
+  }
 
   return (
-    <Typography>
-      {parts[0]}
-      <b>{player ? player.name : "???"}</b>
-      {parts[1]}
+    <p>
+      {mock[0]}
+      <span className="font-bold">{died ? died.name : "???"}</span>
+      {mock[1]}
       {" och dog first blood. "}
-      {claimed ? <b>{claimed.name}</b> : ""}
-      {claimed ? " fick blodet att spillas" : ""}
-    </Typography>
+      {claimed ? (
+        <>
+          {praise[0]}
+          <span className="font-bold">{claimed.name}</span>
+          {praise[1]}
+        </>
+      ) : (
+        ""
+      )}
+    </p>
   );
 }
-
 function MatchDetails(props) {
   const { match } = props;
 
@@ -131,10 +118,12 @@ function MatchDetails(props) {
       <CardHeader title={`Match ${props.no}`} />
       <CardContent>
         <FirstBloodHighlight
-          player={match.teams.flat().find((p) => p.id === match.diedFirstBlood)}
+          died={match.teams.flat().find((p) => p.id === match.diedFirstBlood)}
           claimed={match.teams
             .flat()
             .find((p) => p.id === match.claimedFirstBlood)}
+          mock={match.firstBloodMock}
+          praise={match.firstBloodPraise}
           dotaMatchId={match.dotaMatchId}
         />
         {match.teams.map((team, idx) => {
