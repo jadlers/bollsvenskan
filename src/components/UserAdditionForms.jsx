@@ -14,24 +14,3 @@ function UserAdditionForms() {
 }
 
 export default UserAdditionForms;
-
-// TODO: Rewrite actual one and use here instead
-export function FirstBloodHighlight({ mock, praise, died, claimed }) {
-  return (
-    <p>
-      {mock[0]}
-      <span className="font-bold">{died ? died.name : "???"}</span>
-      {mock[1]}
-      {" och dog first blood. "}
-      {claimed ? (
-        <>
-          {praise[0]}
-          <span className="font-bold">{claimed.name}</span>
-          {praise[1]}
-        </>
-      ) : (
-        ""
-      )}
-    </p>
-  );
-}

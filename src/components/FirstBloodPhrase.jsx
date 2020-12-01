@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { SnackbarContext } from "../SnackbarContext";
-import { FirstBloodHighlight } from "./UserAdditionForms";
+import { FirstBloodHighlight } from "./MatchDetails";
 
 export function FirstBloodPhrase({ phraseType }) {
   const [preName, setPreName] = useState("");
@@ -52,7 +52,8 @@ export function FirstBloodPhrase({ phraseType }) {
   const inputClasses =
     "w-full p-2 border border-gray-300 rounded mt-1 border focus:outline-none focus:ring-2 focus:ring-blue-600 focus-border-transparent";
 
-  let mocks = phraseType === "mock" ? [preName, postName] : ["Default", "mock"];
+  let mocks =
+    phraseType === "mock" ? [preName, postName] : ["Default ", " mock"];
   let praises =
     phraseType === "praise"
       ? [preName, postName]
