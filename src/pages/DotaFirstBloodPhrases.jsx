@@ -20,7 +20,7 @@ function DotaFirstBloodPhrases() {
           <FirstBloodPhraseForm phraseType="praise" />
         </div>
       </div>
-      <div className="flex md:flex-col space-y-12 shadow-xl bg-gray-50 py-4">
+      <div className="flex space-y-12 shadow-xl bg-gray-50 py-4">
         <FirstBloodPhraseList />
       </div>
     </div>

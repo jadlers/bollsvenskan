@@ -29,8 +29,8 @@ function FirstBloodPhraseList(props) {
   const mocks = phrases.filter((phrase) => phrase.type === "mock");
   const praises = phrases.filter((phrase) => phrase.type === "praise");
   return (
-    <div className="flex justify-around">
-      <div className="w-2/5">
+    <div className="flex flex-col lg:flex-row lg:justify-evenly w-full ">
+      <div className="lg:w-2/5">
         <p className="text-lg">Riktade till de som dör:</p>
         <ul>
           {mocks.map(({ id, phrase }) => (
@@ -40,7 +40,7 @@ function FirstBloodPhraseList(props) {
           ))}
         </ul>
       </div>
-      <div className="w-2/5">
+      <div className="lg:w-2/5 my-4">
         <p className="text-lg">Riktade till de som dödar:</p>
         <ul>
           {praises.map(({ id, phrase }) => (
