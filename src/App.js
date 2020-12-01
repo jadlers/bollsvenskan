@@ -138,7 +138,7 @@ function App() {
           <ShowBalancedTeams path="/teams" players={players} />
           <NewMatchForm path="/add-match" />
           <NewPlayerForm path="/add-player" />
-          <DotaFirstBloodPhrases path="/new-fb-phrase" />
+          <DotaFirstBloodPhrases path="/add-fb-phrase" />
         </Router>
       </SnackbarContextProvider>
     </div>
