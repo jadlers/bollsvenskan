@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { SnackbarContext } from "../SnackbarContext";
 import { FirstBloodHighlight } from "./MatchDetails";
 
-export function FirstBloodPhrase({ phraseType }) {
+export function FirstBloodPhraseForm({ phraseType }) {
   const [preName, setPreName] = useState("");
   const [postName, setPostName] = useState("");
   const [posting, setPosting] = useState(false);
