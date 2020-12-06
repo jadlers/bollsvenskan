@@ -84,41 +84,39 @@ function App() {
       }}
     >
       <SnackbarContextProvider>
-        <Typography
-          variant="h3"
-          align="center"
-          style={{ cursor: "pointer" }}
-          gutterBottom
+        <h1
+          className="text-5xl text-center text-nord-5 font-semibold cursor-pointer mb-6"
           onClick={() => navigate("/")}
         >
           Kung DotA{" "}
           <span role="img" aria-label="Trophy">
             🏆
           </span>
-        </Typography>
+        </h1>
         {/* Container */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            margin: "10px auto",
-            textAlign: "center",
-          }}
-        >
+        <div className="flex justify-between my-2">
           <div>
-            <Button onClick={() => navigate("/league/2/0")}>Säsong 1</Button>
-            <Button onClick={() => navigate("/league/2/1")}>Säsong 2</Button>
+            <button
+              className="font-bold uppercase p-2 text-nord-9 hover:bg-nord-2 rounded mr-2"
+              onClick={() => navigate("/league/2/0")}
+            >
+              Säsong 1
+            </button>
+            <button
+              className="font-bold uppercase p-2 text-nord-9 hover:bg-nord-2 rounded"
+              onClick={() => navigate("/league/2/1")}
+            >
+              Säsong 2
+            </button>
           </div>
-          <Button
-            color="primary"
-            variant="outlined"
-            size="large"
+          <button
+            className="font-bold uppercase p-2 text-nord-8 hover:bg-nord-2 rounded"
             href={pollUrl}
             target="_blank"
             rel="noopener noreferrer"
           >
             Anmälan
-          </Button>
+          </button>
         </div>
         <Router>
           <LeagueOverview path="/" matches={matches} players={players} />
