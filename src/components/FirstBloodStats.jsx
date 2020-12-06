@@ -1,5 +1,4 @@
 import React from "react";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 import FirstBloodTable from "./FirstBloodTable";
 
@@ -13,8 +12,6 @@ function countOccurancesReducer(acc, val) {
 }
 
 function FirstBloodStats({ players, matches }) {
-  let displayRow = useMediaQuery("(min-width: 700px)");
-
   const diedFirstBloodCounter = matches
     .map((match) => match.diedFirstBlood)
     .reduce(countOccurancesReducer, {});
@@ -33,22 +30,14 @@ function FirstBloodStats({ players, matches }) {
   });
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: displayRow ? "row" : "column",
-        justifyContent: "space-around",
-      }}
-    >
+    <div className="flex flex-col lg:flex-row mb-6 lg:justify-around">
       <FirstBloodTable
         title="Begick första mordet"
         data={claimedFirstBloodList}
-        displayRow={displayRow}
       />
       <FirstBloodTable
         title="Var först med att stupa"
         data={diedFirstBloodList}
-        displayRow={displayRow}
       />
     </div>
   );
