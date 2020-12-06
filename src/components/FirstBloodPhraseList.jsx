@@ -53,4 +53,5 @@ function FirstBloodPhraseList(props) {
     </div>
   );
 }
+
 export default FirstBloodPhraseList;
