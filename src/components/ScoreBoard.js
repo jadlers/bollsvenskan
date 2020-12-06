@@ -63,49 +63,51 @@ const createTableRowForPlayer = (player, matches) => {
   };
 };
 
-const ScoreTable = ({ scoreRows, style }) => {
+const ScoreTable = ({ scoreRows }) => {
   return (
-    <table className="w-full tabular-nums text-right">
-      <thead className="text-nord-5 text-right font-semibold">
-        <tr>
-          {/* For awards, no text needed*/}
-          <td className="p-2" />
-          <td className="p-2 text-left">Namn</td>
-          <td className="p-2">ELO</td>
-          <td className="p-2">Genomsnittlig K/D/A</td>
-          <td className="p-2">FP</td>
-          <td className="p-2">Matcher</td>
-          <td className="p-2">Vinstandel</td>
-          <td className="p-2">Vinster</td>
-          <td className="p-2">Förluster</td>
-        </tr>
-      </thead>
-      <tbody className="text-nord-4 divide-y-2 divide-nord-3">
-        {scoreRows.map((row) => (
-          <tr key={row.name} className="hover:bg-nord-2">
-            <td className="p-2 text-left">
-              {row.awards.map((award) => (
-                <span
-                  key={`${row.id}-${award.label}`}
-                  role="img"
-                  aria-label={award.label}
-                >
-                  {award.emoji}
-                </span>
-              ))}
-            </td>
-            <td className="p-2 text-left">{row.name}</td>
-            <td className="p-2">{row.eloRating}</td>
-            <td className="p-2">{`${row.average.kills} / ${row.average.deaths} / ${row.average.assists}`}</td>
-            <td className="p-2">{row.average.fantasyPoints}</td>
-            <td className="p-2">{row.matches}</td>
-            <td className="p-2">{`${row.winRatio}%`}</td>
-            <td className="p-2">{row.wins}</td>
-            <td className="p-2">{row.losses}</td>
+    <div className="overflow-x-auto">
+      <table className="w-full tabular-nums text-right">
+        <thead className="text-nord-5 text-right font-semibold">
+          <tr>
+            {/* For awards, no text needed*/}
+            <td className="p-2" />
+            <td className="p-2 text-left">Namn</td>
+            <td className="p-2">ELO</td>
+            <td className="p-2">Genomsnittlig K/D/A</td>
+            <td className="p-2">FP</td>
+            <td className="p-2">Matcher</td>
+            <td className="p-2">Vinstandel</td>
+            <td className="p-2">Vinster</td>
+            <td className="p-2">Förluster</td>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody className="text-nord-4 divide-y-2 divide-nord-3">
+          {scoreRows.map((row) => (
+            <tr key={row.name} className="hover:bg-nord-2">
+              <td className="p-2 text-left">
+                {row.awards.map((award) => (
+                  <span
+                    key={`${row.id}-${award.label}`}
+                    role="img"
+                    aria-label={award.label}
+                  >
+                    {award.emoji}
+                  </span>
+                ))}
+              </td>
+              <td className="p-2 text-left">{row.name}</td>
+              <td className="p-2">{row.eloRating}</td>
+              <td className="p-2">{`${row.average.kills} / ${row.average.deaths} / ${row.average.assists}`}</td>
+              <td className="p-2">{row.average.fantasyPoints}</td>
+              <td className="p-2">{row.matches}</td>
+              <td className="p-2">{`${row.winRatio}%`}</td>
+              <td className="p-2">{row.wins}</td>
+              <td className="p-2">{row.losses}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 
@@ -153,7 +155,7 @@ const ScoreBoard = ({ matches, players, style }) => {
   );
 
   return (
-    <div className="bg-nord-1 p-2 rounded text-nord-5 overflow-x-auto">
+    <div className="bg-nord-1 p-2 rounded text-nord-5 shadow">
       <ScoreTable scoreRows={calibrated} style={{ marginBottom: "1em" }} />
       {uncalibrated.length === 0 ? (
         ""
