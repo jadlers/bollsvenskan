@@ -2,27 +2,29 @@ import React from "react";
 import { FirstBloodPhraseForm } from "../components/FirstBloodPhraseForm";
 import FirstBloodPhraseList from "../components/FirstBloodPhraseList";
 
+function Container({ children }) {
+  return <div className="bg-nord-1 rounded shadow-xl">{children}</div>;
+}
+
 function DotaFirstBloodPhrases() {
   return (
     <div className="flex flex-col space-y-12">
       <div className="flex flex-col space-y-12">
-        <div className="bg-gray-50 rounded shadow-xl">
-          <p className="text-xl text-gray-800 text-center font-medium my-4">
+        <Container>
+          <p className="text-xl text-center font-medium my-4">
             Lägg till en ny retfull mening till de som dör först.
           </p>
           <FirstBloodPhraseForm phraseType="mock" />
-        </div>
-        <div className="bg-gray-50 rounded shadow-xl">
-          <p className="text-xl text-gray-800 text-center font-medium my-4">
+        </Container>
+        <Container>
+          <p className="text-xl text-center font-medium my-4">
             Lägg till en ny mening till de som får det första blodet att
             spillas.
           </p>
           <FirstBloodPhraseForm phraseType="praise" />
-        </div>
+        </Container>
       </div>
-      <div className="flex space-y-12 shadow-xl bg-gray-50 py-4">
-        <FirstBloodPhraseList />
-      </div>
+      <FirstBloodPhraseList />
     </div>
   );
 }

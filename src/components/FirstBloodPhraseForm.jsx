@@ -48,9 +48,10 @@ export function FirstBloodPhraseForm({ phraseType }) {
     }
   };
 
-  const labelClasses = "text-sm font-bold text-gray-600 block ";
-  const inputClasses =
-    "w-full p-2 border border-gray-300 rounded mt-1 border focus:outline-none focus:ring-2 focus:ring-blue-600 focus-border-transparent";
+  const labelClasses = "text-sm font-bold block text-nord-4";
+  const inputClasses = `w-full p-2 rounded mt-1
+    bg-nord-3
+    focus:outline-none focus:ring-2 focus:ring-nord-7 focus-border-transparent`;
 
   let mocks =
     phraseType === "mock" ? [preName, postName] : ["Default ", " mock"];
@@ -63,7 +64,7 @@ export function FirstBloodPhraseForm({ phraseType }) {
     <form onSubmit={handleSubmit} className="flex flex-col space-y-6 p-2">
       <div>
         <label htmlFor="preNameMock" className={labelClasses}>
-          Text före namnet
+          Före namnet
         </label>
         <input
           className={inputClasses}
@@ -75,7 +76,7 @@ export function FirstBloodPhraseForm({ phraseType }) {
       </div>
       <div>
         <label htmlFor="postNameMock" className={labelClasses}>
-          Text efter namnet
+          Efter namnet
         </label>
         <input
           className={inputClasses}
@@ -85,21 +86,25 @@ export function FirstBloodPhraseForm({ phraseType }) {
           onChange={(e) => setPostName(e.target.value)}
         />
       </div>
-      <p className="italic">
-        Tänk på att lägga till mellanslag så att namet hamnar korrekt! Se hur
-        det kommer se ut nedan:
-      </p>
-      <div className="w-full self-center border-4 border-solid border-blue-200 rounded p-2">
-        <FirstBloodHighlight
-          died={{ name: "Albert" }}
-          claimed={{ name: "Berit" }}
-          mock={mocks}
-          praise={praises}
-        />
+      <div>
+        <p className="italic">
+          Tänk på att lägga till mellanslag så att namet hamnar korrekt! Se hur
+          det kommer se ut nedan:
+        </p>
+        <div className="w-full bg-nord-3 rounded px-2 py-4">
+          <FirstBloodHighlight
+            died={{ name: "Albert" }}
+            claimed={{ name: "Berit" }}
+            mock={mocks}
+            praise={praises}
+          />
+        </div>
       </div>
-      <button className="w-1/3 self-center py-2 bg-blue-600 hover:bg-blue-700 focus:bg-blue-700 rounded-md text-white text-sm font-bold">
-        {posting ? "Lägger till..." : "Lägg till"}
-      </button>
+      <div className="flex justify-end">
+        <button className="inline font-bold uppercase p-2 text-nord-8 hover:bg-nord-2 rounded">
+          {posting ? "Lägger till..." : "Lägg till"}
+        </button>
+      </div>
     </form>
   );
 }
