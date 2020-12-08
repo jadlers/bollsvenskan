@@ -109,14 +109,14 @@ function App() {
               Säsong 2
             </button>
           </div>
-          <button
+          <a
             className="font-bold uppercase p-2 text-nord-8 hover:bg-nord-2 rounded"
             href={pollUrl}
             target="_blank"
             rel="noopener noreferrer"
           >
             Anmälan
-          </button>
+          </a>
         </div>
         <Router>
           <LeagueOverview path="/" matches={matches} players={players} />
