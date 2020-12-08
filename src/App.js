@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Router, navigate } from "@reach/router";
+import { Router } from "@reach/router";
 
 import { SnackbarContextProvider } from "./SnackbarContext";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
 
+import Nav from "./components/Nav";
 import CreateBalancedTeams from "./components/CreateBalancedTeams";
 import EloGraph from "./components/EloGraph";
 import LeagueOverview from "./components/LeagueOverview";
@@ -17,10 +16,6 @@ function App() {
   const baseUrl = process.env.REACT_APP_API_URL;
   const [matches, setMatches] = useState([]);
   const [players, setPlayers] = useState([]);
-  const [pollUrl, setPollUrl] = useState(
-    // Default to document with all links
-    "http://nextcloud.jacobadlers.com/index.php/s/nntLtmeAFytc3SW"
-  );
 
   useEffect(() => {
     const fetchAllMatches = async () => {
@@ -84,40 +79,7 @@ function App() {
       }}
     >
       <SnackbarContextProvider>
-        <h1
-          className="text-5xl text-center text-nord-5 font-semibold cursor-pointer mb-6"
-          onClick={() => navigate("/")}
-        >
-          Kung DotA{" "}
-          <span role="img" aria-label="Trophy">
-            🏆
-          </span>
-        </h1>
-        {/* Container */}
-        <div className="flex justify-between my-2">
-          <div>
-            <button
-              className="font-bold uppercase p-2 text-nord-9 hover:bg-nord-2 rounded mr-2"
-              onClick={() => navigate("/league/2/0")}
-            >
-              Säsong 1
-            </button>
-            <button
-              className="font-bold uppercase p-2 text-nord-9 hover:bg-nord-2 rounded"
-              onClick={() => navigate("/league/2/1")}
-            >
-              Säsong 2
-            </button>
-          </div>
-          <a
-            className="font-bold uppercase p-2 text-nord-8 hover:bg-nord-2 rounded"
-            href={pollUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Anmälan
-          </a>
-        </div>
+        <Nav />
         <Router>
           <LeagueOverview path="/" matches={matches} players={players} />
           {/* Show table from specific league */}
