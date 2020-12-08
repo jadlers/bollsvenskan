@@ -77,6 +77,7 @@ function App() {
         margin: "0 auto",
         padding: "1em",
       }}
+      className="text-nord-6"
     >
       <SnackbarContextProvider>
         <Nav />
