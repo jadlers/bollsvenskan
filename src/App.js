@@ -71,15 +71,8 @@ function App() {
   }, [baseUrl]);
 
   return (
-    <div
-      style={{
-        maxWidth: "1000px",
-        margin: "0 auto",
-        padding: "1em",
-      }}
-      className="text-nord-6"
-    >
-      <SnackbarContextProvider>
+    <SnackbarContextProvider>
+      <div className="container lg:mx-auto mt-6 px-2 text-nord-6">
         <Nav />
         <Router>
           <LeagueOverview path="/" matches={matches} players={players} />
@@ -101,8 +94,8 @@ function App() {
           <NewPlayerForm path="/add-player" />
           <DotaFirstBloodPhrases path="/add-fb-phrase" />
         </Router>
-      </SnackbarContextProvider>
-    </div>
+      </div>
+    </SnackbarContextProvider>
   );
 }
 
