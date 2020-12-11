@@ -26,10 +26,10 @@ function Nav() {
     };
 
     if (process.env.NODE_ENV !== "development") {
-      console.log("Fetching polls");
       fetchSignupLinks();
     }
   }, [baseUrl]);
+
   return (
     <nav>
       {/* Container */}
@@ -42,7 +42,7 @@ function Nav() {
           🏆
         </span>
       </h1>
-      <div className="flex flex-col lg:justify-between items-center lg:flex-row my-2">
+      <div className="flex justify-between items-center lg:flex-row my-2">
         {/* Seasons */}
         <div>
           <button
