@@ -1,10 +1,13 @@
 import React from "react";
 
-function PlayerMatchStatsTable(props) {
+function PlayerMatchStatsTable({ teams, winnerIdx }) {
+  const victorySpan = <span className="text-nord-14">Vinst</span>;
+  const lossSpan = <span className="text-nord-11">Förlust</span>;
+
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto my-4">
       <table className="w-full tabular-nums text-right">
-        <thead>
+        <thead className="text-nord-9">
           <tr>
             <td className="text-left">Namn</td>
             <td>K</td>
@@ -18,31 +21,49 @@ function PlayerMatchStatsTable(props) {
           </tr>
         </thead>
         <tbody className="divide-y-2 divide-nord-3">
-          {props.teamStats.map((player) => (
-            <tr key={player.name} className="hover:bg-nord-2">
-              <td className="text-left w-1/6">{player.name}</td>
-              <td className="text-right lg:py-2">{player.stats.kills || 0}</td>
-              <td className="text-right lg:py-2">{player.stats.deaths || 0}</td>
-              <td className="text-right lg:py-2">
-                {player.stats.assists || 0}
-              </td>
-              <td className="text-right lg:py-2">
-                {player.stats.fantasy_points || 0}
-              </td>
-              <td className="text-right lg:py-2">
-                {player.stats.observers_placed || 0}
-              </td>
-              <td className="text-right lg:py-2">
-                {player.stats.observers_destroyed || 0}
-              </td>
-              <td className="text-right lg:py-2">
-                {player.stats.sentries_placed || 0}
-              </td>
-              <td className="text-right lg:py-2">
-                {player.stats.sentries_destroyed || 0}
-              </td>
-            </tr>
-          ))}
+          {teams.map((team, idx) => {
+            return (
+              <>
+                <tr className="font-semibold">
+                  <td colSpan="1" className="text-center text-xl py-2">
+                    {idx === 0 ? `Radiant` : `Dire`}
+                  </td>
+                  <td colSpan="8" className="text-center text-xl py-2">
+                    {idx === winnerIdx ? victorySpan : lossSpan}
+                  </td>
+                </tr>
+                {team.map((player) => (
+                  <tr key={player.name} className="hover:bg-nord-2">
+                    <td className="text-left w-1/6">{player.name}</td>
+                    <td className="text-right lg:py-2">
+                      {player.stats.kills || 0}
+                    </td>
+                    <td className="text-right lg:py-2">
+                      {player.stats.deaths || 0}
+                    </td>
+                    <td className="text-right lg:py-2">
+                      {player.stats.assists || 0}
+                    </td>
+                    <td className="text-right lg:py-2">
+                      {player.stats.fantasy_points || 0}
+                    </td>
+                    <td className="text-right lg:py-2">
+                      {player.stats.observers_placed || 0}
+                    </td>
+                    <td className="text-right lg:py-2">
+                      {player.stats.observers_destroyed || 0}
+                    </td>
+                    <td className="text-right lg:py-2">
+                      {player.stats.sentries_placed || 0}
+                    </td>
+                    <td className="text-right lg:py-2">
+                      {player.stats.sentries_destroyed || 0}
+                    </td>
+                  </tr>
+                ))}
+              </>
+            );
+          })}
         </tbody>
       </table>
     </div>
@@ -79,9 +100,6 @@ export function FirstBloodHighlight({ mock, praise, died, claimed }) {
 function MatchDetails(props) {
   const { match } = props;
 
-  const victorySpan = <span className="text-nord-14">Vinst</span>;
-  const lossSpan = <span className="text-nord-11">Förlust</span>;
-
   return (
     <div className="bg-nord-1 rounded shadow p-4 mb-6 text-nord-4">
       <p className="font-bold mb-2">{`Match ${props.no}`}</p>
@@ -94,16 +112,7 @@ function MatchDetails(props) {
         praise={match.firstBloodPraise}
         dotaMatchId={match.dotaMatchId}
       />
-      {match.teams.map((team, idx) => {
-        return (
-          <div className="my-2" key={`${props.no}-team${idx}`}>
-            <h4>
-              Lag {idx + 1} - {idx === match.winner ? victorySpan : lossSpan}
-            </h4>
-            <PlayerMatchStatsTable teamStats={team} />
-          </div>
-        );
-      })}
+      <PlayerMatchStatsTable teams={match.teams} winnerIdx={match.winner} />
       <div className="flex flex-row-reverse mt-4">
         <a
           className="font-bold uppercase text-nord-8 p-2 rounded hover:bg-nord-2"
