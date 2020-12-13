@@ -72,7 +72,7 @@ function App() {
 
   return (
     <SnackbarContextProvider>
-      <div className="container lg:mx-auto mt-6 px-2 text-nord-6">
+      <div className="container max-w-screen-xl mx-auto mt-6 px-2 text-nord-6">
         <Nav />
         <Router>
           <LeagueOverview path="/" matches={matches} players={players} />
