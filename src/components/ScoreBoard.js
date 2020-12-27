@@ -1,14 +1,5 @@
 import React from "react";
 
-import CardContent from "@material-ui/core/CardContent";
-import Card from "@material-ui/core/Card";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import Table from "@material-ui/core/Table";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Typography from "@material-ui/core/Typography";
-
 const createTableRowForPlayer = (player, matches) => {
   let losses = 0;
   let wins = 0;
@@ -72,73 +63,69 @@ const createTableRowForPlayer = (player, matches) => {
   };
 };
 
-const ScoreTable = ({ scoreRows, style }) => {
+function ScoreRow({ data }) {
   return (
-    <Table style={style}>
-      <TableHead>
-        <TableRow>
-          {/* For awards, no text needed*/}
-          <TableCell size="small" padding="none"></TableCell>
-          <TableCell>Namn</TableCell>
-          <TableCell size="small">ELO</TableCell>
-          <TableCell align="right">Genomsnittlig K/D/A</TableCell>
-          <TableCell align="right" size="small">
-            FP
-          </TableCell>
-          <TableCell align="right" size="small">
-            Matcher
-          </TableCell>
-          <TableCell align="right" size="small">
-            Vinstandel
-          </TableCell>
-          <TableCell align="right" size="small">
-            Vinster
-          </TableCell>
-          <TableCell align="right" size="small">
-            Förluster
-          </TableCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {scoreRows.map((row) => (
-          <TableRow key={row.name} hover>
-            <TableCell padding="none">
-              {row.awards.map((award) => (
-                <span
-                  key={`${row.id}-${award.label}`}
-                  role="img"
-                  aria-label={award.label}
-                >
-                  {award.emoji}
-                </span>
-              ))}
-            </TableCell>
-            <TableCell>{row.name}</TableCell>
-            <TableCell size="small">{row.eloRating}</TableCell>
-            <TableCell align="right">{`${row.average.kills} / ${row.average.deaths} / ${row.average.assists}`}</TableCell>
-            <TableCell align="right" size="small">
-              {row.average.fantasyPoints}
-            </TableCell>
-            <TableCell align="right" size="small">
-              {row.matches}
-            </TableCell>
-            <TableCell align="right" size="small">
-              {`${row.winRatio}%`}
-            </TableCell>
-            <TableCell align="right" size="small">
-              {row.wins}
-            </TableCell>
-            <TableCell align="right" size="small">
-              {row.losses}
-            </TableCell>
-          </TableRow>
+    <tr className="hover:bg-nord-2">
+      <td className="p-2 text-left">
+        {data.awards.map((award) => (
+          <span
+            key={`${data.id}-${award.label}`}
+            role="img"
+            aria-label={award.label}
+          >
+            {award.emoji}
+          </span>
         ))}
-      </TableBody>
-    </Table>
+      </td>
+      <td className="p-2 text-left">{data.name}</td>
+      <td className="p-2">{data.eloRating}</td>
+      <td className="p-2">{`${data.average.kills} / ${data.average.deaths} / ${data.average.assists}`}</td>
+      <td className="p-2">{data.average.fantasyPoints}</td>
+      <td className="p-2">{data.matches}</td>
+      <td className="p-2">{`${data.winRatio}%`}</td>
+      <td className="p-2">{data.wins}</td>
+      <td className="p-2">{data.losses}</td>
+    </tr>
+  );
+}
+const ScoreTable = ({ calibrated, uncalibrated }) => {
+  return (
+    <div className="overflow-x-auto">
+      <table className="w-full tabular-nums text-right">
+        <thead className="text-nord-5 text-right font-semibold">
+          <tr>
+            {/* For awards, no text needed*/}
+            <td className="p-2" />
+            <td className="p-2 text-left">Namn</td>
+            <td className="p-2">ELO</td>
+            <td className="p-2">Genomsnittlig K/D/A</td>
+            <td className="p-2">FP</td>
+            <td className="p-2">Matcher</td>
+            <td className="p-2">Vinstandel</td>
+            <td className="p-2">Vinster</td>
+            <td className="p-2">Förluster</td>
+          </tr>
+        </thead>
+        <tbody className="text-nord-4 divide-y-2 divide-nord-3">
+          {calibrated.map((row) => (
+            <ScoreRow key={row.name} data={row} />
+          ))}
+          {uncalibrated.length > 0 && (
+            <tr>
+              <td colSpan="9" className="py-4 text-center font-semibold">
+                Okalibrerade spelare
+              </td>
+            </tr>
+          )}
+          {uncalibrated.length > 0 &&
+            uncalibrated.map((row) => <ScoreRow key={row.name} data={row} />)}
+        </tbody>
+      </table>
+    </div>
   );
 };
 
-const ScoreBoard = ({ matches, players, style }) => {
+const ScoreBoard = ({ matches, players }) => {
   const scores = players.map((player) =>
     createTableRowForPlayer(player, matches)
   );
@@ -182,21 +169,9 @@ const ScoreBoard = ({ matches, players, style }) => {
   );
 
   return (
-    <Card style={style}>
-      <CardContent style={{ overflowX: "auto" }}>
-        <ScoreTable scoreRows={calibrated} style={{ marginBottom: "1em" }} />
-        {uncalibrated.length === 0 ? (
-          ""
-        ) : (
-          <>
-            <Typography variant="h5" align="center" gutterBottom>
-              Okalibrerade spelare
-            </Typography>
-            <ScoreTable scoreRows={uncalibrated} style={style} />
-          </>
-        )}
-      </CardContent>
-    </Card>
+    <div className="bg-nord-1 p-2 rounded text-nord-5 shadow">
+      <ScoreTable calibrated={calibrated} uncalibrated={uncalibrated} />
+    </div>
   );
 };
 

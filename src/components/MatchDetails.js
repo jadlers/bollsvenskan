@@ -1,82 +1,71 @@
 import React from "react";
 
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
+function PlayerMatchStatsTable({ teams, winnerIdx }) {
+  const victorySpan = <span className="text-nord-14">Vinst</span>;
+  const lossSpan = <span className="text-nord-11">Förlust</span>;
 
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import CardHeader from "@material-ui/core/CardHeader";
-import CardActions from "@material-ui/core/CardActions";
-
-function PlayerMatchStatsTable(props) {
   return (
-    <div style={{ overflowX: "auto" }}>
-      <Table size="small">
-        <TableHead>
-          <TableRow>
-            <TableCell>Namn</TableCell>
-            <TableCell alight="right" size="small">
-              K
-            </TableCell>
-            <TableCell alight="right" size="small">
-              D
-            </TableCell>
-            <TableCell alight="right" size="small">
-              A
-            </TableCell>
-            <TableCell alight="right" size="small">
-              FP
-            </TableCell>
-            <TableCell alight="right" size="small">
-              OP
-            </TableCell>
-            <TableCell alight="right" size="small">
-              OD
-            </TableCell>
-            <TableCell alight="right" size="small">
-              SP
-            </TableCell>
-            <TableCell alight="right" size="small">
-              SD
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {props.teamStats.map((player) => (
-            <TableRow key={player.name} hover>
-              <TableCell>{player.name}</TableCell>
-              <TableCell alight="right" size="small">
-                {player.stats.kills || 0}
-              </TableCell>
-              <TableCell alight="right" size="small">
-                {player.stats.deaths || 0}
-              </TableCell>
-              <TableCell alight="right" size="small">
-                {player.stats.assists || 0}
-              </TableCell>
-              <TableCell alight="right" size="small">
-                {player.stats.fantasy_points || 0}
-              </TableCell>
-              <TableCell alight="right" size="small">
-                {player.stats.observers_placed || 0}
-              </TableCell>
-              <TableCell alight="right" size="small">
-                {player.stats.observers_destroyed || 0}
-              </TableCell>
-              <TableCell alight="right" size="small">
-                {player.stats.sentries_placed || 0}
-              </TableCell>
-              <TableCell alight="right" size="small">
-                {player.stats.sentries_destroyed || 0}
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+    <div className="overflow-x-auto my-4">
+      <table className="w-full tabular-nums text-right">
+        <thead className="text-nord-9">
+          <tr>
+            <td className="text-left">Namn</td>
+            <td>K</td>
+            <td>D</td>
+            <td>A</td>
+            <td>FP</td>
+            <td>OP</td>
+            <td>OD</td>
+            <td>SP</td>
+            <td>SD</td>
+          </tr>
+        </thead>
+        <tbody className="divide-y-2 divide-nord-3">
+          {teams.map((team, idx) => {
+            return (
+              <>
+                <tr className="font-semibold">
+                  <td colSpan="1" className="text-center text-xl py-2">
+                    {idx === 0 ? `Radiant` : `Dire`}
+                  </td>
+                  <td colSpan="8" className="text-center text-xl py-2">
+                    {idx === winnerIdx ? victorySpan : lossSpan}
+                  </td>
+                </tr>
+                {team.map((player) => (
+                  <tr key={player.name} className="hover:bg-nord-2">
+                    <td className="text-left w-1/6">{player.name}</td>
+                    <td className="text-right lg:py-2">
+                      {player.stats.kills || 0}
+                    </td>
+                    <td className="text-right lg:py-2">
+                      {player.stats.deaths || 0}
+                    </td>
+                    <td className="text-right lg:py-2">
+                      {player.stats.assists || 0}
+                    </td>
+                    <td className="text-right lg:py-2">
+                      {player.stats.fantasy_points || 0}
+                    </td>
+                    <td className="text-right lg:py-2">
+                      {player.stats.observers_placed || 0}
+                    </td>
+                    <td className="text-right lg:py-2">
+                      {player.stats.observers_destroyed || 0}
+                    </td>
+                    <td className="text-right lg:py-2">
+                      {player.stats.sentries_placed || 0}
+                    </td>
+                    <td className="text-right lg:py-2">
+                      {player.stats.sentries_destroyed || 0}
+                    </td>
+                  </tr>
+                ))}
+              </>
+            );
+          })}
+        </tbody>
+      </table>
     </div>
   );
 }
@@ -107,48 +96,34 @@ export function FirstBloodHighlight({ mock, praise, died, claimed }) {
     </p>
   );
 }
+
 function MatchDetails(props) {
   const { match } = props;
 
-  const victorySpan = <span style={{ color: "green" }}>Vinst</span>;
-  const lossSpan = <span style={{ color: "red" }}>Förlust</span>;
-
   return (
-    <Card raised style={{ marginBottom: "2em" }}>
-      <CardHeader title={`Match ${props.no}`} />
-      <CardContent>
-        <FirstBloodHighlight
-          died={match.teams.flat().find((p) => p.id === match.diedFirstBlood)}
-          claimed={match.teams
-            .flat()
-            .find((p) => p.id === match.claimedFirstBlood)}
-          mock={match.firstBloodMock}
-          praise={match.firstBloodPraise}
-          dotaMatchId={match.dotaMatchId}
-        />
-        {match.teams.map((team, idx) => {
-          return (
-            <div key={`${props.no}-team${idx}`}>
-              <h4>
-                Lag {idx + 1} - {idx === match.winner ? victorySpan : lossSpan}
-              </h4>
-              <PlayerMatchStatsTable teamStats={team} />
-            </div>
-          );
-        })}
-      </CardContent>
-      <CardActions>
-        <Button
-          color="primary"
+    <div className="bg-nord-1 rounded shadow p-4 text-nord-4">
+      <p className="font-bold mb-2">{`Match ${props.no}`}</p>
+      <FirstBloodHighlight
+        died={match.teams.flat().find((p) => p.id === match.diedFirstBlood)}
+        claimed={match.teams
+          .flat()
+          .find((p) => p.id === match.claimedFirstBlood)}
+        mock={match.firstBloodMock}
+        praise={match.firstBloodPraise}
+        dotaMatchId={match.dotaMatchId}
+      />
+      <PlayerMatchStatsTable teams={match.teams} winnerIdx={match.winner} />
+      <div className="flex flex-row-reverse mt-4">
+        <a
+          className="font-bold uppercase text-nord-8 p-2 rounded hover:bg-nord-2"
           href={`https://www.opendota.com/matches/${match.dotaMatchId}`}
           target="_blank"
           rel="noopener noreferrer"
-          style={{ marginLeft: "auto" }}
         >
           Opendota
-        </Button>
-      </CardActions>
-    </Card>
+        </a>
+      </div>
+    </div>
   );
 }
 

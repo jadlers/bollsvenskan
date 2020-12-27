@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Router, navigate } from "@reach/router";
+import { Router } from "@reach/router";
 
 import { SnackbarContextProvider } from "./SnackbarContext";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
 
+import Nav from "./components/Nav";
 import CreateBalancedTeams from "./components/CreateBalancedTeams";
 import EloGraph from "./components/EloGraph";
 import LeagueOverview from "./components/LeagueOverview";
@@ -17,10 +16,6 @@ function App() {
   const baseUrl = process.env.REACT_APP_API_URL;
   const [matches, setMatches] = useState([]);
   const [players, setPlayers] = useState([]);
-  const [pollUrl, setPollUrl] = useState(
-    // Default to document with all links
-    "http://nextcloud.jacobadlers.com/index.php/s/nntLtmeAFytc3SW"
-  );
 
   useEffect(() => {
     const fetchAllMatches = async () => {
@@ -76,50 +71,9 @@ function App() {
   }, [baseUrl]);
 
   return (
-    <div
-      style={{
-        maxWidth: "1000px",
-        margin: "0 auto",
-        padding: "1em",
-      }}
-    >
-      <SnackbarContextProvider>
-        <Typography
-          variant="h3"
-          align="center"
-          style={{ cursor: "pointer" }}
-          gutterBottom
-          onClick={() => navigate("/")}
-        >
-          Kung DotA{" "}
-          <span role="img" aria-label="Trophy">
-            🏆
-          </span>
-        </Typography>
-        {/* Container */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            margin: "10px auto",
-            textAlign: "center",
-          }}
-        >
-          <div>
-            <Button onClick={() => navigate("/league/2/0")}>Säsong 1</Button>
-            <Button onClick={() => navigate("/league/2/1")}>Säsong 2</Button>
-          </div>
-          <Button
-            color="primary"
-            variant="outlined"
-            size="large"
-            href={pollUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Anmälan
-          </Button>
-        </div>
+    <SnackbarContextProvider>
+      <div className="container max-w-screen-xl mx-auto mt-6 px-2 text-nord-6">
+        <Nav />
         <Router>
           <LeagueOverview path="/" matches={matches} players={players} />
           {/* Show table from specific league */}
@@ -140,8 +94,8 @@ function App() {
           <NewPlayerForm path="/add-player" />
           <DotaFirstBloodPhrases path="/add-fb-phrase" />
         </Router>
-      </SnackbarContextProvider>
-    </div>
+      </div>
+    </SnackbarContextProvider>
   );
 }
 

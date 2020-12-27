@@ -48,12 +48,8 @@ function LeagueOverview({ matches, players, leagueId, season }) {
     </div>
   ) : (
     <>
-      <ScoreBoard
-        matches={matches}
-        players={includedPlayers}
-        style={{ marginBottom: "2em" }}
-      />
-      <Card raised style={{ marginBottom: "2em" }}>
+      <ScoreBoard matches={matches} players={includedPlayers} />
+      <Card raised style={{ margin: "2em 0" }}>
         <CardContent>
           <EloGraph
             matches={matches}
