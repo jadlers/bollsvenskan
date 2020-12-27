@@ -7,7 +7,7 @@ function FirstBloodPhraseList(props) {
     const baseUrl = process.env.REACT_APP_API_URL;
     const fetchPhrases = async () => {
       try {
-        const res = await fetch(`${baseUrl}/fb-phrase`);
+        const res = await fetch(`${baseUrl}/dota/fb-phrase`);
         if (!res.ok) {
           return;
         }

@@ -21,7 +21,7 @@ export function FirstBloodPhraseForm({ phraseType }) {
     setPosting(true);
     try {
       const baseUrl = process.env.REACT_APP_API_URL;
-      const response = await fetch(`${baseUrl}/fb-phrase`, {
+      const response = await fetch(`${baseUrl}/dota/fb-phrase`, {
         method: "post",
         headers: {
           "Content-Type": "application/json",
