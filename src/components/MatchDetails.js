@@ -101,7 +101,7 @@ function MatchDetails(props) {
   const { match } = props;
 
   return (
-    <div className="bg-nord-1 rounded shadow p-4 mb-6 text-nord-4">
+    <div className="bg-nord-1 rounded shadow p-4 text-nord-4">
       <p className="font-bold mb-2">{`Match ${props.no}`}</p>
       <FirstBloodHighlight
         died={match.teams.flat().find((p) => p.id === match.diedFirstBlood)}
