@@ -47,29 +47,6 @@ function App() {
     fetchAllPlayers();
   }, [baseUrl]);
 
-  useEffect(() => {
-    const fetchSignupLinks = async () => {
-      try {
-        const res = await fetch(`${baseUrl}/dota-signup`);
-        if (!res.ok) {
-          return;
-        }
-
-        const body = await res.json();
-        if (body.currentPollUrl !== "") {
-          setPollUrl(body.currentPollUrl);
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    if (process.env.NODE_ENV !== "development") {
-      console.log("Fetching polls");
-      fetchSignupLinks();
-    }
-  }, [baseUrl]);
-
   return (
     <SnackbarContextProvider>
       <div className="container max-w-screen-xl mx-auto mt-6 px-2 text-nord-6">

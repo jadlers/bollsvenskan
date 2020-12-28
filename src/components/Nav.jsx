@@ -11,7 +11,7 @@ function Nav() {
   useEffect(() => {
     const fetchSignupLinks = async () => {
       try {
-        const res = await fetch(`${baseUrl}/dota-signup`);
+        const res = await fetch(`${baseUrl}/dota/signup`);
         if (!res.ok) {
           return;
         }
