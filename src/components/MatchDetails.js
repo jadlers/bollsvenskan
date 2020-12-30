@@ -97,12 +97,18 @@ export function FirstBloodHighlight({ mock, praise, died, claimed }) {
   );
 }
 
-function MatchDetails(props) {
-  const { match } = props;
+function MatchDetails({ match, no }) {
+  const d = new Date(match.date);
+  const dateString = `${d.getFullYear()}-${
+    d.getMonth() + 1
+  }-${d.getDate()} ${d.getHours()}:${d.getMinutes()}`;
 
   return (
     <div className="bg-nord-1 rounded shadow p-4 text-nord-4">
-      <p className="font-bold mb-2">{`Match ${props.no}`}</p>
+      <div className="flex justify-between mb-4 font-bold text-lg">
+        <span>{`Match ${no}`}</span>
+        <span className="text-nord-9">{dateString}</span>
+      </div>
       <FirstBloodHighlight
         died={match.teams.flat().find((p) => p.id === match.diedFirstBlood)}
         claimed={match.teams
