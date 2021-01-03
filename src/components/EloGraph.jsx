@@ -69,12 +69,34 @@ export default function EloGraph({ matches, players, season }) {
     datasets,
   };
 
+  const options = {
+    tooltips: {
+      titleAlign: "center",
+      // intersect: false, // Only show tooltip on hover of point
+      position: "nearest", // Show the tooltip close to the hovered point
+      mode: "index",
+      callbacks: {
+        title: (item) => {
+          return item[0].label === "start"
+            ? "Start av säsong"
+            : `Match ${item[0].label}`;
+        },
+      },
+      itemSort: (a, b) => a.value < b.value,
+    },
+  };
+
   // TODO: make mobile options to styling in a better way
-  let mobileOptions = {};
-  if (window.innerWidth < 500) {
-    mobileOptions.height = 500;
-    mobileOptions.options = { maintainAspectRatio: false };
+  const onMobile = window.innerWidth < 500;
+  if (onMobile) {
+    options.maintainAspectRatio = false;
   }
 
-  return <Line {...mobileOptions} data={data} />;
+  return (
+    <Line
+      options={options}
+      data={data}
+      {...(onMobile ? { height: "500" } : "")}
+    />
+  );
 }
