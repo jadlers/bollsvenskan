@@ -95,8 +95,11 @@ function ScoreRow({ data }) {
 const ScoreTable = ({ calibrated, uncalibrated }) => {
   return (
     <div className="overflow-x-auto">
+      <p className="font-semibold text-nord-5 text-xl text-center mb-4">
+        Ställning
+      </p>
       <table className="w-full tabular-nums text-right">
-        <thead className="text-nord-5 text-right font-semibold">
+        <thead className="text-nord-9 text-right">
           <tr>
             {/* For awards, no text needed*/}
             <td className="p-2" />
