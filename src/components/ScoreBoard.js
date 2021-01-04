@@ -112,7 +112,10 @@ const ScoreTable = ({ calibrated, uncalibrated }) => {
           ))}
           {uncalibrated.length > 0 && (
             <tr>
-              <td colSpan="9" className="py-4 text-center font-semibold">
+              <td
+                colSpan="9"
+                className="py-4 sm:text-center text-left sm:pl-0 pl-6 font-semibold"
+              >
                 Okalibrerade spelare
               </td>
             </tr>
