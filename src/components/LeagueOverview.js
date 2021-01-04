@@ -46,6 +46,10 @@ function LeagueOverview({ matches, players, leagueId, season }) {
         <CircularProgress />
       </Fade>
     </div>
+  ) : matches.length === 0 ? (
+    <p className="text-center text-2xl text-nord-5">
+      Inga matcher spelade i denna säsong ännu.
+    </p>
   ) : (
     <>
       <ScoreBoard matches={matches} players={includedPlayers} />

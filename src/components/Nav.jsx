@@ -57,6 +57,12 @@ function Nav() {
           >
             Säsong 2
           </button>
+          <button
+            className="font-bold uppercase p-2 text-nord-9 hover:bg-nord-2 rounded"
+            onClick={() => navigate("/league/2/2")}
+          >
+            Säsong 3
+          </button>
         </div>
         {/* Other pages */}
         <div>
