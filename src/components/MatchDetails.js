@@ -109,8 +109,8 @@ function MatchDetails({ match, no }) {
   )}:${leftZeroPad(d.getMinutes(), 2)}`;
 
   return (
-    <div className="bg-nord-1 rounded shadow p-4 text-nord-4">
-      <div className="flex justify-between mb-4 font-bold text-lg">
+    <div className="flex flex-col justify-between space-y-4 bg-nord-1 rounded shadow p-4 text-nord-4">
+      <div className="flex justify-between font-bold text-lg">
         <span>{`Match ${no}`}</span>
         <span className="text-nord-9">{dateString}</span>
       </div>
@@ -124,7 +124,7 @@ function MatchDetails({ match, no }) {
         dotaMatchId={match.dotaMatchId}
       />
       <PlayerMatchStatsTable teams={match.teams} winnerIdx={match.winner} />
-      <div className="flex flex-row-reverse mt-4">
+      <div className="flex flex-row-reverse">
         <a
           className="font-bold uppercase text-nord-8 p-2 rounded hover:bg-nord-2"
           href={`https://www.opendota.com/matches/${match.dotaMatchId}`}
