@@ -114,7 +114,7 @@ const ScoreTable = ({ calibrated, uncalibrated }) => {
           {calibrated.map((row) => (
             <ScoreRow key={row.name} data={row} />
           ))}
-          {uncalibrated.length > 0 && (
+          {uncalibrated.length > 0 && calibrated.length > 0 && (
             <tr>
               <td
                 colSpan="9"
