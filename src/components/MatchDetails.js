@@ -1,4 +1,5 @@
 import React from "react";
+import { leftZeroPad } from "../util";
 
 function PlayerMatchStatsTable({ teams, winnerIdx }) {
   const victorySpan = <span className="text-nord-14">Vinst</span>;
@@ -99,9 +100,13 @@ export function FirstBloodHighlight({ mock, praise, died, claimed }) {
 
 function MatchDetails({ match, no }) {
   const d = new Date(match.date);
-  const dateString = `${d.getFullYear()}-${
-    d.getMonth() + 1
-  }-${d.getDate()} ${d.getHours()}:${d.getMinutes()}`;
+  const dateString = `${d.getFullYear()}-${leftZeroPad(
+    d.getMonth() + 1,
+    2
+  )}-${leftZeroPad(d.getDate(), 2)} ${leftZeroPad(
+    d.getHours(),
+    2
+  )}:${leftZeroPad(d.getMinutes(), 2)}`;
 
   return (
     <div className="bg-nord-1 rounded shadow p-4 text-nord-4">

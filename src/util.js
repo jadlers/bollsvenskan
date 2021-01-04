@@ -19,3 +19,7 @@ function playerIdsInMatches(matches) {
 }
 
 export { playerIdsInMatches };
+
+export function leftZeroPad(num, len) {
+  return num.toString().padStart(len, "0");
+}
