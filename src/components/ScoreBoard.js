@@ -102,7 +102,7 @@ const ScoreTable = ({ calibrated, uncalibrated }) => {
             <td className="p-2" />
             <td className="p-2 text-left">Namn</td>
             <td className="p-2">ELO</td>
-            <td className="p-2">Genomsnittlig K/D/A</td>
+            <td className="p-2">K/D/A</td>
             <td className="p-2">FP</td>
             <td className="p-2">Matcher</td>
             <td className="p-2">Vinstandel</td>
