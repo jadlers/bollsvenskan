@@ -9,6 +9,7 @@ const createTableRowForPlayer = (player, matches) => {
   let firstBloodsDied = 0;
   let firstBloodsClaimed = 0;
   let totFantasyPoints = 0;
+  let fantasyPointGames = 0;
 
   matches.forEach((match) => {
     let stats;
@@ -36,12 +37,15 @@ const createTableRowForPlayer = (player, matches) => {
       kills += stats.kills;
       deaths += stats.deaths;
       assists += stats.assists;
-      totFantasyPoints += stats.fantasy_points;
+      if (stats.fantasy_points > 0) {
+        totFantasyPoints += stats.fantasy_points;
+        fantasyPointGames++;
+      }
     }
   });
 
   const numMatches = wins + losses;
-  const avgFantasyPoints = totFantasyPoints / numMatches || 0;
+  const avgFantasyPoints = totFantasyPoints / fantasyPointGames || 0;
 
   return {
     id: player.id,
