@@ -1,5 +1,5 @@
 import React from "react";
-import { leftZeroPad, getHeroIconUrl } from "../util";
+import { leftZeroPad, getHeroIcon } from "../util";
 
 function PlayerMatchStatsTable({ teams, winnerIdx }) {
   const victorySpan = <span className="text-nord-14">Vinst</span>;
@@ -10,7 +10,7 @@ function PlayerMatchStatsTable({ teams, winnerIdx }) {
       <table className="w-full tabular-nums text-right">
         <thead className="text-nord-9">
           <tr>
-            <td style={{ width: "50px" }}></td>
+            <td className="w-px"></td>
             <td className="text-left">Namn</td>
             <td>K</td>
             <td>D</td>
@@ -34,41 +34,50 @@ function PlayerMatchStatsTable({ teams, winnerIdx }) {
                     {idx === winnerIdx ? victorySpan : lossSpan}
                   </td>
                 </tr>
-                {team.map((player) => (
-                  <tr key={player.name} className="hover:bg-nord-2">
-                    <td className="py-2">
-                      <img
-                        className="h-8"
-                        src={getHeroIconUrl(player.stats.dota_hero_id)}
-                      />
-                    </td>
-                    <td className="text-left w-1/6">{player.name}</td>
-                    <td className="text-right lg:py-2">
-                      {player.stats.kills || 0}
-                    </td>
-                    <td className="text-right lg:py-2">
-                      {player.stats.deaths || 0}
-                    </td>
-                    <td className="text-right lg:py-2">
-                      {player.stats.assists || 0}
-                    </td>
-                    <td className="text-right lg:py-2">
-                      {player.stats.fantasy_points || 0}
-                    </td>
-                    <td className="text-right lg:py-2">
-                      {player.stats.observers_placed || 0}
-                    </td>
-                    <td className="text-right lg:py-2">
-                      {player.stats.observers_destroyed || 0}
-                    </td>
-                    <td className="text-right lg:py-2">
-                      {player.stats.sentries_placed || 0}
-                    </td>
-                    <td className="text-right lg:py-2">
-                      {player.stats.sentries_destroyed || 0}
-                    </td>
-                  </tr>
-                ))}
+                {team.map((player) => {
+                  const [heroIconSrc, heroIconAlt] = getHeroIcon(
+                    player.stats.dota_hero_id
+                  );
+
+                  return (
+                    <tr key={player.name} className="hover:bg-nord-2">
+                      <td className="py-2 pl-4">
+                        <img
+                          height="32"
+                          width="32"
+                          src={heroIconSrc}
+                          title={heroIconAlt}
+                          alt={`Icon of ${heroIconAlt}`}
+                        />
+                      </td>
+                      <td className="text-left w-1/6">{player.name}</td>
+                      <td className="text-right lg:py-2">
+                        {player.stats.kills || 0}
+                      </td>
+                      <td className="text-right lg:py-2">
+                        {player.stats.deaths || 0}
+                      </td>
+                      <td className="text-right lg:py-2">
+                        {player.stats.assists || 0}
+                      </td>
+                      <td className="text-right lg:py-2">
+                        {player.stats.fantasy_points || 0}
+                      </td>
+                      <td className="text-right lg:py-2">
+                        {player.stats.observers_placed || 0}
+                      </td>
+                      <td className="text-right lg:py-2">
+                        {player.stats.observers_destroyed || 0}
+                      </td>
+                      <td className="text-right lg:py-2">
+                        {player.stats.sentries_placed || 0}
+                      </td>
+                      <td className="text-right lg:py-2">
+                        {player.stats.sentries_destroyed || 0}
+                      </td>
+                    </tr>
+                  );
+                })}
               </>
             );
           })}

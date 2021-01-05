@@ -31,7 +31,8 @@ export function leftZeroPad(num, len) {
  * to be updated at a later point and was retrieved from here:
  * https://github.com/odota/dotaconstants/blob/master/build/heroes.json
  */
-export function getHeroIconUrl(heroId) {
+export function getHeroIcon(heroId) {
   const hero = openDotaHeroes[`${heroId}`];
-  return `https://steamcdn-a.akamaihd.net${hero.icon}`;
+  const iconUrl = `https://steamcdn-a.akamaihd.net${hero.icon}`;
+  return [iconUrl, hero.localized_name];
 }
