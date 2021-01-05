@@ -1,5 +1,5 @@
 import React from "react";
-import { leftZeroPad } from "../util";
+import { leftZeroPad, getHeroIconUrl } from "../util";
 
 function PlayerMatchStatsTable({ teams, winnerIdx }) {
   const victorySpan = <span className="text-nord-14">Vinst</span>;
@@ -10,6 +10,7 @@ function PlayerMatchStatsTable({ teams, winnerIdx }) {
       <table className="w-full tabular-nums text-right">
         <thead className="text-nord-9">
           <tr>
+            <td style={{ width: "50px" }}></td>
             <td className="text-left">Namn</td>
             <td>K</td>
             <td>D</td>
@@ -35,6 +36,12 @@ function PlayerMatchStatsTable({ teams, winnerIdx }) {
                 </tr>
                 {team.map((player) => (
                   <tr key={player.name} className="hover:bg-nord-2">
+                    <td className="py-2">
+                      <img
+                        className="h-8"
+                        src={getHeroIconUrl(player.stats.dota_hero_id)}
+                      />
+                    </td>
                     <td className="text-left w-1/6">{player.name}</td>
                     <td className="text-right lg:py-2">
                       {player.stats.kills || 0}
