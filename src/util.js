@@ -33,5 +33,5 @@ export function leftZeroPad(num, len) {
  */
 export function getHeroIconUrl(heroId) {
   const hero = openDotaHeroes[`${heroId}`];
-  return `https://api.opendota.com${hero.img}`;
+  return `https://steamcdn-a.akamaihd.net${hero.icon}`;
 }
