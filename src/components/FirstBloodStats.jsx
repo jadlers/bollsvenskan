@@ -30,7 +30,7 @@ function FirstBloodStats({ players, matches }) {
   });
 
   return (
-    <div className="flex flex-col lg:flex-row mb-6 lg:justify-around">
+    <div className="flex flex-col lg:flex-row mb-6 lg:justify-around lg:space-y-0 space-y-4">
       <FirstBloodTable
         title="Begick första mordet"
         data={claimedFirstBloodList}
