@@ -33,6 +33,14 @@ export function leftZeroPad(num, len) {
  */
 export function getHeroIcon(heroId) {
   const hero = openDotaHeroes[`${heroId}`];
-  const iconUrl = `https://steamcdn-a.akamaihd.net${hero.icon}`;
+  if (!hero) {
+    console.warn(`Could not find hero with id ${heroId}`);
+    return ["", ""];
+  }
+
+  // Newer heros (Snapfire, Void Spirit, and Hoodwink) not available from steamcdn
+  const iconUrl = [123, 126, 128].includes(heroId)
+    ? `https://www.opendota.com/assets/images/dota2/heroes/${heroId}_icon.png`
+    : `https://steamcdn-a.akamaihd.net${hero.icon}`;
   return [iconUrl, hero.localized_name];
 }
