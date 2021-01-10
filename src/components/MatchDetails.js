@@ -25,7 +25,7 @@ function PlayerMatchStatsTable({ teams, winnerIdx }) {
         <tbody className="divide-y-2 divide-nord-3">
           {teams.map((team, idx) => {
             return (
-              <>
+              <React.Fragment key={idx}>
                 <tr className="font-semibold">
                   <td colSpan="1" className="text-center text-xl py-2">
                     {idx === 0 ? `Radiant` : `Dire`}
@@ -78,7 +78,7 @@ function PlayerMatchStatsTable({ teams, winnerIdx }) {
                     </tr>
                   );
                 })}
-              </>
+              </React.Fragment>
             );
           })}
         </tbody>
