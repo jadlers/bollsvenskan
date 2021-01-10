@@ -69,7 +69,31 @@ export default function EloGraph({ matches, players, season }) {
     datasets,
   };
 
+  const textColor = "#e5e9f0";
+  const axisColor = "#4c566a";
   const options = {
+    scales: {
+      // prettier-ignore-start
+      yAxes: [
+        {
+          gridLines: { color: axisColor },
+          ticks: { fontColor: textColor },
+        },
+      ],
+      xAxes: [
+        {
+          gridLines: { color: axisColor },
+          ticks: { fontColor: textColor },
+        },
+      ],
+      // prettier-ignore-end
+    },
+    legend: {
+      labels: {
+        boxWidth: 20,
+        fontColor: textColor,
+      },
+    },
     tooltips: {
       titleAlign: "center",
       // intersect: false, // Only show tooltip on hover of point

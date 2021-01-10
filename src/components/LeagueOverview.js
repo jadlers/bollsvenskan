@@ -51,20 +51,15 @@ function LeagueOverview({ matches, players, leagueId, season }) {
       Inga matcher spelade i denna säsong ännu.
     </p>
   ) : (
-    <>
+    <div className="flex flex-col justify-between space-y-4">
       <ScoreBoard matches={matches} players={includedPlayers} />
-      <Card raised style={{ margin: "2em 0" }}>
-        <CardContent>
-          <EloGraph
-            matches={matches}
-            players={includedPlayers}
-            season={season}
-          />
-        </CardContent>
-      </Card>
+
+      <div className="bg-nord-1 p-2 rounded text-nord-5 shadow">
+        <EloGraph matches={matches} players={includedPlayers} season={season} />
+      </div>
       <FirstBloodStats players={includedPlayers} matches={matches} />
       <MatchesList matches={matches} />
-    </>
+    </div>
   );
 }
 
