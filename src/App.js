@@ -11,6 +11,7 @@ import NewMatchForm from "./components/NewMatchForm";
 import NewPlayerForm from "./components/NewPlayerForm";
 import ShowBalancedTeams from "./components/ShowBalancedTeams";
 import DotaFirstBloodPhrases from "./pages/DotaFirstBloodPhrases";
+import Admin from "./pages/Admin";
 
 function App() {
   const baseUrl = process.env.REACT_APP_API_URL;
@@ -70,6 +71,7 @@ function App() {
           <NewMatchForm path="/add-match" />
           <NewPlayerForm path="/add-player" />
           <DotaFirstBloodPhrases path="/add-fb-phrase" />
+          <Admin path="/admin/*" players={players} />
         </Router>
       </div>
     </SnackbarContextProvider>
