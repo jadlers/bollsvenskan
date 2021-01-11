@@ -5,7 +5,11 @@ export default function useStoredSetting(name) {
   const [value, setValue] = useState(initialVal);
 
   const updateValue = (newValue) => {
-    localStorage.setItem(name, newValue);
+    if (newValue === null) {
+      localStorage.removeItem(name);
+    } else {
+      localStorage.setItem(name, newValue);
+    }
     setValue(newValue);
   };
 
