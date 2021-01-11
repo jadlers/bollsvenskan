@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import ApiKeySetting from "../components/ApiKeySetting";
+import UpdateUserInformation from "../components/UpdateUserInformation";
 import UsersList from "../components/UsersList";
 
 function Admin({ players: users }) {
@@ -12,7 +13,9 @@ function Admin({ players: users }) {
       <ApiKeySetting />
       <div className="flex flex-row space-x-4">
         <UsersList users={users} selectUser={setSelectedUser} />
-        <p>Selected: {selectedUser}</p>
+        <UpdateUserInformation
+          user={users.find((u) => u.id === selectedUser)}
+        />
       </div>
     </div>
   );
