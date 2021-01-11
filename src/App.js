@@ -71,7 +71,7 @@ function App() {
           <NewMatchForm path="/add-match" />
           <NewPlayerForm path="/add-player" />
           <DotaFirstBloodPhrases path="/add-fb-phrase" />
-          <Admin path="/admin" />
+          <Admin path="/admin" players={players} />
         </Router>
       </div>
     </SnackbarContextProvider>
