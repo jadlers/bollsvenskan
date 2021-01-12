@@ -1,6 +1,7 @@
 import React from "react";
 import { Router, Link } from "@reach/router";
 
+import AddUser from "../components/AddUser";
 import ApiKeySetting from "../components/ApiKeySetting";
 import UpdateUser from "../components/UpdateUser";
 
@@ -19,11 +20,15 @@ function Admin({ players: users }) {
           <Link className={buttonClasses} to="update-user">
             Ändra användare
           </Link>
+          <Link className={buttonClasses} to="add-user">
+            Ny användare
+          </Link>
         </nav>
       </div>
       <Router>
         <ApiKeySetting path="api-key" />
         <UpdateUser path="update-user" users={users} />
+        <AddUser path="add-user" />
       </Router>
     </div>
   );
