@@ -11,13 +11,13 @@ function Admin({ players: users }) {
   return (
     <div className="flex flex-col space-y-4 bg-nord-1 p-2 rounded text-nord-5">
       <div className="flex flex-row justify-between">
-        <p className="py-2 font-bold text-xl text-center">Admin page</p>
+        <p className="py-2 font-bold text-xl text-center">Admin sida</p>
         <nav className="flex flex-row space-x-2">
           <Link className={buttonClasses} to="api-key">
-            API key
+            API Nyckel
           </Link>
           <Link className={buttonClasses} to="update-user">
-            Update user
+            Ändra användare
           </Link>
         </nav>
       </div>

@@ -64,14 +64,15 @@ function UpdateUserInformation({ user }) {
     <div>
       {!apiKey && (
         <p className="font-semibold text-nord-11">
-          No API key set, you cannot update a user without a valid API key.
+          Ingen API nyckel sparad, du kan inte uppdatera någon användare utan en
+          giltig API nyckel.
         </p>
       )}
       {!user ? (
-        <p>Select a user.</p>
+        <p>Välj en användare.</p>
       ) : (
         <form onSubmit={handleSubmit} className="flex flex-col space-y-1">
-          <label htmlFor="username">Username:</label>
+          <label htmlFor="username">Användarnamn:</label>
           <input
             id="username"
             className={inputStyle}
@@ -102,7 +103,7 @@ function UpdateUserInformation({ user }) {
             value={updatedUser.discordId || ""}
             onChange={updateProperty("discordId")}
           />
-          <label htmlFor="discordUsername">Discord username:</label>
+          <label htmlFor="discordUsername">Discord användarnamn:</label>
           <input
             id="discordUsername"
             className={inputStyle}

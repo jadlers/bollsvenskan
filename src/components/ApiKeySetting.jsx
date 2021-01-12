@@ -15,7 +15,7 @@ function ApiKeySetting() {
       {apiKey ? (
         <div className="flex md:flex-row flex-col md:justify-center md:space-x-2 md:space-y-0 space-y-2">
           <p className="inline py-2 md:text-left text-center">
-            You have the following API key stored:
+            Du har följande API nyckel sparad:
           </p>
           <span
             className={`ml-2 p-2 font-semibold border border-nord-7
@@ -29,7 +29,7 @@ function ApiKeySetting() {
             className="p-2 rounded hover:bg-nord-2 text-nord-8 font-bold uppercase cursor-pointer"
             onClick={() => setApiKey(null)}
           >
-            Clear
+            Rensa
           </button>
         </div>
       ) : (
@@ -41,14 +41,14 @@ function ApiKeySetting() {
             className="bg-nord-3 p-2 flex-grow rounded"
             type="text"
             value={keyInput}
-            placeholder="Enter your API key"
+            placeholder="Skriv in din API nyckel"
             onChange={(e) => setKeyInput(e.target.value.trim())}
             onSubmit={saveKey}
           />
           <input
             className="p-2 rounded bg-nord-1 hover:bg-nord-2 text-nord-8 font-bold uppercase cursor-pointer"
             type="submit"
-            value="Save"
+            value="Spara"
           />
         </form>
       )}

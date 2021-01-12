@@ -4,7 +4,7 @@ function UsersList({ users, selectUser }) {
   users.sort((a, b) => a.username > b.username);
   return (
     <div>
-      <p>List of users:</p>
+      <p>Lista med användare:</p>
       <ul className="space-y-1">
         {users.map((user) => (
           <li key={user.id}>
