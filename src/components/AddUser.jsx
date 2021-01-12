@@ -1,10 +1,12 @@
 import React, { useContext, useState } from "react";
 
 import { SnackbarContext } from "../SnackbarContext";
+import useStoredSetting from "../hooks/useStoredSetting";
 
 function AddUser() {
   const baseUrl = process.env.REACT_APP_API_URL;
   const snackbar = useContext(SnackbarContext);
+  const [apiKey] = useStoredSetting("apiKey");
 
   const [username, setUsername] = useState("");
 
@@ -18,7 +20,7 @@ function AddUser() {
     }
 
     try {
-      const response = await fetch(`${baseUrl}/player`, {
+      const response = await fetch(`${baseUrl}/player?api_key=${apiKey}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
