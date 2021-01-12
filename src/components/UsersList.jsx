@@ -1,7 +1,7 @@
 import React from "react";
 
 function UsersList({ users, selectUser }) {
-  users.sort((a, b) => a.id > b.id);
+  users.sort((a, b) => a.username > b.username);
   return (
     <div>
       <p>List of users:</p>
