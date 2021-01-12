@@ -36,6 +36,11 @@ function UpdateUserInformation({ user }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!apiKey) {
+      snackbar.open("Kan inte uppdatera användare utan sparad API nyckel.");
+      return;
+    }
+
     const res = await fetch(`${baseUrl}/player/${user.id}?api_key=${apiKey}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -115,7 +120,6 @@ function UpdateUserInformation({ user }) {
             className="p-2 rounded uppercase font-bold cursor-pointer bg-nord-1 text-nord-8 hover:bg-nord-2"
             type="submit"
             value="Save"
-            disabled={!apiKey}
           />
         </form>
       )}
