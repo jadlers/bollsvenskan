@@ -3,14 +3,15 @@ import { Router } from "@reach/router";
 
 import { SnackbarContextProvider } from "./SnackbarContext";
 
-import Nav from "./components/Nav";
+import Admin from "./pages/Admin";
 import CreateBalancedTeams from "./components/CreateBalancedTeams";
+import DotaFirstBloodPhrases from "./pages/DotaFirstBloodPhrases";
 import EloGraph from "./components/EloGraph";
 import LeagueOverview from "./components/LeagueOverview";
+import Nav from "./components/Nav";
 import NewMatchForm from "./components/NewMatchForm";
 import ShowBalancedTeams from "./components/ShowBalancedTeams";
-import DotaFirstBloodPhrases from "./pages/DotaFirstBloodPhrases";
-import Admin from "./pages/Admin";
+import UserPage from "./pages/UserPage";
 
 function App() {
   const baseUrl = process.env.REACT_APP_API_URL;
@@ -70,6 +71,8 @@ function App() {
           <NewMatchForm path="/add-match" />
           <DotaFirstBloodPhrases path="/add-fb-phrase" />
           <Admin path="/admin/*" players={players} />
+          <UserPage path="/user" users={players} />
+          <UserPage path="/user/:userId" users={players} />
         </Router>
       </div>
     </SnackbarContextProvider>
