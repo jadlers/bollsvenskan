@@ -52,7 +52,7 @@ function LeagueOverview({ matches, players, leagueId, season }) {
     </p>
   ) : (
     <div className="flex flex-col justify-between space-y-4">
-      <ScoreBoard matches={matches} players={includedPlayers} />
+      <ScoreBoard matches={matches} players={includedPlayers} season={season} />
 
       <div className="bg-nord-1 p-2 rounded text-nord-5 shadow">
         <EloGraph matches={matches} players={includedPlayers} season={season} />

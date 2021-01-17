@@ -101,9 +101,6 @@ function ScoreRow({ data }) {
 const ScoreTable = ({ calibrated, uncalibrated }) => {
   return (
     <div className="overflow-x-auto">
-      <p className="font-semibold text-nord-5 text-xl text-center mb-4">
-        Ställning
-      </p>
       <table className="w-full tabular-nums text-right">
         <thead className="text-nord-9 text-right">
           <tr>
@@ -141,7 +138,7 @@ const ScoreTable = ({ calibrated, uncalibrated }) => {
   );
 };
 
-const ScoreBoard = ({ matches, players }) => {
+const ScoreBoard = ({ matches, players, season }) => {
   const scores = players.map((player) =>
     createTableRowForPlayer(player, matches)
   );
@@ -186,6 +183,9 @@ const ScoreBoard = ({ matches, players }) => {
 
   return (
     <div className="bg-nord-1 p-2 rounded text-nord-5 shadow">
+      <p className="font-semibold text-nord-5 text-xl text-center mb-4">
+        {isNaN(season) ? "Ställning" : `Ställning - Säsong ${season + 1}`}
+      </p>
       <ScoreTable calibrated={calibrated} uncalibrated={uncalibrated} />
     </div>
   );
