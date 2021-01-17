@@ -1,4 +1,5 @@
 import React from "react";
+import { navigate } from "@reach/router";
 
 const createTableRowForPlayer = (player, matches) => {
   let losses = 0;
@@ -81,7 +82,12 @@ function ScoreRow({ data }) {
           </span>
         ))}
       </td>
-      <td className="p-2 text-left">{data.name}</td>
+      <td
+        className="p-2 text-left"
+        onClick={() => navigate(`/user/${data.id}`)}
+      >
+        <a className="cursor-pointer">{data.name}</a>
+      </td>
       <td className="p-2">{data.eloRating}</td>
       <td className="p-2">{`${data.average.kills} / ${data.average.deaths} / ${data.average.assists}`}</td>
       <td className="p-2">{data.average.fantasyPoints}</td>
