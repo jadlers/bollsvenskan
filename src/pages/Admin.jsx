@@ -13,9 +13,9 @@ function Admin({ players: users }) {
   return (
     <Card>
       <div className="flex flex-col space-y-4">
-        <div className="flex flex-row justify-between">
+        <div className="flex lg:flex-row flex-col lg:justify-between">
           <p className="py-2 font-bold text-xl text-center">Admin sida</p>
-          <nav className="flex flex-row space-x-2">
+          <nav className="flex lg:flex-row flex-col lg:space-x-2 text-center">
             <Link className={buttonClasses} to="api-key">
               API Nyckel
             </Link>
