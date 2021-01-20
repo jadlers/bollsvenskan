@@ -1,11 +1,12 @@
 import React from "react";
+import Card from "./Card";
 
 /**
  * Used for number of times a player died *and* claimed firstblood.
  */
 function FirstBloodTable({ title, data }) {
   return (
-    <div className="bg-nord-1 lg:w-2/5 p-4 text-nord-5 rounded">
+    <Card width="lg:w-2/5">
       <p className="font-bold text-center mb-2">{title}</p>
       <table className="w-full tabular-nums ">
         <thead className="font-semibold">
@@ -26,7 +27,7 @@ function FirstBloodTable({ title, data }) {
             ))}
         </tbody>
       </table>
-    </div>
+    </Card>
   );
 }
 

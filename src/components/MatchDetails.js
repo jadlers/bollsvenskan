@@ -1,5 +1,6 @@
 import React from "react";
 import { leftZeroPad, getHeroIcon } from "../util";
+import Card from "./Card";
 
 function PlayerMatchStatsTable({ teams, winnerIdx }) {
   const victorySpan = <span className="text-nord-14">Vinst</span>;
@@ -125,32 +126,35 @@ function MatchDetails({ match, no }) {
   )}:${leftZeroPad(d.getMinutes(), 2)}`;
 
   return (
-    <div className="flex flex-col justify-between space-y-4 bg-nord-1 rounded shadow p-4 text-nord-4">
-      <div className="flex justify-between font-bold text-lg">
-        <span>{`Match ${no}`}</span>
-        <span className="text-nord-9">{dateString}</span>
+    <Card>
+      {/* <div className="flex flex-col justify-between space-y-4 bg-nord-1 rounded shadow p-4 text-nord-4"> */}
+      <div className="flex flex-col justify-between space-y-4">
+        <div className="flex justify-between font-bold text-lg">
+          <span>{`Match ${no}`}</span>
+          <span className="text-nord-9">{dateString}</span>
+        </div>
+        <FirstBloodHighlight
+          died={match.teams.flat().find((p) => p.id === match.diedFirstBlood)}
+          claimed={match.teams
+            .flat()
+            .find((p) => p.id === match.claimedFirstBlood)}
+          mock={match.firstBloodMock}
+          praise={match.firstBloodPraise}
+          dotaMatchId={match.dotaMatchId}
+        />
+        <PlayerMatchStatsTable teams={match.teams} winnerIdx={match.winner} />
+        <div className="flex flex-row-reverse">
+          <a
+            className="font-bold uppercase text-nord-8 p-2 rounded hover:bg-nord-2"
+            href={`https://www.opendota.com/matches/${match.dotaMatchId}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Opendota
+          </a>
+        </div>
       </div>
-      <FirstBloodHighlight
-        died={match.teams.flat().find((p) => p.id === match.diedFirstBlood)}
-        claimed={match.teams
-          .flat()
-          .find((p) => p.id === match.claimedFirstBlood)}
-        mock={match.firstBloodMock}
-        praise={match.firstBloodPraise}
-        dotaMatchId={match.dotaMatchId}
-      />
-      <PlayerMatchStatsTable teams={match.teams} winnerIdx={match.winner} />
-      <div className="flex flex-row-reverse">
-        <a
-          className="font-bold uppercase text-nord-8 p-2 rounded hover:bg-nord-2"
-          href={`https://www.opendota.com/matches/${match.dotaMatchId}`}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Opendota
-        </a>
-      </div>
-    </div>
+    </Card>
   );
 }
 

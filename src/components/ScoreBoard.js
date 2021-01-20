@@ -1,6 +1,8 @@
 import React from "react";
 import { navigate } from "@reach/router";
 
+import Card from "../components/Card";
+
 const createTableRowForPlayer = (player, matches) => {
   let losses = 0;
   let wins = 0;
@@ -182,12 +184,12 @@ const ScoreBoard = ({ matches, players, season }) => {
   );
 
   return (
-    <div className="bg-nord-1 p-2 rounded text-nord-5 shadow">
+    <Card>
       <p className="font-semibold text-nord-5 text-xl text-center mb-4">
         {isNaN(season) ? "Ställning" : `Ställning - Säsong ${season + 1}`}
       </p>
       <ScoreTable calibrated={calibrated} uncalibrated={uncalibrated} />
-    </div>
+    </Card>
   );
 };
 

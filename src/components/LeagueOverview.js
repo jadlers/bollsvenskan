@@ -4,9 +4,8 @@ import EloGraph from "./EloGraph";
 import MatchesList from "./MatchesList";
 import ScoreBoard from "./ScoreBoard";
 import FirstBloodStats from "./FirstBloodStats";
+import Card from "./Card";
 
-import CardContent from "@material-ui/core/CardContent";
-import Card from "@material-ui/core/Card";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Fade from "@material-ui/core/Fade";
 import { playerIdsInMatches } from "../util";
@@ -47,16 +46,18 @@ function LeagueOverview({ matches, players, leagueId, season }) {
       </Fade>
     </div>
   ) : matches.length === 0 ? (
-    <p className="text-center text-2xl text-nord-5">
-      Inga matcher spelade i denna säsong ännu.
-    </p>
+    <Card>
+      <p className="text-center text-2xl text-nord-5">
+        Inga matcher spelade i denna säsong ännu.
+      </p>
+    </Card>
   ) : (
     <div className="flex flex-col justify-between space-y-4">
       <ScoreBoard matches={matches} players={includedPlayers} season={season} />
 
-      <div className="bg-nord-1 p-2 rounded text-nord-5 shadow">
+      <Card>
         <EloGraph matches={matches} players={includedPlayers} season={season} />
-      </div>
+      </Card>
       <FirstBloodStats players={includedPlayers} matches={matches} />
       <MatchesList matches={matches} />
     </div>

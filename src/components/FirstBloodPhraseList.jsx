@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
+import Card from "./Card";
 
-function FirstBloodPhraseList(props) {
+function FirstBloodPhraseList() {
   const [phrases, setPhrases] = useState([]);
 
   useEffect(() => {
@@ -27,7 +28,7 @@ function FirstBloodPhraseList(props) {
   const mocks = phrases.filter((phrase) => phrase.type === "mock");
   const praises = phrases.filter((phrase) => phrase.type === "praise");
   return (
-    <div className="flex flex-col lg:flex-row lg:justify-evenly w-full lg:my-4">
+    <div className="flex flex-col lg:flex-row lg:justify-evenly lg:space-y-0 space-y-4">
       <List title="Riktade till de som dör" items={mocks} />
       <List title="Riktade till de som dödar" items={praises} />
     </div>
@@ -36,7 +37,7 @@ function FirstBloodPhraseList(props) {
 
 function List({ title, items }) {
   return (
-    <div className="bg-nord-1 rounded shadow p-2 lg:w-2/5 my-4 lg:my-0 ">
+    <Card width="lg:w-2/5">
       <p className="text-xl font-bold lg:text-center">{title}</p>
       <ul>
         {items.map(({ id, phrase }) => (
@@ -45,7 +46,7 @@ function List({ title, items }) {
           </li>
         ))}
       </ul>
-    </div>
+    </Card>
   );
 }
 
