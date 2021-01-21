@@ -1,6 +1,23 @@
 import React from "react";
 
 export function Button({ children, onClick, hoverBg, variant }) {
+  const classes = buttonClasses({ hoverBg, variant });
+  return (
+    <button className={classes} onClick={onClick}>
+      {children}
+    </button>
+  );
+}
+
+export function CardButton({ children, ...props }) {
+  return (
+    <Button hoverBg="nord-2" {...props}>
+      {children}
+    </Button>
+  );
+}
+
+function buttonClasses({ hoverBg, variant }) {
   const validVariants = ["primary", "secondary", "tertiary", undefined];
   if (!validVariants.includes(variant)) {
     throw new Error(
@@ -16,22 +33,9 @@ export function Button({ children, onClick, hoverBg, variant }) {
   }
 
   const backgroundColor = hoverBg
-    ? `hover:${hoverBg}`
+    ? `hover:bg-${hoverBg}`
     : "hover:bg-opacity-10 bg-opacity-0 bg-white";
   const transitions = "transition transition-color duration-200";
-  const classes = `p-2 font-bold uppercase rounded ${textColor} ${backgroundColor} ${transitions}`;
-
-  return (
-    <button className={classes} onClick={onClick}>
-      {children}
-    </button>
-  );
-}
-
-export function CardButton({ children, hoverBg, ...props }) {
-  return (
-    <Button hoverBg="bg-nord-2" {...props}>
-      {children}
-    </Button>
-  );
+  return `p-2 font-bold uppercase rounded
+          ${textColor} ${backgroundColor} ${transitions}`;
 }
