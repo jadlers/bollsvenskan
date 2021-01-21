@@ -1,19 +1,17 @@
 import React from "react";
+import { CardButton } from "./Buttons";
 
 function UsersList({ users, selectUser }) {
   users.sort((a, b) => a.username > b.username);
   return (
     <div>
       <p>Lista med användare:</p>
-      <ul className="space-y-1">
+      <ul>
         {users.map((user) => (
           <li key={user.id}>
-            <a
-              className="px-2 py-1 rounded uppercase cursor-pointer hover:bg-nord-2 font-bold text-nord-8"
-              onClick={() => selectUser(user.id)}
-            >
+            <CardButton size="small" onClick={() => selectUser(user.id)}>
               {user.username}
-            </a>
+            </CardButton>
           </li>
         ))}
       </ul>
