@@ -17,6 +17,15 @@ export function CardButton({ children, ...props }) {
   );
 }
 
+export function LinkButton({ children, hoverBg, variant, href, ...props }) {
+  const classes = buttonClasses({ hoverBg, variant });
+  return (
+    <a className={classes} href={href} {...props}>
+      {children}
+    </a>
+  );
+}
+
 function buttonClasses({ hoverBg, variant }) {
   const validVariants = ["primary", "secondary", "tertiary", undefined];
   if (!validVariants.includes(variant)) {
