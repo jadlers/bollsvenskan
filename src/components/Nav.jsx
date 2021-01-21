@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { navigate } from "@reach/router";
+import { Button, LinkButton } from "./Buttons";
 
 function Nav() {
   const baseUrl = process.env.REACT_APP_API_URL;
@@ -45,41 +46,46 @@ function Nav() {
       <div className="flex justify-between items-center lg:flex-row my-2">
         {/* Seasons */}
         <div>
-          <button
-            className="font-bold uppercase p-2 text-nord-9 hover:bg-nord-2 rounded mr-2"
+          <Button
+            variant="secondary"
+            hoverBg="nord-1"
             onClick={() => navigate("/league/2/0")}
           >
             Säsong 1
-          </button>
-          <button
-            className="font-bold uppercase p-2 text-nord-9 hover:bg-nord-2 rounded"
+          </Button>
+          <Button
+            variant="secondary"
+            hoverBg="nord-1"
             onClick={() => navigate("/league/2/1")}
           >
             Säsong 2
-          </button>
-          <button
-            className="font-bold uppercase p-2 text-nord-9 hover:bg-nord-2 rounded"
+          </Button>
+          <Button
+            variant="secondary"
+            hoverBg="nord-1"
             onClick={() => navigate("/league/2/2")}
           >
             Säsong 3
-          </button>
+          </Button>
         </div>
         {/* Other pages */}
         <div>
-          <button
-            className="font-bold uppercase p-2 text-nord-9 hover:bg-nord-2 rounded mr-2"
+          <Button
+            variant="secondary"
+            hoverBg="nord-1"
             onClick={() => navigate("/add-fb-phrase")}
           >
             Roasts
-          </button>
-          <a
-            className="font-bold uppercase p-2 text-nord-8 hover:bg-nord-2 rounded"
+          </Button>
+          <LinkButton
+            variant="primary"
+            hoverBg="nord-1"
             href={pollUrl}
             target="_blank"
             rel="noopener noreferrer"
           >
             Anmälan
-          </a>
+          </LinkButton>
         </div>
       </div>
     </nav>
