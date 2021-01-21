@@ -43,9 +43,9 @@ function Nav() {
           🏆
         </span>
       </h1>
-      <div className="flex justify-between items-center lg:flex-row my-2">
+      <div className="flex justify-between items-center lg:flex-row flex-col-reverse my-2">
         {/* Seasons */}
-        <div>
+        <div className="flex">
           <Button
             variant="secondary"
             hoverBg="nord-1"
