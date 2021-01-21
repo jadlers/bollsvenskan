@@ -8,7 +8,10 @@ function UpdateUser({ users }) {
 
   return (
     <div className="flex flex-row space-x-4">
-      <UsersList users={users} selectUser={setSelectedUser} />
+      <div>
+        <p>Lista med alla användare:</p>
+        <UsersList users={users} selectUser={setSelectedUser} />
+      </div>
       <UpdateUserInformation user={users.find((u) => u.id === selectedUser)} />
     </div>
   );

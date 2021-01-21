@@ -13,10 +13,15 @@ function UserPage({ userId, users, navigate }) {
   return (
     <Card>
       <div className="flex space-x-4">
-        <UsersList
-          users={users}
-          selectUser={(userId) => navigate(user ? `../${userId}` : `${userId}`)}
-        />
+        <div>
+          <p>Alla spelare:</p>
+          <UsersList
+            users={users}
+            selectUser={(userId) =>
+              navigate(user ? `../${userId}` : `${userId}`)
+            }
+          />
+        </div>
         {user && (
           <div className="space-y-2">
             <p className="text-xl font-bold">{user.username}</p>
