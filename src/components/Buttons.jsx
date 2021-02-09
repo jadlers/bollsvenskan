@@ -1,4 +1,5 @@
 import React from "react";
+import { Link as RouterLink } from "@reach/router";
 
 export function Button({ children, hoverBg, onClick, size, variant }) {
   const classes = buttonClasses({ hoverBg, size, variant });
@@ -30,6 +31,22 @@ export function LinkButton({
     <a className={classes} href={href} {...props}>
       {children}
     </a>
+  );
+}
+
+export function RouterLinkButton({
+  children,
+  hoverBg,
+  to,
+  size,
+  variant,
+  ...props
+}) {
+  const classes = buttonClasses({ hoverBg, size, variant });
+  return (
+    <RouterLink className={classes} to={to} {...props}>
+      {children}
+    </RouterLink>
   );
 }
 
