@@ -92,7 +92,6 @@ function ScoreRow({ data }) {
       </td>
       <td className="p-2">{data.eloRating}</td>
       <td className="p-2">{`${data.average.kills} / ${data.average.deaths} / ${data.average.assists}`}</td>
-      <td className="p-2">{data.average.fantasyPoints}</td>
       <td className="p-2">{data.matches}</td>
       <td className="p-2">{`${data.winRatio}%`}</td>
       <td className="p-2">{data.wins}</td>
@@ -111,7 +110,6 @@ const ScoreTable = ({ calibrated, uncalibrated }) => {
             <td className="p-2 text-left">Namn</td>
             <td className="p-2">ELO</td>
             <td className="p-2">K/D/A</td>
-            <td className="p-2">FP</td>
             <td className="p-2">Matcher</td>
             <td className="p-2">Vinstandel</td>
             <td className="p-2">Vinster</td>

@@ -17,7 +17,6 @@ function PlayerMatchStatsTable({ teams, winnerIdx }) {
             <td>K</td>
             <td>D</td>
             <td>A</td>
-            <td>FP</td>
             <td>OP</td>
             <td>OD</td>
             <td>SP</td>
@@ -62,9 +61,6 @@ function PlayerMatchStatsTable({ teams, winnerIdx }) {
                       </td>
                       <td className="text-right lg:py-2">
                         {player.stats.assists || 0}
-                      </td>
-                      <td className="text-right lg:py-2">
-                        {player.stats.fantasy_points || 0}
                       </td>
                       <td className="text-right lg:py-2">
                         {player.stats.observers_placed || 0}
