@@ -73,7 +73,7 @@ const createTableRowForPlayer = (player, matches) => {
 function ScoreRow({ data }) {
   return (
     <tr className="hover:bg-nord-2">
-      <td className="p-2 text-left">
+      <td className="py-2 px-0 text-left">
         {data.awards.map((award) => (
           <span
             key={`${data.id}-${award.label}`}
@@ -108,7 +108,7 @@ const ScoreTable = ({ calibrated, uncalibrated }) => {
         <thead className="text-nord-9 text-right">
           <tr>
             {/* For awards, no text needed*/}
-            <td className="p-2" />
+            <td className="py-2 px-0" />
             <td className="p-2 text-left">Namn</td>
             <td className="p-2">ELO</td>
             <td className="py-2">K</td>
