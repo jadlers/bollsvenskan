@@ -48,6 +48,7 @@ function PlayerMatchStatsTable({ teams, winnerIdx }) {
                           height="32"
                           width="32"
                           src={heroIconSrc}
+                          loading="lazy"
                           title={heroIconAlt}
                           alt={`Icon of ${heroIconAlt}`}
                         />
