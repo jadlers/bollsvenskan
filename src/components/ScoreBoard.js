@@ -91,7 +91,9 @@ function ScoreRow({ data }) {
         <a className="cursor-pointer">{data.name}</a>
       </td>
       <td className="p-2">{data.eloRating}</td>
-      <td className="p-2">{`${data.average.kills} / ${data.average.deaths} / ${data.average.assists}`}</td>
+      <td className="py-2">{data.average.kills}</td>
+      <td className="py-2">{data.average.deaths}</td>
+      <td className="py-2">{data.average.assists}</td>
       <td className="p-2">{data.matches}</td>
       <td className="p-2">{`${data.winRatio}%`}</td>
       <td className="p-2">{data.wins}</td>
@@ -109,7 +111,9 @@ const ScoreTable = ({ calibrated, uncalibrated }) => {
             <td className="p-2" />
             <td className="p-2 text-left">Namn</td>
             <td className="p-2">ELO</td>
-            <td className="p-2">K/D/A</td>
+            <td className="py-2">K</td>
+            <td className="py-2">D</td>
+            <td className="py-2">A</td>
             <td className="p-2">Matcher</td>
             <td className="p-2">Vinstandel</td>
             <td className="p-2">Vinster</td>
@@ -123,7 +127,7 @@ const ScoreTable = ({ calibrated, uncalibrated }) => {
           {uncalibrated.length > 0 && calibrated.length > 0 && (
             <tr>
               <td
-                colSpan="9"
+                colSpan="10"
                 className="py-4 sm:text-center text-left sm:pl-0 pl-6 font-semibold"
               >
                 Okalibrerade spelare
