@@ -6,7 +6,7 @@ import Card from "./Card";
  */
 function FirstBloodTable({ title, data }) {
   return (
-    <Card width="lg:w-2/5">
+    <Card>
       <p className="font-bold text-center mb-2">{title}</p>
       <table className="w-full tabular-nums ">
         <thead className="font-semibold">
