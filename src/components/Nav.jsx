@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { navigate } from "@reach/router";
-import { Button, LinkButton } from "./Buttons";
+import { Button, ExternalLinkButton } from "./Buttons";
 
 function Nav() {
   const baseUrl = process.env.REACT_APP_API_URL;
@@ -69,7 +69,7 @@ function Nav() {
           </Button>
         </div>
         {/* Other pages */}
-        <div>
+        <div className="flex flex-row">
           <Button
             variant="secondary"
             hoverBg="nord-1"
@@ -77,15 +77,9 @@ function Nav() {
           >
             Roasts
           </Button>
-          <LinkButton
-            variant="primary"
-            hoverBg="nord-1"
-            href={pollUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <ExternalLinkButton variant="primary" hoverBg="nord-1" href={pollUrl}>
             Anmälan
-          </LinkButton>
+          </ExternalLinkButton>
         </div>
       </div>
     </nav>
