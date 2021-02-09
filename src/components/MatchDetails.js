@@ -118,17 +118,14 @@ export function FirstBloodHighlight({ mock, praise, died, claimed }) {
 
 function MatchDetails({ match, no }) {
   const d = new Date(match.date);
-  const dateString = `${d.getFullYear()}-${leftZeroPad(
-    d.getMonth() + 1,
-    2
-  )}-${leftZeroPad(d.getDate(), 2)} ${leftZeroPad(
-    d.getHours(),
-    2
-  )}:${leftZeroPad(d.getMinutes(), 2)}`;
+  const month = leftZeroPad(d.getMonth() + 1, 2);
+  const day = leftZeroPad(d.getDate(), 2);
+  const hour = leftZeroPad(d.getHours(), 2);
+  const minute = leftZeroPad(d.getMinutes(), 2);
+  const dateString = `${d.getFullYear()}-${month}-${day} ${hour}:${minute}`;
 
   return (
     <Card>
-      {/* <div className="flex flex-col justify-between space-y-4 bg-nord-1 rounded shadow p-4 text-nord-4"> */}
       <div className="flex flex-col justify-between space-y-4">
         <div className="flex justify-between font-bold text-lg">
           <span>{`Match ${no}`}</span>
