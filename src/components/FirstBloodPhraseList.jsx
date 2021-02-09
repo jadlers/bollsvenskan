@@ -28,7 +28,7 @@ function FirstBloodPhraseList() {
   const mocks = phrases.filter((phrase) => phrase.type === "mock");
   const praises = phrases.filter((phrase) => phrase.type === "praise");
   return (
-    <div className="flex flex-col lg:flex-row lg:justify-evenly lg:space-y-0 space-y-4">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <List title="Riktade till de som dör" items={mocks} />
       <List title="Riktade till de som dödar" items={praises} />
     </div>
@@ -37,7 +37,7 @@ function FirstBloodPhraseList() {
 
 function List({ title, items }) {
   return (
-    <Card width="lg:w-2/5">
+    <Card>
       <p className="text-xl font-bold lg:text-center">{title}</p>
       <ul>
         {items.map(({ id, phrase }) => (

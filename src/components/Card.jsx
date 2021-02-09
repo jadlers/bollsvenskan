@@ -1,5 +1,5 @@
 import React from "react";
 
-export default function Card({ width, children }) {
-  return <div className={`bg-nord-1 p-2 ${width || ""}`}>{children}</div>;
+export default function Card({ children }) {
+  return <div className="bg-nord-1 p-2">{children}</div>;
 }
