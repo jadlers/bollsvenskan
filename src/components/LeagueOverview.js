@@ -46,11 +46,7 @@ function LeagueOverview({ matches, players, leagueId, season }) {
       </Fade>
     </div>
   ) : matches.length === 0 ? (
-    <Card>
-      <p className="text-center text-2xl text-nord-5">
-        Inga matcher spelade i denna säsong ännu.
-      </p>
-    </Card>
+    <Card title="Inga matcher spelade i denna säsong ännu." />
   ) : (
     <div className="flex flex-col justify-between space-y-4">
       <ScoreBoard matches={matches} players={includedPlayers} season={season} />

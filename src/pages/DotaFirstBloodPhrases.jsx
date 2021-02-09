@@ -7,16 +7,10 @@ import FirstBloodPhraseList from "../components/FirstBloodPhraseList";
 function DotaFirstBloodPhrases() {
   return (
     <div className="flex flex-col space-y-6">
-      <Card>
-        <p className="text-xl text-center font-medium my-4">
-          Lägg till en ny retfull mening till de som dör först.
-        </p>
+      <Card title="Lägg till en ny retfull mening till de som dör först.">
         <FirstBloodPhraseForm phraseType="mock" />
       </Card>
-      <Card>
-        <p className="text-xl text-center font-medium my-4">
-          Lägg till en ny mening till de som får det första blodet att spillas.
-        </p>
+      <Card title="Lägg till en ny mening till de som får det första blodet att spillas.">
         <FirstBloodPhraseForm phraseType="praise" />
       </Card>
       <FirstBloodPhraseList />

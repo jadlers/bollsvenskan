@@ -61,7 +61,7 @@ export function FirstBloodPhraseForm({ phraseType }) {
       : ["", " fick blodet att spillas."];
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col space-y-6 p-2">
+    <form onSubmit={handleSubmit} className="flex flex-col space-y-6">
       <div>
         <label htmlFor="preNameMock" className={labelClasses}>
           Före namnet

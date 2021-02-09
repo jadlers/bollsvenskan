@@ -185,11 +185,12 @@ const ScoreBoard = ({ matches, players, season }) => {
       : elem
   );
 
+  const title = isNaN(season)
+    ? "Ställning"
+    : `Ställning - Säsong ${season + 1}`;
+
   return (
-    <Card>
-      <p className="font-semibold text-nord-5 text-xl text-center mb-4">
-        {isNaN(season) ? "Ställning" : `Ställning - Säsong ${season + 1}`}
-      </p>
+    <Card title={title}>
       <ScoreTable calibrated={calibrated} uncalibrated={uncalibrated} />
     </Card>
   );

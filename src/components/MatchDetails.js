@@ -130,13 +130,16 @@ function MatchDetails({ match, no }) {
   const minute = leftZeroPad(d.getMinutes(), 2);
   const dateString = `${d.getFullYear()}-${month}-${day} ${hour}:${minute}`;
 
+  const CardHeader = () => (
+    <div className="flex justify-between font-bold text-xl mb-4">
+      <span>{`Match ${no}`}</span>
+      <span className="text-nord-9">{dateString}</span>
+    </div>
+  );
+
   return (
-    <Card>
+    <Card Header={CardHeader}>
       <div className="flex flex-col justify-between space-y-4">
-        <div className="flex justify-between font-bold text-lg">
-          <span>{`Match ${no}`}</span>
-          <span className="text-nord-9">{dateString}</span>
-        </div>
         <FirstBloodHighlights
           died={match.teams.flat().find((p) => p.id === match.diedFirstBlood)}
           claimed={match.teams

@@ -37,8 +37,7 @@ function FirstBloodPhraseList() {
 
 function List({ title, items }) {
   return (
-    <Card>
-      <p className="text-xl font-bold lg:text-center">{title}</p>
+    <Card title={title}>
       <ul>
         {items.map(({ id, phrase }) => (
           <li className="my-2" key={id}>
