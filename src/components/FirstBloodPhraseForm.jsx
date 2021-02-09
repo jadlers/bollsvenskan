@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { SnackbarContext } from "../SnackbarContext";
-import { FirstBloodHighlight } from "./MatchDetails";
+import { FirstBloodHighlights } from "./MatchDetails";
 
 export function FirstBloodPhraseForm({ phraseType }) {
   const [preName, setPreName] = useState("");
@@ -92,7 +92,7 @@ export function FirstBloodPhraseForm({ phraseType }) {
           det kommer se ut nedan:
         </p>
         <div className="w-full bg-nord-3 rounded px-2 py-4">
-          <FirstBloodHighlight
+          <FirstBloodHighlights
             died={{ name: "Albert" }}
             claimed={{ name: "Berit" }}
             mock={mocks}

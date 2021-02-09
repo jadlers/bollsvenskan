@@ -90,34 +90,37 @@ function PlayerMatchStatsTable({ teams, winnerIdx }) {
   );
 }
 
-export function FirstBloodHighlight({ mock, praise, died, claimed }) {
-  if (!Array.isArray(mock)) {
-    mock = mock.split("<name>");
+function FirstBloodHighlight({ type, phrase, user }) {
+  if (!Array.isArray(phrase)) {
+    phrase = phrase.split("<name>");
   }
-  if (!Array.isArray(praise)) {
-    praise = praise.split("<name>");
-  }
-
   return (
-    <div>
-      <p>
-        <span className="mr-2" role="img" aria-label="skull">
+    <div className="flex flex-row">
+      {type === "mock" ? (
+        <span className="mr-2 flex-none" role="img" aria-label="skull">
           💀
         </span>
-        {mock[0]}
-        <span className="font-bold">{died ? died.name : "???"}</span>
-        {mock[1]}
-        {" och dog first blood. "}
+      ) : (
+        <span className="mr-2" role="img" aria-label="gun">
+          🔫
+        </span>
+      )}
+      <p>
+        {phrase[0]}
+        <span className="font-bold">{user ? user.name : "???"}</span>
+        {phrase[1]}
+        {type === "mock" && " och dog first blood. "}
       </p>
+    </div>
+  );
+}
+
+export function FirstBloodHighlights({ mock, praise, died, claimed }) {
+  return (
+    <div>
+      <FirstBloodHighlight type="mock" phrase={mock} user={died} />
       {claimed && (
-        <p>
-          <span className="mr-2" role="img" aria-label="gun">
-            🔫
-          </span>
-          {praise[0]}
-          <span className="font-bold">{claimed.name}</span>
-          {praise[1]}
-        </p>
+        <FirstBloodHighlight type="praise" phrase={praise} user={claimed} />
       )}
     </div>
   );
@@ -138,7 +141,7 @@ function MatchDetails({ match, no }) {
           <span>{`Match ${no}`}</span>
           <span className="text-nord-9">{dateString}</span>
         </div>
-        <FirstBloodHighlight
+        <FirstBloodHighlights
           died={match.teams.flat().find((p) => p.id === match.diedFirstBlood)}
           claimed={match.teams
             .flat()
