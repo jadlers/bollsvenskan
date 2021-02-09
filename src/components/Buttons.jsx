@@ -33,6 +33,50 @@ export function LinkButton({
   );
 }
 
+export function ExternalLinkButton({
+  children,
+  hoverBg,
+  href,
+  size,
+  variant,
+  ...props
+}) {
+  const classes = buttonClasses({ hoverBg, size, variant });
+  return (
+    <a
+      className={classes}
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      {...props}
+    >
+      <div className="flex flex-row">
+        {children}
+        <ExternalLinkSvg />
+      </div>
+    </a>
+  );
+}
+
+function ExternalLinkSvg() {
+  return (
+    <svg
+      className="w-6 h-6"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+      />
+    </svg>
+  );
+}
+
 function buttonClasses({ hoverBg, size, variant }) {
   const validVariants = ["primary", "secondary", "tertiary", undefined];
   if (!validVariants.includes(variant)) {

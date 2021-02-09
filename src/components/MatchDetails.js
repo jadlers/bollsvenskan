@@ -1,6 +1,7 @@
 import React from "react";
 import { leftZeroPad, getHeroIcon } from "../util";
 import Card from "./Card";
+import { ExternalLinkButton } from "./Buttons";
 
 function PlayerMatchStatsTable({ teams, winnerIdx }) {
   const victorySpan = <span className="text-nord-14">Vinst</span>;
@@ -144,14 +145,13 @@ function MatchDetails({ match, no }) {
         />
         <PlayerMatchStatsTable teams={match.teams} winnerIdx={match.winner} />
         <div className="flex flex-row-reverse">
-          <a
-            className="font-bold uppercase text-nord-8 p-2 rounded hover:bg-nord-2"
+          <ExternalLinkButton
+            variant="primary"
+            hoverBg="nord-2"
             href={`https://www.opendota.com/matches/${match.dotaMatchId}`}
-            target="_blank"
-            rel="noopener noreferrer"
           >
             Opendota
-          </a>
+          </ExternalLinkButton>
         </div>
       </div>
     </Card>
