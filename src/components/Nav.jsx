@@ -34,15 +34,17 @@ function Nav() {
   return (
     <nav>
       {/* Container */}
-      <h1
-        className="text-5xl text-center lg:text-left text-nord-5 font-semibold cursor-pointer mb-6"
-        onClick={() => navigate("/")}
-      >
-        Kung DotA{" "}
-        <span role="img" aria-label="Trophy">
-          🏆
-        </span>
-      </h1>
+      <a>
+        <h1
+          className="text-5xl text-center lg:text-left text-nord-5 font-semibold cursor-pointer mb-6"
+          onClick={() => navigate("/")}
+        >
+          Kung DotA{" "}
+          <span role="img" aria-label="Trophy">
+            🏆
+          </span>
+        </h1>
+      </a>
       <div className="flex justify-between items-center lg:flex-row flex-col-reverse my-2">
         {/* Seasons */}
         <div className="flex">
