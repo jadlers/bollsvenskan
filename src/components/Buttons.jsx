@@ -67,10 +67,8 @@ export function ExternalLinkButton({
       rel="noopener noreferrer"
       {...props}
     >
-      <div className="flex flex-row">
-        {children}
-        <ExternalLinkSvg />
-      </div>
+      {children}
+      <ExternalLinkSvg />
     </a>
   );
 }
@@ -78,7 +76,7 @@ export function ExternalLinkButton({
 function ExternalLinkSvg() {
   return (
     <svg
-      className="w-6 h-6"
+      className="inline w-6 h-6"
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
@@ -118,7 +116,7 @@ function buttonClasses({ hoverBg, size, variant }) {
 
   const backgroundColor = hoverBg
     ? `hover:bg-${hoverBg}`
-    : "hover:bg-opacity-10 bg-opacity-0 bg-white";
+    : "hover:bg-opacity-10 hover:bg-white";
   const transitions = "transition transition-color duration-200";
   return `font-bold uppercase rounded cursor-pointer
           ${textColor} ${padding} ${backgroundColor} ${transitions}`;
