@@ -7,6 +7,7 @@ import Admin from "./pages/Admin";
 import CreateBalancedTeams from "./components/CreateBalancedTeams";
 import DotaFirstBloodPhrases from "./pages/DotaFirstBloodPhrases";
 import EloGraph from "./components/EloGraph";
+import Header from "./components/Header";
 import LeagueOverview from "./components/LeagueOverview";
 import Nav from "./components/Nav";
 import NewMatchForm from "./components/NewMatchForm";
@@ -51,6 +52,7 @@ function App() {
   return (
     <SnackbarContextProvider>
       <div className="container mx-auto mt-6 pb-6 md:px-0 px-2 text-nord-6">
+        <Header />
         <Nav />
         <Router>
           <LeagueOverview path="/" matches={matches} players={players} />
