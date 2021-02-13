@@ -1,9 +1,20 @@
 module.exports = {
   purge: ["./src/**/*.js", "./src/**/*.jsx", "./public/index.html"],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: "class", // false or 'media' or 'class'
   theme: {
     extend: {
       colors: {
+        theme: {
+          background: {
+            0: "var(--background-0)",
+            1: "var(--background-1)",
+            2: "var(--background-2)",
+          },
+          text: {
+            primary: "var(--text-primary)",
+            secondary: "var(--text-secondary)",
+          },
+        },
         nord: {
           0: "#2e3440",
           1: "#3b4252",

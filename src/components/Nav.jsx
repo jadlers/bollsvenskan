@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { navigate } from "@reach/router";
 import { Button, ExternalLinkButton } from "./Buttons";
 
+import ThemeToggler from "./ThemeToggler";
+
 function Nav() {
   const baseUrl = process.env.REACT_APP_API_URL;
   const [pollUrl, setPollUrl] = useState(
@@ -59,7 +61,8 @@ function Nav() {
           </Button>
         </div>
         {/* Other pages */}
-        <div className="flex flex-row">
+        <div className="flex flex-row items-center">
+          <ThemeToggler />
           <Button
             variant="secondary"
             hoverBg="nord-1"
