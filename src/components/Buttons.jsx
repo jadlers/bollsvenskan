@@ -61,7 +61,7 @@ export function ExternalLinkButton({
   const classes = buttonClasses({ hoverBg, size, variant });
   return (
     <a
-      className={classes}
+      className={`flex flex-row items-center ${classes}`}
       href={href}
       target="_blank"
       rel="noopener noreferrer"
