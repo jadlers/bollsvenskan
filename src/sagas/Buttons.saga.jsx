@@ -1,7 +1,7 @@
 import React from "react";
 
-import { Button, CardButton, ExternalLinkButton } from "./Buttons";
-import Card from "./Card";
+import { Button, CardButton, ExternalLinkButton } from "../components/Buttons";
+import Card from "../components/Card";
 
 export default function ButtonsSaga() {
   return (
@@ -18,16 +18,16 @@ export default function ButtonsSaga() {
       <p>
         <code>Button</code> with <code>hoverBg</code> set
       </p>
-      <Button hoverBg="nord-1" variant="primary">
+      <Button hoverBg="theme-background-1" variant="primary">
         Primary
       </Button>
-      <Button hoverBg="nord-1" variant="secondary">
+      <Button hoverBg="theme-background-1" variant="secondary">
         Secondary
       </Button>
-      <Button hoverBg="nord-1" variant="tertiary">
+      <Button hoverBg="theme-background-1" variant="tertiary">
         Tertiary
       </Button>
-      <Button hoverBg="nord-1">No variant</Button>
+      <Button hoverBg="theme-background-1">No variant</Button>
 
       {/* <Button variant="invalid">Causes compile error</Button> */}
       <Card>
@@ -69,16 +69,18 @@ export default function ButtonsSaga() {
         <p>
           <code>ExternalLink</code> with <code>hoverBg</code> set
         </p>
-        <ExternalLinkButton hoverBg="nord-2" variant="primary">
+        <ExternalLinkButton hoverBg="theme-background-2" variant="primary">
           Primary
         </ExternalLinkButton>
-        <ExternalLinkButton hoverBg="nord-2" variant="secondary">
+        <ExternalLinkButton hoverBg="theme-background-2" variant="secondary">
           Secondary
         </ExternalLinkButton>
-        <ExternalLinkButton hoverBg="nord-2" variant="tertiary">
+        <ExternalLinkButton hoverBg="theme-background-2" variant="tertiary">
           Tertiary
         </ExternalLinkButton>
-        <ExternalLinkButton hoverBg="nord-2">No variant</ExternalLinkButton>
+        <ExternalLinkButton hoverBg="theme-background-2">
+          No variant
+        </ExternalLinkButton>
       </div>
     </div>
   );
