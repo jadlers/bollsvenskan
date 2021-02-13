@@ -18,13 +18,13 @@ function ApiKeySetting() {
       <span
         className={`ml-2 p-2 font-semibold border border-nord-7
                         md:text-left text-center
-                        bg-nord-7 hover:bg-nord-1 text-nord-7 hover:text-nord-6
+                        bg-nord-7 hover:bg-theme-background-1 text-nord-7 hover:text-theme-text-primary
                         transition-colors duration-500`}
       >
         {apiKey}
       </span>
       <button
-        className="p-2 rounded hover:bg-nord-2 text-nord-8 font-bold uppercase cursor-pointer"
+        className="p-2 rounded hover:bg-theme-background-2 text-nord-8 font-bold uppercase cursor-pointer"
         onClick={() => setApiKey(null)}
       >
         Rensa

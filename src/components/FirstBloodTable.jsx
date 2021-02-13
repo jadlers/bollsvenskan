@@ -14,12 +14,12 @@ function FirstBloodTable({ title, data }) {
             <td className="text-right">Antal</td>
           </tr>
         </thead>
-        <tbody className="divide-y-2 divide-nord-3">
+        <tbody className="divide-y-2 divide-theme-background-2">
           {data
             .sort((a, b) => a.name > b.name)
             .sort((a, b) => b.amount - a.amount)
             .map((row) => (
-              <tr key={row.name}>
+              <tr key={row.name} className="hover:bg-theme-background-2">
                 <td>{row.name}</td>
                 <td className="text-right">{row.amount}</td>
               </tr>

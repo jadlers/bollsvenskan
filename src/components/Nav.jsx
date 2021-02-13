@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { navigate } from "@reach/router";
 import { Button, ExternalLinkButton } from "./Buttons";
 
+import ThemeToggler from "./ThemeToggler";
+
 function Nav() {
   const baseUrl = process.env.REACT_APP_API_URL;
   const [pollUrl, setPollUrl] = useState(
@@ -38,36 +40,41 @@ function Nav() {
         <div className="flex">
           <Button
             variant="secondary"
-            hoverBg="nord-1"
+            hoverBg="theme-background-1"
             onClick={() => navigate("/league/2/0")}
           >
             Säsong 1
           </Button>
           <Button
             variant="secondary"
-            hoverBg="nord-1"
+            hoverBg="theme-background-1"
             onClick={() => navigate("/league/2/1")}
           >
             Säsong 2
           </Button>
           <Button
             variant="secondary"
-            hoverBg="nord-1"
+            hoverBg="theme-background-1"
             onClick={() => navigate("/league/2/2")}
           >
             Säsong 3
           </Button>
         </div>
         {/* Other pages */}
-        <div className="flex flex-row">
+        <div className="flex flex-row items-center">
+          <ThemeToggler />
           <Button
             variant="secondary"
-            hoverBg="nord-1"
+            hoverBg="theme-background-1"
             onClick={() => navigate("/add-fb-phrase")}
           >
             Roasts
           </Button>
-          <ExternalLinkButton variant="primary" hoverBg="nord-1" href={pollUrl}>
+          <ExternalLinkButton
+            variant="primary"
+            hoverBg="theme-background-1"
+            href={pollUrl}
+          >
             Anmälan
           </ExternalLinkButton>
         </div>

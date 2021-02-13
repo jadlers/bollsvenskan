@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
-import { SnackbarContext } from "../SnackbarContext";
+import { CardButton } from "./Buttons";
 import { FirstBloodHighlights } from "./MatchDetails";
+import { SnackbarContext } from "../SnackbarContext";
 
 export function FirstBloodPhraseForm({ phraseType }) {
   const [preName, setPreName] = useState("");
@@ -48,9 +49,8 @@ export function FirstBloodPhraseForm({ phraseType }) {
     }
   };
 
-  const labelClasses = "text-sm font-bold block text-nord-4";
-  const inputClasses = `w-full p-2 rounded mt-1
-    bg-nord-3
+  const labelClasses = "text-sm font-bold block text-theme-text-secondary";
+  const inputClasses = `w-full p-2 mt-1 bg-theme-background-2
     focus:outline-none focus:ring-2 focus:ring-nord-7 focus-border-transparent`;
 
   let mocks =
@@ -63,25 +63,25 @@ export function FirstBloodPhraseForm({ phraseType }) {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col space-y-6">
       <div>
-        <label htmlFor="preNameMock" className={labelClasses}>
+        <label htmlFor={`pre-name-${phraseType}`} className={labelClasses}>
           Före namnet
         </label>
         <input
           className={inputClasses}
           type="text"
-          id="preNameMock"
+          id={`pre-name-${phraseType}`}
           value={preName}
           onChange={(e) => setPreName(e.target.value)}
         />
       </div>
       <div>
-        <label htmlFor="postNameMock" className={labelClasses}>
+        <label htmlFor={`post-name-${phraseType}`} className={labelClasses}>
           Efter namnet
         </label>
         <input
           className={inputClasses}
           type="text"
-          id="postNameMock"
+          id={`post-name-${phraseType}`}
           value={postName}
           onChange={(e) => setPostName(e.target.value)}
         />
@@ -91,7 +91,7 @@ export function FirstBloodPhraseForm({ phraseType }) {
           Tänk på att lägga till mellanslag så att namet hamnar korrekt! Se hur
           det kommer se ut nedan:
         </p>
-        <div className="w-full bg-nord-3 rounded px-2 py-4">
+        <div className="w-full bg-theme-background-2 px-2 py-4">
           <FirstBloodHighlights
             died={{ name: "Albert" }}
             claimed={{ name: "Berit" }}
@@ -101,9 +101,9 @@ export function FirstBloodPhraseForm({ phraseType }) {
         </div>
       </div>
       <div className="flex justify-end">
-        <button className="inline font-bold uppercase p-2 text-nord-8 hover:bg-nord-2 rounded">
+        <CardButton className="inline font-bold uppercase p-2 text-nord-8 hover:bg-theme-background-2">
           {posting ? "Lägger till..." : "Lägg till"}
-        </button>
+        </CardButton>
       </div>
     </form>
   );

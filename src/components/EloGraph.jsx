@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 
+import { ThemeContext } from "../ThemeContext";
 import { Line } from "react-chartjs-2";
 
 function createDatasetForPlayer(player, matches, season) {
@@ -37,6 +38,8 @@ function createDatasetForPlayer(player, matches, season) {
 export default function EloGraph({ matches, players, season }) {
   if (matches.length === 0) return <p>Loading...</p>;
 
+  const { theme } = useContext(ThemeContext);
+
   const datasets = players
     .filter((p) => p.id !== 25) // remove standin
     .map((player) => createDatasetForPlayer(player, matches, season));
@@ -69,8 +72,9 @@ export default function EloGraph({ matches, players, season }) {
     datasets,
   };
 
-  const textColor = "#e5e9f0";
-  const axisColor = "#4c566a";
+  const textColor = theme === "dark" ? "#e5e9f0" : "#2e3440";
+  const axisColor = theme === "dark" ? "#4c566a" : "#e5e9f0";
+
   const options = {
     scales: {
       // prettier-ignore-start

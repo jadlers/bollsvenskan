@@ -72,7 +72,7 @@ const createTableRowForPlayer = (player, matches) => {
 
 function ScoreRow({ data }) {
   return (
-    <tr className="hover:bg-nord-2">
+    <tr className="hover:bg-theme-background-2">
       <td className="py-2 px-0 text-left">
         {data.awards.map((award) => (
           <span
@@ -120,7 +120,7 @@ const ScoreTable = ({ calibrated, uncalibrated }) => {
             <td className="p-2">Förluster</td>
           </tr>
         </thead>
-        <tbody className="text-nord-4 divide-y-2 divide-nord-3">
+        <tbody className="text-theme-text-primary divide-y-2 divide-theme-background-2 transition-colors">
           {calibrated.map((row) => (
             <ScoreRow key={row.name} data={row} />
           ))}
