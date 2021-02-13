@@ -12,7 +12,7 @@ export function Button({ children, hoverBg, onClick, size, variant }) {
 
 export function CardButton({ children, ...props }) {
   return (
-    <Button hoverBg="nord-2" {...props}>
+    <Button hoverBg="theme-background-2" {...props}>
       {children}
     </Button>
   );
@@ -114,10 +114,8 @@ function buttonClasses({ hoverBg, size, variant }) {
     padding = "p-0";
   }
 
-  const backgroundColor = hoverBg
-    ? `hover:bg-${hoverBg}`
-    : "hover:bg-opacity-10 hover:bg-white";
-  const transitions = "transition transition-color duration-200";
+  const backgroundColor = hoverBg ? `hover:bg-${hoverBg}` : "";
+  const transitions = "transition-colors duration-200";
   return `font-bold uppercase rounded cursor-pointer
           ${textColor} ${padding} ${backgroundColor} ${transitions}`;
 }
