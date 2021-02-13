@@ -63,25 +63,25 @@ export function FirstBloodPhraseForm({ phraseType }) {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col space-y-6">
       <div>
-        <label htmlFor="preNameMock" className={labelClasses}>
+        <label htmlFor={`pre-name-${phraseType}`} className={labelClasses}>
           Före namnet
         </label>
         <input
           className={inputClasses}
           type="text"
-          id="preNameMock"
+          id={`pre-name-${phraseType}`}
           value={preName}
           onChange={(e) => setPreName(e.target.value)}
         />
       </div>
       <div>
-        <label htmlFor="postNameMock" className={labelClasses}>
+        <label htmlFor={`post-name-${phraseType}`} className={labelClasses}>
           Efter namnet
         </label>
         <input
           className={inputClasses}
           type="text"
-          id="postNameMock"
+          id={`post-name-${phraseType}`}
           value={postName}
           onChange={(e) => setPostName(e.target.value)}
         />
