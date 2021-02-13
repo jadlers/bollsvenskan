@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Router } from "@reach/router";
 
 import { SnackbarContextProvider } from "./SnackbarContext";
+import { ThemeContextProvider } from "./ThemeContext";
 
 import Admin from "./pages/Admin";
 import CreateBalancedTeams from "./components/CreateBalancedTeams";
@@ -50,34 +51,36 @@ function App() {
   }, [baseUrl]);
 
   return (
-    <SnackbarContextProvider>
-      <div className="container mx-auto mt-6 pb-6 md:px-0 px-2 text-theme-text-primary">
-        <Header />
-        <Nav />
-        <Router>
-          <LeagueOverview path="/" matches={matches} players={players} />
-          {/* Show table from specific league */}
-          <LeagueOverview
-            path="/league/:leagueId"
-            matches={matches}
-            players={players}
-          />
-          <LeagueOverview
-            path="/league/:leagueId/:season"
-            matches={matches}
-            players={players}
-          />
-          <EloGraph path="/elo" matches={matches} players={players} />
-          <CreateBalancedTeams path="/reveal-teams" players={players} />
-          <ShowBalancedTeams path="/teams" players={players} />
-          <NewMatchForm path="/add-match" />
-          <DotaFirstBloodPhrases path="/add-fb-phrase" />
-          <Admin path="/admin/*" players={players} />
-          <UserPage path="/user" users={players} />
-          <UserPage path="/user/:userId" users={players} />
-        </Router>
-      </div>
-    </SnackbarContextProvider>
+    <ThemeContextProvider>
+      <SnackbarContextProvider>
+        <div className="container mx-auto mt-6 pb-6 md:px-0 px-2 text-theme-text-primary">
+          <Header />
+          <Nav />
+          <Router>
+            <LeagueOverview path="/" matches={matches} players={players} />
+            {/* Show table from specific league */}
+            <LeagueOverview
+              path="/league/:leagueId"
+              matches={matches}
+              players={players}
+            />
+            <LeagueOverview
+              path="/league/:leagueId/:season"
+              matches={matches}
+              players={players}
+            />
+            <EloGraph path="/elo" matches={matches} players={players} />
+            <CreateBalancedTeams path="/reveal-teams" players={players} />
+            <ShowBalancedTeams path="/teams" players={players} />
+            <NewMatchForm path="/add-match" />
+            <DotaFirstBloodPhrases path="/add-fb-phrase" />
+            <Admin path="/admin/*" players={players} />
+            <UserPage path="/user" users={players} />
+            <UserPage path="/user/:userId" users={players} />
+          </Router>
+        </div>
+      </SnackbarContextProvider>
+    </ThemeContextProvider>
   );
 }
 

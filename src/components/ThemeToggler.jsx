@@ -1,11 +1,9 @@
-import React, { useEffect } from "react";
-import useTheme from "../hooks/useTheme";
+import React, { useContext, useEffect } from "react";
+
+import { ThemeContext } from "../ThemeContext";
 
 function ThemeToggler() {
-  const [theme, setTheme] = useTheme();
-  const nextTheme = theme === "light" ? "dark" : "light";
-
-  const toggleTheme = () => setTheme(nextTheme);
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   useEffect(() => {
     document.body.dataset.theme = theme;
