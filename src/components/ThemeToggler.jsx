@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import useTheme from "../hooks/useTheme";
 
 function ThemeToggler() {
-  // TODO: Check localstorage when setting initially
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useTheme();
   const nextTheme = theme === "light" ? "dark" : "light";
 
   const toggleTheme = () => setTheme(nextTheme);
