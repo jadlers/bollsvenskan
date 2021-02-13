@@ -40,21 +40,21 @@ function Nav() {
         <div className="flex">
           <Button
             variant="secondary"
-            hoverBg="nord-1"
+            hoverBg="theme-background-1"
             onClick={() => navigate("/league/2/0")}
           >
             Säsong 1
           </Button>
           <Button
             variant="secondary"
-            hoverBg="nord-1"
+            hoverBg="theme-background-1"
             onClick={() => navigate("/league/2/1")}
           >
             Säsong 2
           </Button>
           <Button
             variant="secondary"
-            hoverBg="nord-1"
+            hoverBg="theme-background-1"
             onClick={() => navigate("/league/2/2")}
           >
             Säsong 3
@@ -65,12 +65,16 @@ function Nav() {
           <ThemeToggler />
           <Button
             variant="secondary"
-            hoverBg="nord-1"
+            hoverBg="theme-background-1"
             onClick={() => navigate("/add-fb-phrase")}
           >
             Roasts
           </Button>
-          <ExternalLinkButton variant="primary" hoverBg="nord-1" href={pollUrl}>
+          <ExternalLinkButton
+            variant="primary"
+            hoverBg="theme-background-1"
+            href={pollUrl}
+          >
             Anmälan
           </ExternalLinkButton>
         </div>

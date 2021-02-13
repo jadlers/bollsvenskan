@@ -24,13 +24,25 @@ function AdminNav() {
     <div className="flex lg:flex-row flex-col lg:justify-between">
       <p className="py-2 font-bold text-xl text-center">Admin sida</p>
       <nav className="flex lg:flex-row flex-col lg:space-x-2 text-center">
-        <RouterLinkButton hoverBg="nord-2" variant="secondary" to="api-key">
+        <RouterLinkButton
+          hoverBg="theme-background-2"
+          variant="secondary"
+          to="api-key"
+        >
           API Nyckel
         </RouterLinkButton>
-        <RouterLinkButton hoverBg="nord-2" variant="secondary" to="update-user">
+        <RouterLinkButton
+          hoverBg="theme-background-2"
+          variant="secondary"
+          to="update-user"
+        >
           Ändra användare
         </RouterLinkButton>
-        <RouterLinkButton hoverBg="nord-2" variant="secondary" to="add-user">
+        <RouterLinkButton
+          hoverBg="theme-background-2"
+          variant="secondary"
+          to="add-user"
+        >
           Ny användare
         </RouterLinkButton>
       </nav>

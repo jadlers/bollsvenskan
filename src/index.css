@@ -10,8 +10,8 @@ body {
 }
 
 body[data-theme="light"] {
-  --background-0: #eceff4;
-  --background-1: #e5e9f0;
+  --background-0: #e5e9f0;
+  --background-1: #fafafa; /* Modified from nordtheme */
   --background-2: #d8dee9;
   --text-primary: #2e3440;
   --text-secondary: ##3b4252;

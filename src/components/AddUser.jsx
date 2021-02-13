@@ -56,11 +56,11 @@ function AddUser() {
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          className="p-2 bg-nord-2 rounded"
+          className="p-2 bg-theme-background-2"
           required
         />
         <input
-          className="bg-nord-1 hover:bg-nord-2 rounded p-2 uppercase cursor-pointer font-bold text-nord-8 ml-2"
+          className="bg-theme-background-1 hover:bg-theme-background-2 p-2 uppercase cursor-pointer font-bold text-nord-8 ml-2"
           type="submit"
           value="Lägg till"
         />

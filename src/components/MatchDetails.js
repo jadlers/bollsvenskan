@@ -23,7 +23,7 @@ function PlayerMatchStatsTable({ teams, winnerIdx }) {
             <td>SD</td>
           </tr>
         </thead>
-        <tbody className="divide-y-2 divide-nord-3">
+        <tbody className="divide-y-2 divide-theme-background-2">
           {teams.map((team, idx) => {
             return (
               <React.Fragment key={idx}>
@@ -41,7 +41,10 @@ function PlayerMatchStatsTable({ teams, winnerIdx }) {
                   );
 
                   return (
-                    <tr key={player.name} className="hover:bg-nord-2">
+                    <tr
+                      key={player.name}
+                      className="hover:bg-theme-background-2"
+                    >
                       <td className="py-2 pl-4">
                         <img
                           height="32"
@@ -153,7 +156,7 @@ function MatchDetails({ match, no }) {
         <div className="flex flex-row-reverse">
           <ExternalLinkButton
             variant="primary"
-            hoverBg="nord-2"
+            hoverBg="theme-background-2"
             href={`https://www.opendota.com/matches/${match.dotaMatchId}`}
           >
             Opendota

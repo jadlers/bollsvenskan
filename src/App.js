@@ -51,7 +51,7 @@ function App() {
 
   return (
     <SnackbarContextProvider>
-      <div className="container mx-auto mt-6 pb-6 md:px-0 px-2 text-nord-6">
+      <div className="container mx-auto mt-6 pb-6 md:px-0 px-2 text-theme-text-primary">
         <Header />
         <Nav />
         <Router>

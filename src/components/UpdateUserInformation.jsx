@@ -64,7 +64,7 @@ function UpdateUserInformation({ user }) {
     }
   };
 
-  const inputStyle = "p-2 mb-2 bg-nord-3 rounded";
+  const inputStyle = "p-2 mb-2 bg-theme-background-2";
   return (
     <div>
       {!apiKey && (
@@ -117,7 +117,7 @@ function UpdateUserInformation({ user }) {
             onChange={updateProperty("discordUsername")}
           />
           <input
-            className="p-2 rounded uppercase font-bold cursor-pointer bg-nord-1 text-nord-8 hover:bg-nord-2"
+            className="p-2 uppercase font-bold cursor-pointer bg-theme-background-1 text-nord-8 hover:bg-theme-background-2"
             type="submit"
             value="Save"
           />
