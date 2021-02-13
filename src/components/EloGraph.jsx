@@ -42,6 +42,7 @@ export default function EloGraph({ matches, players, season }) {
 
   const datasets = players
     .filter((p) => p.id !== 25) // remove standin
+    .sort((a, b) => a.eloRating < b.eloRating)
     .map((player) => createDatasetForPlayer(player, matches, season));
 
   // Copied bright colors from:
