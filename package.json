@@ -23,8 +23,8 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
-    "fmt:check": "prettier -c src/**/*.js *.js",
-    "fmt:run": "prettier --write src/**/*.js *.js"
+    "fmt:check": "prettier -c src/**/*.{js,jsx} *.js",
+    "fmt:run": "prettier --write src/**/*.{js,jsx} *.js"
   },
   "eslintConfig": {
     "extends": "react-app"
