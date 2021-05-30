@@ -18,8 +18,9 @@ function createDatasetForPlayer(player, matches, season) {
   for (const match of matches) {
     const playersInMatch = match.teams.flat();
     if (playersInMatch.map((m) => m.id).includes(playerId)) {
-      const eloForMatch = playersInMatch.find((p) => p.id === playerId)
-        .eloRating;
+      const eloForMatch = playersInMatch.find(
+        (p) => p.id === playerId
+      ).eloRating;
       eloValues.push(eloForMatch);
     } else {
       eloValues.push(null);
