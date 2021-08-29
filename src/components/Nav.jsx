@@ -38,27 +38,16 @@ function Nav() {
       <div className="flex justify-between items-center lg:flex-row flex-col-reverse my-2">
         {/* Seasons */}
         <div className="flex">
-          <Button
-            variant="secondary"
-            hoverBg="theme-background-1"
-            onClick={() => navigate("/league/2/0")}
-          >
-            Säsong 1
-          </Button>
-          <Button
-            variant="secondary"
-            hoverBg="theme-background-1"
-            onClick={() => navigate("/league/2/1")}
-          >
-            Säsong 2
-          </Button>
-          <Button
-            variant="secondary"
-            hoverBg="theme-background-1"
-            onClick={() => navigate("/league/2/2")}
-          >
-            Säsong 3
-          </Button>
+          {[1, 2, 3, 4].map((season) => (
+            <Button
+              variant="secondary"
+              hoverBg="theme-background-1"
+              onClick={() => navigate(`/league/2/${season - 1}`)}
+              key={season}
+            >
+              {`Säsong ${season}`}
+            </Button>
+          ))}
         </div>
         {/* Other pages */}
         <div className="flex flex-row items-center">
