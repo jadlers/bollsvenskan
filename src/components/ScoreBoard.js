@@ -1,5 +1,6 @@
 import React from "react";
 import { navigate } from "@reach/router";
+import ReactTooltip from "react-tooltip";
 
 import Card from "../components/Card";
 
@@ -59,6 +60,7 @@ const createTableRowForPlayer = (player, matches) => {
     wins,
     losses,
     winRatio: ((wins / numMatches) * 100).toFixed(0),
+    points: wins * 3 + losses * -1,
     firstBloodsDied,
     firstBloodsClaimed,
     average: {
@@ -98,6 +100,7 @@ function ScoreRow({ data }) {
       <td className="p-2">{`${data.winRatio}%`}</td>
       <td className="p-2">{data.wins}</td>
       <td className="p-2">{data.losses}</td>
+      <td className="p-2">{data.points}</td>
     </tr>
   );
 }
@@ -118,6 +121,13 @@ const ScoreTable = ({ calibrated, uncalibrated }) => {
             <td className="p-2">Vinstandel</td>
             <td className="p-2">Vinster</td>
             <td className="p-2">Förluster</td>
+            <td
+              className="p-2"
+              data-for="new-points-explanation"
+              data-tip="+3 för vinst, -1 för förlust"
+            >
+              Poäng?
+            </td>
           </tr>
         </thead>
         <tbody className="text-theme-text-primary divide-y-2 divide-theme-background-2 transition-colors">
@@ -138,17 +148,34 @@ const ScoreTable = ({ calibrated, uncalibrated }) => {
             uncalibrated.map((row) => <ScoreRow key={row.name} data={row} />)}
         </tbody>
       </table>
+      <ReactTooltip id="new-points-explanation" place="top" effect="solid" />
     </div>
   );
 };
 
+const SortToggle = ({ value, handleSelect }) => (
+  <div className="flex flex-row justify-end">
+    <label>
+      Alternativ sortering
+      <input value={value} onClick={handleSelect} type="checkbox" />
+    </label>
+  </div>
+);
+
 const ScoreBoard = ({ matches, players, season }) => {
+  const [alternateSort, setAlternateSort] = React.useState(false);
+  const toggleSort = () => setAlternateSort(!alternateSort);
+
   const scores = players.map((player) =>
     createTableRowForPlayer(player, matches)
   );
 
   // Sort all players on win ratio
-  scores.sort((a, b) => b.winRatio - a.winRatio);
+  if (alternateSort) {
+    scores.sort((a, b) => b.points - a.points);
+  } else {
+    scores.sort((a, b) => b.winRatio - a.winRatio);
+  }
 
   // Add skull award player(s) who died the most
   const maxFirstBloods = Math.max(
@@ -192,6 +219,7 @@ const ScoreBoard = ({ matches, players, season }) => {
   return (
     <Card title={title}>
       <ScoreTable calibrated={calibrated} uncalibrated={uncalibrated} />
+      <SortToggle value={alternateSort} handleSelect={toggleSort} />
     </Card>
   );
 };
