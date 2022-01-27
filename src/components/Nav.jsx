@@ -37,8 +37,8 @@ function Nav() {
     <nav>
       <div className="flex justify-between items-center lg:flex-row flex-col-reverse my-2">
         {/* Seasons */}
-        <div className="flex">
-          {[1, 2, 3, 4].map((season) => (
+        <div className="flex flex-col md:flex-row">
+          {[1, 2, 3, 4, 5].map((season) => (
             <Button
               variant="secondary"
               hoverBg="theme-background-1"
