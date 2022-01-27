@@ -72,7 +72,7 @@ const createTableRowForPlayer = (player, matches) => {
   };
 };
 
-function ScoreRow({ data }) {
+function ScoreRow({ data, showPoints }) {
   return (
     <tr className="hover:bg-theme-background-2">
       <td className="py-2 px-0 text-left">
@@ -100,11 +100,12 @@ function ScoreRow({ data }) {
       <td className="p-2">{`${data.winRatio}%`}</td>
       <td className="p-2">{data.wins}</td>
       <td className="p-2">{data.losses}</td>
-      <td className="p-2">{data.points}</td>
+      {showPoints && <td className="p-2">{data.points}</td>}
     </tr>
   );
 }
-const ScoreTable = ({ calibrated, uncalibrated }) => {
+
+const ScoreTable = ({ calibrated, uncalibrated, showPoints }) => {
   return (
     <div className="overflow-x-auto">
       <table className="w-full tabular-nums text-right">
@@ -121,18 +122,12 @@ const ScoreTable = ({ calibrated, uncalibrated }) => {
             <td className="p-2">Vinstandel</td>
             <td className="p-2">Vinster</td>
             <td className="p-2">Förluster</td>
-            <td
-              className="p-2"
-              data-for="new-points-explanation"
-              data-tip="+3 för vinst, -1 för förlust"
-            >
-              Poäng?
-            </td>
+            {showPoints && <td className="p-2">Poäng</td>}
           </tr>
         </thead>
         <tbody className="text-theme-text-primary divide-y-2 divide-theme-background-2 transition-colors">
           {calibrated.map((row) => (
-            <ScoreRow key={row.name} data={row} />
+            <ScoreRow key={row.name} data={row} showPoints={showPoints} />
           ))}
           {uncalibrated.length > 0 && calibrated.length > 0 && (
             <tr>
@@ -145,17 +140,22 @@ const ScoreTable = ({ calibrated, uncalibrated }) => {
             </tr>
           )}
           {uncalibrated.length > 0 &&
-            uncalibrated.map((row) => <ScoreRow key={row.name} data={row} />)}
+            uncalibrated.map((row) => (
+              <ScoreRow key={row.name} data={row} showPoints={showPoints} />
+            ))}
         </tbody>
       </table>
-      <ReactTooltip id="new-points-explanation" place="top" effect="solid" />
     </div>
   );
 };
 
 const SortToggle = ({ value, handleSelect }) => (
   <div className="flex flex-row justify-end">
-    <label>
+    <ReactTooltip id="new-points-explanation" place="top" effect="solid" />
+    <label
+      data-for="new-points-explanation"
+      data-tip="+3 för vinst, -1 för förlust"
+    >
       Alternativ sortering
       <input value={value} onClick={handleSelect} type="checkbox" />
     </label>
@@ -218,7 +218,11 @@ const ScoreBoard = ({ matches, players, season }) => {
 
   return (
     <Card title={title}>
-      <ScoreTable calibrated={calibrated} uncalibrated={uncalibrated} />
+      <ScoreTable
+        calibrated={calibrated}
+        uncalibrated={uncalibrated}
+        showPoints={alternateSort}
+      />
       <SortToggle value={alternateSort} handleSelect={toggleSort} />
     </Card>
   );
