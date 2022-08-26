@@ -1,7 +1,28 @@
 import React, { useContext } from "react";
 
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
 import { ThemeContext } from "../ThemeContext";
 import { Line } from "react-chartjs-2";
+
+// Needed for all the plugins to be registered
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 function createDatasetForPlayer(player, matches, season) {
   const { id: playerId, username: name } = player;
@@ -79,25 +100,27 @@ export default function EloGraph({ matches, players, season }) {
 
   const options = {
     scales: {
-      // prettier-ignore-start
-      yAxes: [
-        {
-          gridLines: { color: axisColor },
-          ticks: { fontColor: textColor },
+      x: {
+        grid: {
+          color: axisColor,
+          tickColor: textColor,
         },
-      ],
-      xAxes: [
-        {
-          gridLines: { color: axisColor },
-          ticks: { fontColor: textColor },
+        ticks: { color: textColor },
+      },
+      y: {
+        grid: {
+          color: axisColor,
+          tickColor: textColor,
         },
-      ],
-      // prettier-ignore-end
+        ticks: { color: textColor },
+      },
     },
-    legend: {
-      labels: {
-        boxWidth: 20,
-        fontColor: textColor,
+    plugins: {
+      legend: {
+        labels: {
+          boxWidth: 20,
+          color: textColor,
+        },
       },
     },
     tooltips: {
