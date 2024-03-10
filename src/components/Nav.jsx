@@ -33,12 +33,14 @@ function Nav() {
     }
   }, [baseUrl]);
 
+  const seasons = [1, 2, 3, 4, 5, 6, 7, 8];
+
   return (
     <nav>
       <div className="flex justify-between items-center lg:flex-row flex-col-reverse my-2">
         {/* Seasons */}
         <div className="flex flex-row md:hidden w-full justify-around">
-          {[1, 2, 3, 4, 5, 6, 7].map((season) => (
+          {seasons.map((season) => (
             <Button
               onClick={() => navigate(`/league/2/${season - 1}`)}
               variant="secondary"
@@ -51,7 +53,7 @@ function Nav() {
         </div>
         <p className="md:hidden">Välj säsong</p>
         <div className="flex flex-row hidden md:block">
-          {[1, 2, 3, 4, 5, 6, 7].map((season) => (
+          {seasons.map((season) => (
             <Button
               variant="secondary"
               hoverBg="theme-background-1"
