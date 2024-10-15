@@ -38,7 +38,6 @@ function Nav() {
         </div>
         {/* Other pages */}
         <div className="flex flex-row items-center">
-          <ThemeToggler />
           <Button
             variant="secondary"
             hoverBg="theme-background-1"
@@ -46,6 +45,7 @@ function Nav() {
           >
             Roasts
           </Button>
+          <ThemeToggler />
         </div>
       </div>
     </nav>
