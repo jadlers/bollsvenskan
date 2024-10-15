@@ -5,14 +5,12 @@ import { SnackbarContextProvider } from "./SnackbarContext";
 import { ThemeContextProvider } from "./ThemeContext";
 
 import Admin from "./pages/Admin";
-import CreateBalancedTeams from "./components/CreateBalancedTeams";
 import DotaFirstBloodPhrases from "./pages/DotaFirstBloodPhrases";
 import EloGraph from "./components/EloGraph";
 import Header from "./components/Header";
 import LeagueOverview from "./components/LeagueOverview";
 import Nav from "./components/Nav";
 import NewMatchForm from "./components/NewMatchForm";
-import ShowBalancedTeams from "./components/ShowBalancedTeams";
 import UserPage from "./pages/UserPage";
 
 function App() {
@@ -70,8 +68,6 @@ function App() {
               players={players}
             />
             <EloGraph path="/elo" matches={matches} players={players} />
-            <CreateBalancedTeams path="/reveal-teams" players={players} />
-            <ShowBalancedTeams path="/teams" players={players} />
             <NewMatchForm path="/add-match" />
             <DotaFirstBloodPhrases path="/add-fb-phrase" />
             <Admin path="/admin/*" players={players} />
