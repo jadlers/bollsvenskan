@@ -5,7 +5,7 @@ import { Button } from "./Buttons";
 import ThemeToggler from "./ThemeToggler";
 
 function Nav() {
-  const seasons = [1, 2, 3, 4, 5, 6, 7, 8];
+  const seasons = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   return (
     <nav>
